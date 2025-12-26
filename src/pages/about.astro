@@ -1,63 +1,416 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AUTHOR } from '../consts';
+
+const skills = [
+  {
+    category: 'Front-End',
+    icon: 'devices',
+    color: 'purple',
+    description: 'Pixel-perfect interfaces with modern frameworks.',
+    technologies: ['React', 'Vue.js', 'Tailwind', 'TypeScript']
+  },
+  {
+    category: 'Back-End',
+    icon: 'dns',
+    color: 'green',
+    description: 'Scalable APIs and robust database architecture.',
+    technologies: ['Node.js', 'Go', 'Python', 'PostgreSQL']
+  },
+  {
+    category: 'Mobile',
+    icon: 'smartphone',
+    color: 'blue',
+    description: 'Cross-platform native experiences.',
+    technologies: ['Flutter', 'React Native', 'iOS/Android']
+  },
+  {
+    category: 'DevOps',
+    icon: 'cloud',
+    color: 'orange',
+    description: 'CI/CD pipelines and cloud infrastructure.',
+    technologies: ['AWS', 'Docker', 'Kubernetes', 'Terraform']
+  },
+  {
+    category: 'QA & Testing',
+    icon: 'bug_report',
+    color: 'red',
+    description: 'Ensuring code quality and reliability.',
+    technologies: ['Jest', 'Cypress', 'Selenium', 'Mocha']
+  }
+];
+
+const experience = [
+  {
+    title: 'Senior Software Engineer',
+    company: 'TechSolutions Inc.',
+    period: '2021 - Present',
+    description: 'Led a team of 6 engineers to rebuild the core legacy payments infrastructure, reducing processing time by 40%. Implemented automated QA pipelines that caught 90% of regressions before production.',
+    current: true
+  },
+  {
+    title: 'Full Stack Developer',
+    company: 'Creative Agency XYZ',
+    period: '2018 - 2021',
+    description: 'Developed and maintained over 20 client websites and web applications using React and Node.js. Spearheaded the adoption of DevOps practices, migrating projects to AWS.',
+    current: false
+  },
+  {
+    title: 'Mobile App Developer (Freelance)',
+    company: 'Upwork / Remote',
+    period: '2016 - 2018',
+    description: 'Built cross-platform mobile applications for startups using Flutter and React Native. Focused on intuitive UI/UX and performance optimization.',
+    current: false
+  }
+];
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<BaseLayout title="About Zain Kurnia" currentPath="/about">
+  <div class="flex flex-col items-center justify-center px-4 md:px-10 lg:px-40 py-5">
+    <div class="flex flex-col max-w-[960px] w-full flex-1">
+      
+      <!-- Hero Section -->
+      <div class="flex flex-col gap-6 py-10 md:gap-8 lg:flex-row items-center">
+        <!-- Profile Image -->
+        <div class="w-full lg:w-1/2 flex justify-center lg:justify-start">
+          <div class="relative size-48 md:size-64 lg:size-80 overflow-hidden rounded-full border-4 border-white dark:border-gray-800 shadow-xl shadow-gray-200 dark:shadow-gray-900">
+            <div class="w-full h-full bg-center bg-cover" style={`background-image: url("${AUTHOR.avatar}")`}></div>
+          </div>
+        </div>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+        <!-- Profile Info -->
+        <div class="flex flex-col gap-6 md:gap-8 w-full lg:w-1/2">
+          <div class="flex flex-col gap-2 text-left">
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 w-fit border border-primary/10">
+              <span class="block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span class="text-primary text-xs font-bold uppercase tracking-wide">Open to work</span>
+            </div>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+            <!-- Name & Title -->
+            <h1 class="text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl text-gray-900 dark:text-white">
+              Hi, I'm {AUTHOR.name.split(' ')[0]}. <br/>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">Software Engineer.</span>
+            </h1>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+            <!-- Bio -->
+            <h2 class="text-gray-600 dark:text-gray-400 text-base font-normal leading-relaxed">
+              {AUTHOR.bio}
+            </h2>
+          </div>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap gap-3">
+            <button 
+              class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary hover:bg-blue-700 text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-blue-500/20 transition-all hover:scale-105"
+              data-download-resume
+            >
+              <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px]">download</span>
+                Download Resume
+              </span>
+            </button>
+            
+            <!-- Social Links -->
+            <div class="flex gap-2">
+              <a class="size-12 rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary hover:border-primary dark:hover:border-primary transition-all shadow-sm hover:shadow-md" href={AUTHOR.social.github} aria-label="GitHub">
+                <span class="material-symbols-outlined">code</span>
+              </a>
+              <a class="size-12 rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary hover:border-primary dark:hover:border-primary transition-all shadow-sm hover:shadow-md" href={AUTHOR.social.linkedin} aria-label="LinkedIn">
+                <span class="material-symbols-outlined">work</span>
+              </a>
+              <a class="size-12 rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary hover:border-primary dark:hover:border-primary transition-all shadow-sm hover:shadow-md" href={`mailto:${AUTHOR.social.email}`} aria-label="Email">
+                <span class="material-symbols-outlined">mail</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Text -->
+      <div class="py-8">
+        <h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4 border-b border-gray-200 dark:border-gray-800 mb-6 text-gray-900 dark:text-white">My Journey</h2>
+        <div class="prose max-w-none text-gray-600 dark:text-gray-300 leading-7">
+          <p class="mb-4">
+            I am a passionate software engineer with a deep love for solving complex problems. My journey started with a curiosity for how things work on the web, which quickly evolved into a career spanning the entire software development lifecycle.
+          </p>
+          <p>
+            Currently, I specialize in building efficient, scalable, and user-friendly applications. Whether it's architecting a microservices backend in Go, crafting a responsive UI in React, or ensuring 99.9% uptime via AWS and Docker, I treat every line of code as a craft. I also strongly advocate for automated testing and QA best practices to ensure reliable delivery.
+          </p>
+        </div>
+      </div>
+
+      <!-- Technical Expertise -->
+      <div class="py-8">
+        <h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4 border-b border-gray-200 dark:border-gray-800 mb-8 text-gray-900 dark:text-white">Technical Expertise</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {skills.map(skill => (
+            <div class="bg-white dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-primary/50 transition-colors group">
+              <div class={`size-10 rounded-lg bg-${skill.color}-500/10 flex items-center justify-center text-${skill.color}-600 dark:text-${skill.color}-500 mb-4 group-hover:scale-110 transition-transform`}>
+                <span class="material-symbols-outlined">{skill.icon}</span>
+              </div>
+              <h3 class="text-lg font-bold mb-3 text-gray-900 dark:text-white">{skill.category}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{skill.description}</p>
+              <div class="flex flex-wrap gap-2">
+                {skill.technologies.map(tech => (
+                  <span class="px-2 py-1 bg-gray-50 dark:bg-background-dark rounded text-xs font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Professional Experience -->
+      <div class="py-8">
+        <h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4 border-b border-gray-200 dark:border-gray-800 mb-8 text-gray-900 dark:text-white">Professional Milestones</h2>
+        <div class="relative pl-4">
+          <div class="absolute left-[27px] top-2 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800"></div>
+          
+          {experience.map((exp, index) => (
+            <div class="relative pl-12 pb-10 group" class:list={[index === experience.length - 1 && 'pb-4']}>
+              <div class={`absolute left-4 top-1.5 size-6 rounded-full border-4 border-white dark:border-background-dark z-10 shadow-sm group-hover:scale-125 transition-transform ${
+                exp.current ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600 group-hover:bg-primary'
+              }`}></div>
+              
+              <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mb-2">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">{exp.title}</h3>
+                <span class={`text-xs font-medium px-2 py-0.5 rounded-full w-fit ${
+                  exp.current 
+                    ? 'bg-primary/10 text-primary' 
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                }`}>
+                  {exp.period}
+                </span>
+              </div>
+              
+              <h4 class="text-sm text-gray-500 dark:text-gray-400 mb-3 font-medium">{exp.company}</h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm leading-6">{exp.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="my-10 p-8 rounded-2xl bg-primary bg-gradient-to-br from-blue-600 to-indigo-700 text-center relative overflow-hidden shadow-2xl shadow-blue-200 dark:shadow-blue-900/20">
+        <div class="absolute top-0 right-0 p-10 opacity-10">
+          <span class="material-symbols-outlined text-9xl text-white">rocket_launch</span>
+        </div>
+        <h2 class="text-2xl font-bold text-white mb-4 relative z-10">Ready to build something amazing?</h2>
+        <p class="text-blue-100 mb-8 max-w-lg mx-auto relative z-10">
+          I'm currently available for freelance projects and consulting. Let's discuss how we can solve your technical challenges.
+        </p>
+        <div class="flex justify-center gap-4 relative z-10">
+          <button 
+            class="bg-white hover:bg-blue-50 text-blue-700 font-bold py-3 px-8 rounded-lg transition-colors shadow-lg shadow-blue-900/10"
+            data-contact-button
+          >
+            Get in Touch
+          </button>
+          <button 
+            class="bg-transparent border border-blue-300 hover:border-white text-white font-bold py-3 px-8 rounded-lg transition-colors"
+            data-portfolio-button
+          >
+            View Portfolio
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  class AboutPage {
+    private downloadButton: HTMLButtonElement | null = null;
+    private contactButton: HTMLButtonElement | null = null;
+    private portfolioButton: HTMLButtonElement | null = null;
+
+    constructor() {
+      this.init();
+    }
+
+    private init(): void {
+      this.downloadButton = document.querySelector('[data-download-resume]') as HTMLButtonElement;
+      this.contactButton = document.querySelector('[data-contact-button]') as HTMLButtonElement;
+      this.portfolioButton = document.querySelector('[data-portfolio-button]') as HTMLButtonElement;
+
+      if (this.downloadButton) {
+        this.downloadButton.addEventListener('click', this.handleDownloadResume.bind(this));
+      }
+
+      if (this.contactButton) {
+        this.contactButton.addEventListener('click', this.handleContact.bind(this));
+      }
+
+      if (this.portfolioButton) {
+        this.portfolioButton.addEventListener('click', this.handlePortfolio.bind(this));
+      }
+
+      // Add scroll animations
+      this.initScrollAnimations();
+    }
+
+    private handleDownloadResume(): void {
+      // Track download event
+      this.trackEvent('resume_download', {
+        source: 'about_page',
+        timestamp: new Date().toISOString()
+      });
+
+      // In a real app, you would have an actual resume file
+      // For now, we'll simulate the download
+      const resumeUrl = '/resume.pdf'; // Replace with actual resume URL
+      
+      // Create a temporary link to trigger download
+      const link = document.createElement('a');
+      link.href = resumeUrl;
+      link.download = 'Zain_Kurnia_Resume.pdf';
+      link.style.display = 'none';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Show feedback to user
+      this.showNotification('Resume download started!', 'success');
+    }
+
+    private handleContact(): void {
+      // Track contact button click
+      this.trackEvent('contact_click', {
+        source: 'about_page_cta',
+        timestamp: new Date().toISOString()
+      });
+
+      // You can implement different contact methods:
+      // 1. Open email client
+      // 2. Show contact modal
+      // 3. Navigate to contact page
+      // 4. Open contact form
+
+      // For now, let's open email client
+      const email = 'zain@codewithzain.com';
+      const subject = 'Hello from your website!';
+      const body = 'Hi Zain,\n\nI found your profile interesting and would like to discuss...';
+      
+      const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+    }
+
+    private handlePortfolio(): void {
+      // Track portfolio button click
+      this.trackEvent('portfolio_click', {
+        source: 'about_page_cta',
+        timestamp: new Date().toISOString()
+      });
+
+      // Navigate to portfolio page or external portfolio site
+      // For now, we'll show a coming soon message
+      this.showNotification('Portfolio page coming soon!', 'info');
+      
+      // In a real app, you might do:
+      // window.open('https://portfolio.codewithzain.com', '_blank');
+      // or
+      // window.location.href = '/portfolio';
+    }
+
+    private initScrollAnimations(): void {
+      // Add intersection observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in');
+          }
+        });
+      }, observerOptions);
+
+      // Observe sections for animation
+      const sections = document.querySelectorAll('.py-8');
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    private trackEvent(eventName: string, properties: Record<string, any>): void {
+      // Track events for analytics
+      // You can integrate with Google Analytics, Plausible, etc.
+      
+      console.log('Event tracked:', eventName, properties);
+
+      // Example with Google Analytics
+    //   if (typeof gtag !== 'undefined') {
+    //     gtag('event', eventName, properties);
+    //   }
+
+      // Example with custom analytics
+      // analytics.track(eventName, properties);
+    }
+
+    private showNotification(message: string, type: 'success' | 'error' | 'info'): void {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
+        type === 'success' ? 'bg-green-500 text-white' :
+        type === 'error' ? 'bg-red-500 text-white' :
+        'bg-blue-500 text-white'
+      }`;
+      notification.textContent = message;
+
+      document.body.appendChild(notification);
+
+      // Animate in
+      setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+      }, 100);
+
+      // Auto remove after 3 seconds
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
+    }
+  }
+
+  // Initialize about page functionality when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new AboutPage();
+    });
+  } else {
+    new AboutPage();
+  }
+</script>
+
+<style>
+  /* Scroll animation styles */
+  .animate-fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

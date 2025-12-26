@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daftar Artikel Blog - Tech Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-dark": "#0f4bc4",
+                        "background-light": "#ffffff",
+                        "background-offset": "#f8f9fc",
+                        "surface-light": "#ffffff",
+                        "surface-hover": "#f3f4f6",
+                        "border-light": "#e5e7eb",
+                        "text-primary": "#111827",
+                        "text-secondary": "#4b5563",
+                        "text-tertiary": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-offset font-display text-text-primary antialiased flex flex-col min-h-screen">
+<header class="sticky top-0 z-50 w-full border-b border-border-light bg-white/90 backdrop-blur-md">
+<div class="px-4 md:px-10 lg:px-40 flex items-center justify-between h-16 max-w-[1440px] mx-auto w-full">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M10.4485 13.8519C10.4749 13.9271 10.6203 14.246 11.379 14.7361C12.298 15.3298 13.7492 15.9145 15.6717 16.3735C18.0007 16.9296 20.8712 17.2655 24 17.2655C27.1288 17.2655 29.9993 16.9296 32.3283 16.3735C34.2508 15.9145 35.702 15.3298 36.621 14.7361C37.3796 14.246 37.5251 13.9271 37.5515 13.8519C37.5287 13.7876 37.4333 13.5973 37.0635 13.2931C36.5266 12.8516 35.6288 12.3647 34.343 11.9175C31.79 11.0295 28.1333 10.4437 24 10.4437C19.8667 10.4437 16.2099 11.0295 13.657 11.9175C12.3712 12.3647 11.4734 12.8516 10.9365 13.2931C10.5667 13.5973 10.4713 13.7876 10.4485 13.8519ZM37.5563 18.7877C36.3176 19.3925 34.8502 19.8839 33.2571 20.2642C30.5836 20.9025 27.3973 21.2655 24 21.2655C20.6027 21.2655 17.4164 20.9025 14.7429 20.2642C13.1498 19.8839 11.6824 19.3925 10.4436 18.7877V34.1275C10.4515 34.1545 10.5427 34.4867 11.379 35.027C12.298 35.6207 13.7492 36.2054 15.6717 36.6644C18.0007 37.2205 20.8712 37.5564 24 37.5564C27.1288 37.5564 29.9993 37.2205 32.3283 36.6644C34.2508 36.2054 35.702 35.6207 36.621 35.027C37.4573 34.4867 37.5485 34.1546 37.5563 34.1275V18.7877ZM41.5563 13.8546V34.1455C41.5563 36.1078 40.158 37.5042 38.7915 38.3869C37.3498 39.3182 35.4192 40.0389 33.2571 40.5551C30.5836 41.1934 27.3973 41.5564 24 41.5564C20.6027 41.5564 17.4164 41.1934 14.7429 40.5551C12.5808 40.0389 10.6502 39.3182 9.20848 38.3869C7.84205 37.5042 6.44365 36.1078 6.44365 34.1455L6.44365 13.8546C6.44365 12.2684 7.37223 11.0454 8.39581 10.2036C9.43325 9.3505 10.8137 8.67141 12.343 8.13948C15.4203 7.06909 19.5418 6.44366 24 6.44366C28.4582 6.44366 32.5797 7.06909 35.657 8.13948C37.1863 8.67141 38.5667 9.3505 39.6042 10.2036C40.6278 11.0454 41.5563 12.2684 41.5563 13.8546Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-text-primary text-lg font-bold leading-tight tracking-[-0.015em]">TechBlog</h2>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-text-secondary hover:text-primary text-sm font-medium transition-colors" href="#">Home</a>
+<a class="text-text-primary text-sm font-bold transition-colors" href="#">Articles</a>
+<a class="text-text-secondary hover:text-primary text-sm font-medium transition-colors" href="#">Topics</a>
+<a class="text-text-secondary hover:text-primary text-sm font-medium transition-colors" href="#">About</a>
+</nav>
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary-dark transition-colors shadow-sm">
+                    Subscribe
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-4 md:px-10 lg:px-40 py-10">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+<div class="flex flex-col max-w-[700px]">
+<h1 class="text-text-primary tracking-tight text-3xl md:text-5xl font-extrabold leading-tight mb-4">Latest Engineering Thoughts</h1>
+<p class="text-text-secondary text-lg leading-relaxed">
+                    Deep dives into code, architecture, and the future of software development. Curated by engineers, for engineers.
+                </p>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-12">
+<aside class="w-full lg:w-1/4 flex flex-col gap-8 flex-shrink-0">
+<div class="relative w-full">
+<label class="sr-only">Search</label>
+<div class="flex w-full items-center rounded-lg bg-white border border-border-light overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all shadow-sm">
+<input class="w-full bg-transparent text-text-primary placeholder:text-text-tertiary border-none focus:ring-0 h-12 px-4 text-base" placeholder="Search articles..." type="search"/>
+<button class="p-3 text-text-tertiary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+<div>
+<h3 class="text-text-primary font-bold text-sm uppercase tracking-wider mb-4">Categories</h3>
+<div class="flex flex-col gap-2">
+<a class="flex items-center justify-between group p-2 rounded-lg bg-primary/10 text-primary font-medium" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+                                All Posts
+                            </span>
+<span class="bg-primary text-white text-xs py-0.5 px-2 rounded-full shadow-sm">42</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg text-text-secondary hover:bg-white hover:shadow-sm hover:text-text-primary transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">code</span>
+                                Front-end
+                            </span>
+<span class="text-xs py-0.5 px-2 rounded-full bg-gray-100 text-gray-500">12</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg text-text-secondary hover:bg-white hover:shadow-sm hover:text-text-primary transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+                                Back-end
+                            </span>
+<span class="text-xs py-0.5 px-2 rounded-full bg-gray-100 text-gray-500">8</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg text-text-secondary hover:bg-white hover:shadow-sm hover:text-text-primary transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">smartphone</span>
+                                Mobile
+                            </span>
+<span class="text-xs py-0.5 px-2 rounded-full bg-gray-100 text-gray-500">5</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg text-text-secondary hover:bg-white hover:shadow-sm hover:text-text-primary transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+                                DevOps
+                            </span>
+<span class="text-xs py-0.5 px-2 rounded-full bg-gray-100 text-gray-500">10</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg text-text-secondary hover:bg-white hover:shadow-sm hover:text-text-primary transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">bug_report</span>
+                                QA
+                            </span>
+<span class="text-xs py-0.5 px-2 rounded-full bg-gray-100 text-gray-500">7</span>
+</a>
+</div>
+</div>
+<div class="mt-4 p-6 rounded-xl bg-white border border-border-light shadow-sm">
+<span class="material-symbols-outlined text-4xl mb-3 text-primary">mail</span>
+<h4 class="font-bold text-lg mb-2 text-text-primary">Weekly Digest</h4>
+<p class="text-sm text-text-secondary mb-4">Get the latest articles delivered to your inbox every Monday.</p>
+<button class="w-full py-2 px-4 bg-primary hover:bg-primary-dark rounded-lg text-white text-sm font-bold transition-colors shadow-sm">
+                        Subscribe Now
+                    </button>
+</div>
+</aside>
+<div class="flex-1">
+<div class="flex gap-2 mb-8 overflow-x-auto pb-2 lg:hidden no-scrollbar">
+<button class="whitespace-nowrap h-8 px-4 rounded-full bg-primary text-white text-sm font-medium shadow-sm">All</button>
+<button class="whitespace-nowrap h-8 px-4 rounded-full bg-white border border-border-light text-text-secondary text-sm font-medium">Front-end</button>
+<button class="whitespace-nowrap h-8 px-4 rounded-full bg-white border border-border-light text-text-secondary text-sm font-medium">Back-end</button>
+<button class="whitespace-nowrap h-8 px-4 rounded-full bg-white border border-border-light text-text-secondary text-sm font-medium">Mobile</button>
+<button class="whitespace-nowrap h-8 px-4 rounded-full bg-white border border-border-light text-text-secondary text-sm font-medium">DevOps</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<article class="group flex flex-col bg-white border border-border-light rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
+<div class="relative h-48 overflow-hidden bg-gray-100">
+<div class="absolute top-3 left-3 z-10">
+<span class="bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm">DevOps</span>
+</div>
+<img alt="CI/CD Pipeline visualization" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract visualization of a CI/CD pipeline with connecting nodes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeFPJ7CLHLtvVlQbG59q-1EFLdk3BV8zKTG8aML-IpWVgg0Xo4lh21eHTZ2WEPBPm9cBtfryK6-44vdmaUk72N8TQAQraOak2Nby5i949sLDIwqhi7UD_3WSVUmai6QTuydIIK8QeEnb4yi6HZF73gEZAXS2rjdEtUz_9QHk4r-p2pNm8LacMWfNnzb2AiLIyfdlx2TYYuPfWl8SnfxR0UjSRj5WZf12qf5qTm7ZtmVmVkjQ3C7eMNXLU_FFJVqLXLWP1yuZeALH__"/>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-xs text-text-tertiary mb-3 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 24, 2023</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 5 min read</span>
+</div>
+<h3 class="text-xl font-bold text-text-primary mb-2 leading-tight group-hover:text-primary transition-colors">
+                                Automating CI/CD Pipelines with GitHub Actions
+                            </h3>
+<p class="text-text-secondary text-sm line-clamp-3 mb-4 flex-1">
+                                A comprehensive guide to setting up your first pipeline. We explore workflows, jobs, and steps to streamline your deployment process.
+                            </p>
+<div class="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
+<div class="size-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-white">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of Sarah Jenkins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlZuW9EvAM8ZVvCj-aG9SI1J0JY-xyjJwZdTtGeVkdwRQCc8SUIOUJ_dWjhyH-Wxv9jpjjBpUA-rc-yyn4Kv_HIDYUpO2TcsSsSgCJg3EIEf4dO1hMKe-nqNwB33vgrIf9W4NQGHlSV66DXnWbE4GKyNIjS9NSkpPwQBiq8AUj1WHPWpyt25bGJwLxQ4dwpaxAhOMG_5xb6fH_-xm45IHuE5FRUG79H8XDXwx3jOB3Fdds-vEErMXQ8KrCBSG4xlkIOIb-dVw2WcOs"/>
+</div>
+<span class="text-sm font-semibold text-text-primary">Sarah Jenkins</span>
+</div>
+</div>
+</article>
+<article class="group flex flex-col bg-white border border-border-light rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
+<div class="relative h-48 overflow-hidden bg-gray-100">
+<div class="absolute top-3 left-3 z-10">
+<span class="bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm">Front-end</span>
+</div>
+<img alt="React Code" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Computer screen displaying React code syntax" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAprB24xdkeeyPsvWJ3s8tejabGUPGwQiTvEUDeWYwYDLCVPjJh9nZNCofOg7DXrlDbLVihMwqEljjVdeAmaiD7rKJw9nhO9fEygg7KZcQfTiJTFIy8BfedfNB6yJ0TErZgY8-6e_eLoTrddsbuDDUVy-ZjynW75s58-9-6irrxTyddW84P6mJ3ib8gi1iDD65KQKUgitXk1Inz36Pj4JBNDK03TUO9BAMOQuvyKjy13x2JFV0DRstKQ1wvhoadapxNdkbDn-tTdjoc"/>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-xs text-text-tertiary mb-3 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 22, 2023</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 8 min read</span>
+</div>
+<h3 class="text-xl font-bold text-text-primary mb-2 leading-tight group-hover:text-primary transition-colors">
+                                React Server Components: A Deep Dive
+                            </h3>
+<p class="text-text-secondary text-sm line-clamp-3 mb-4 flex-1">
+                                Understanding the paradigm shift in React 18. How server components can reduce bundle size and improve load performance.
+                            </p>
+<div class="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
+<div class="size-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-white">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of Alex Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnMQok1iy21U79yAcJy2L4Fr6KawelmC8saBdqc6yiu8R57plwR1xCkkcc0YCTw1sV7750lzsWSebCwU6_GmNRe18UwmSN8cJSvjTch-6nBbuQgwn-CIkj1k4zxq1YVMFM0SmjyvUT48iBVvaRDsGb6mobT_pugBKF0C060ZiAnj4DIzg7Wg9Iy_UPgKZB2etmysgjxoZKwUNPo9bLF-T_XFi5zflVedgw6YbbZGcv1rGVlR-HnGHcTjvSaTpoRXITlpcaPBSloMba"/>
+</div>
+<span class="text-sm font-semibold text-text-primary">Alex Chen</span>
+</div>
+</div>
+</article>
+<article class="group flex flex-col bg-white border border-border-light rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
+<div class="relative h-48 overflow-hidden bg-gray-100">
+<div class="absolute top-3 left-3 z-10">
+<span class="bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm">Mobile</span>
+</div>
+<img alt="Mobile App Design" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of a smartphone showing app interface design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKbi2QfC3X0Q-na42iK48aBUu5nSlkfLxua7vR53OfjIh7jJTXbhTJAzSk2EWwrdrRnfg8KU3dGEqHZg1UDkzBMLpGhR0ZRVUM0-7DT_GvlUv7QdnUEE-dVEBo1AhQReO7ZAVZ7L0lsC4d16oikxTFX84o8Vhbm3MhMCr_Vz_pviIiSmBT_coSXPHJmvkDTcQ6B4HSs1OX4hAttd_ttlDT8M01GF22U5IcxUZZ72epaB6_gGc6sUBMRDgZHz0QXe4JvlqcARwhYjpf"/>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-xs text-text-tertiary mb-3 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 18, 2023</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 6 min read</span>
+</div>
+<h3 class="text-xl font-bold text-text-primary mb-2 leading-tight group-hover:text-primary transition-colors">
+                                Flutter vs React Native in 2024
+                            </h3>
+<p class="text-text-secondary text-sm line-clamp-3 mb-4 flex-1">
+                                Which framework should you choose for your next mobile project? We compare performance, developer experience, and community support.
+                            </p>
+<div class="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
+<div class="size-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-white">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of David Kim" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCp6Az6wijPBEaSYvnoDb51azIDLyC_9NJ2hKHnEdQlXaSzsMYocKSZgsJBvnLJUVFiDfOCI28YgtVL5GZDQdPkqxBV6YvAmT8TNUqPB7OAzFjjTR22p2DDHGalfzqNSkmezNSEY4nwQE3ZvDzSdLdFtUP12k6EiutsFEu_x5c4qByWwAYgKL0Mu3bn1bsiwvNy-XhdvubwsOAi0yzar97U7z4IqBqrbE4vH-GZsw2KWiBKt77msa6G74ZYgLdpZXAG_3myVoDJEda"/>
+</div>
+<span class="text-sm font-semibold text-text-primary">David Kim</span>
+</div>
+</div>
+</article>
+<article class="group flex flex-col bg-white border border-border-light rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
+<div class="relative h-48 overflow-hidden bg-gray-100">
+<div class="absolute top-3 left-3 z-10">
+<span class="bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm">Back-end</span>
+</div>
+<img alt="Server Infrastructure" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Server rack with glowing blue lights in a data center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHRnUAmCJ08PY6iaInu3W2t7bAx4XZRsXcPpGEKiyhw3XMaX9M0RfkJ6sm8TYzTnknPev9rMCRTh64CYz2s1CGr8MyQ5OeBfLGfxs1G5rcOlKW6DcLiqYXO6t5wd0MtKrqwjpxgWJDHLjVzMyFXUSLLH00yFs6miBTiqa4a9s_eLvRTD5feJMG5RbNhVHDKN9KFcrR7HKvGwDfl1jmP9Uc4GZPUBa1yNf17dyAR3J9A7QKbsDQ4SBsJkNY38bosH_J-mvdZTfeDT-u"/>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-xs text-text-tertiary mb-3 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 15, 2023</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 12 min read</span>
+</div>
+<h3 class="text-xl font-bold text-text-primary mb-2 leading-tight group-hover:text-primary transition-colors">
+                                Scalable Microservices Architecture
+                            </h3>
+<p class="text-text-secondary text-sm line-clamp-3 mb-4 flex-1">
+                                Moving from monolith to microservices. Strategies for decomposition, communication patterns, and handling distributed transactions.
+                            </p>
+<div class="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
+<div class="size-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-white">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of Maria Garcia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnHdhb_wB_D6akzOvIzwz3cr070cwIjeNs75k6E4ugMbZDUvACtB85gzQBP1IyVVnLsdSA34DszUypgAtgtEZk0hJ8BgevnpdHbsslSvZN56Tx6Pn5phQKeonW-GysE_ayW-01eKESeIz39dZkwzlJD79GUUIeEN0xr7TpjhZgEwufhkgwcI0bm2rjfeSkzcJIRcTEaMRy5K5G8xZT637no_cqc9m3LAZFfr4x7tCQtge5TnJ2siOkTI69cadYpb271ScvoWlwrjo-"/>
+</div>
+<span class="text-sm font-semibold text-text-primary">Maria Garcia</span>
+</div>
+</div>
+</article>
+<article class="group flex flex-col bg-white border border-border-light rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
+<div class="relative h-48 overflow-hidden bg-gray-100">
+<div class="absolute top-3 left-3 z-10">
+<span class="bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm">QA</span>
+</div>
+<img alt="Software Testing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Code on a screen with a green bug icon overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz5-An-IQPz88m2jgxF-i-F1OzamJ0uMf7uN7VvQ76DjbcLFqMJeH-yiPpB7ilE6xJkwbE1QWSBbJJsUYNtTup4AKyM-NFqqvfu3gNhQssxiu1Gx6-8AO3HIfqnAigyLwI4A7NSUKtAk3mOVpgNKw8N7Bjn4_p6EJJfdHNyrLIlpAUQSCszRREI2A8TJ0GCV-k8TH6caqZdrXeNSEoHLjIW5LdvAjU2U6irGr6aVnCXW_uqnHWjSWr-yU0EI-TJSTEtV3O9HtIxziu"/>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-xs text-text-tertiary mb-3 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 10, 2023</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 7 min read</span>
+</div>
+<h3 class="text-xl font-bold text-text-primary mb-2 leading-tight group-hover:text-primary transition-colors">
+                                E2E Testing with Cypress
+                            </h3>
+<p class="text-text-secondary text-sm line-clamp-3 mb-4 flex-1">
+                                Writing robust end-to-end tests for modern web applications. Best practices for selecting elements and handling async operations.
+                            </p>
+<div class="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
+<div class="size-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-white">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of James Wilson" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd5OoLnhgHSye8RzIsvinbGNU8uyv1zllIs7xw_WrnkjGP8vZHkV928UDypUVp_XJw-ZKJ3nkTwLcUvzHmNJmf9c6gz5YU68YX6QjwfxICIJ4U6iIfz7Na0smUoG_4rYOSWd48Du0TKBqTyj0WQzq5qKBB4qLTFTt05C-Ln7XHahMr9J1R_2BZi3pyQ287Wj0UoHOE1WGR0ESM3yn0vmI9nhFVeGFJuCvVZJJ116bi6D2385pzPGB1OO4tABD2K9os1HPNxb-5yO1l"/>
+</div>
+<span class="text-sm font-semibold text-text-primary">James Wilson</span>
+</div>
+</div>
+</article>
+<article class="group flex flex-col bg-white border border-border-light rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
+<div class="relative h-48 overflow-hidden bg-gray-100">
+<div class="absolute top-3 left-3 z-10">
+<span class="bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm">Design</span>
+</div>
+<img alt="UI Design" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="UI Designer working on a wireframe layout on tablet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBp1O1gV3Gp8YmL7T5QUAKuJLYxxWqKv_Cl1wx2S56D4QKR1Zuirt10C6k9zQ2wgl6V8D3iWjNAHrprdQs-qgprkqcuv22kq0LkHDYNl1hgsh33BJrc-67dlGv4FidPCV6vlAH5bJQfwMByeZum9M-CHtER20x8EDQ46-avzJuhrKHgAoYwtEEJOH-a5KZZXMTy5X0_zdSA1j08oXsh6bsJ7Qa9dkY0FGz7v1gSlKQmYVG0qnAckqb7BOlBvqYKSmpLl14su5zXVmx"/>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-xs text-text-tertiary mb-3 font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 05, 2023</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 4 min read</span>
+</div>
+<h3 class="text-xl font-bold text-text-primary mb-2 leading-tight group-hover:text-primary transition-colors">
+                                Designing for Dark Mode
+                            </h3>
+<p class="text-text-secondary text-sm line-clamp-3 mb-4 flex-1">
+                                Key considerations when implementing dark mode in your application. Color theory, contrast ratios, and accessibility tips.
+                            </p>
+<div class="flex items-center gap-3 pt-4 border-t border-gray-100 mt-auto">
+<div class="size-8 rounded-full bg-gray-200 overflow-hidden ring-2 ring-white">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of Emma Roberts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZun9fH48vVjv9_i43k-0FiO1AhhnDWLQoGQJsPxdCxyR2VxQKj9svixqhgij7l6isB-IWVqzx4E3E7cc9CPiRsYvxikvSapHhp-FLrbKhVq-k2PKnkP8lDBh0O6sP4fZoW5yy-F3Iauf1nqfHOmxKNFe09xTPsylaA43hmQQ399dDm5iSTymcXoXGWrAoq9KVFg1J1rAtW3qQjIaubQxABCT_Su22Kf-tSUNTKym9R7_kLc2A4k_Owtfo6xAqkwncKPjr8Fh0kVab"/>
+</div>
+<span class="text-sm font-semibold text-text-primary">Emma Roberts</span>
+</div>
+</div>
+</article>
+</div>
+<div class="flex justify-center items-center mt-12 gap-2">
+<button class="flex items-center justify-center size-10 rounded-lg border border-border-light text-text-secondary hover:bg-white hover:shadow-sm transition-all" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="flex items-center justify-center size-10 rounded-lg bg-primary text-white font-bold transition-colors shadow-sm">
+                        1
+                    </button>
+<button class="flex items-center justify-center size-10 rounded-lg border border-border-light text-text-secondary hover:bg-white hover:text-primary hover:shadow-sm transition-all">
+                        2
+                    </button>
+<button class="flex items-center justify-center size-10 rounded-lg border border-border-light text-text-secondary hover:bg-white hover:text-primary hover:shadow-sm transition-all">
+                        3
+                    </button>
+<span class="text-text-tertiary px-2">...</span>
+<button class="flex items-center justify-center size-10 rounded-lg border border-border-light text-text-secondary hover:bg-white hover:text-primary hover:shadow-sm transition-all">
+                        8
+                    </button>
+<button class="flex items-center justify-center size-10 rounded-lg border border-border-light text-text-secondary hover:bg-white hover:text-primary hover:shadow-sm transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-border-light bg-white mt-auto">
+<div class="px-4 md:px-10 lg:px-40 py-10 max-w-[1440px] mx-auto w-full">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 text-primary mb-4">
+<div class="size-6">
+<svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-text-primary text-lg font-bold">TechBlog</h2>
+</div>
+<p class="text-text-secondary text-sm mb-4">
+                        Sharing knowledge and experiences in modern software development.
+                    </p>
+<div class="flex gap-4">
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">rss_feed</span></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-text-primary font-bold mb-4">Topics</h4>
+<ul class="space-y-2 text-sm text-text-secondary">
+<li><a class="hover:text-primary transition-colors" href="#">Front-end Development</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Back-end Architecture</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">DevOps &amp; Cloud</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Mobile App Dev</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-text-primary font-bold mb-4">Company</h4>
+<ul class="space-y-2 text-sm text-text-secondary">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-text-primary font-bold mb-4">Community</h4>
+<ul class="space-y-2 text-sm text-text-secondary">
+<li><a class="hover:text-primary transition-colors" href="#">Discord Server</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">GitHub Organization</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contributing</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-10 pt-6 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+<p>© 2024 TechBlog Inc. All rights reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Cookies</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

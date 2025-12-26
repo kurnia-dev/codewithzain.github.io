@@ -1,0 +1,348 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CATEGORIES } from '../consts';
+
+const topicsWithDescription = CATEGORIES.filter(cat => cat.slug !== 'all').map(cat => ({
+  ...cat,
+  description: getTopicDescription(cat.slug)
+}));
+
+function getTopicDescription(slug: string): string {
+  const descriptions = {
+    'frontend': 'Modern web development with React, Vue, and cutting-edge frameworks. Learn about component architecture, state management, and performance optimization.',
+    'backend': 'Server-side development, APIs, databases, and system architecture. Dive deep into scalable backend solutions and microservices.',
+    'mobile': 'Cross-platform mobile development with Flutter and React Native. Build native experiences for iOS and Android.',
+    'devops': 'CI/CD pipelines, cloud infrastructure, containerization, and deployment strategies. Master the art of reliable software delivery.',
+    'qa': 'Testing strategies, automation frameworks, and quality assurance best practices. Ensure your code works flawlessly in production.'
+  };
+  return descriptions[slug] || 'Explore articles and tutorials on this topic.';
+}
+---
+
+<BaseLayout title="Topics" currentPath="/topics">
+  <div class="w-full max-w-[1440px] mx-auto px-4 md:px-10 lg:px-40 py-10">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-gray-900 dark:text-white text-4xl md:text-5xl font-bold mb-4">
+        Explore Topics
+      </h1>
+      <p class="text-gray-600 dark:text-text-secondary-dark text-lg max-w-2xl mx-auto">
+        Dive deep into specific areas of software development. From frontend frameworks to backend architecture, find the content that matches your interests.
+      </p>
+    </div>
+
+    <!-- Topics Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {topicsWithDescription.map(topic => (
+        <a 
+          href={`/blog/category/${topic.slug}`}
+          class="group bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl p-6 hover:shadow-lg hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-2xl">{topic.icon}</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                {topic.name}
+              </h3>
+              <span class="text-sm text-gray-500 dark:text-gray-400">
+                {topic.count} articles
+              </span>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-text-secondary-dark text-sm leading-relaxed">
+            {topic.description}
+          </p>
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA Section -->
+    <div class="mt-16 text-center">
+      <div class="bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-8 text-white">
+        <h2 class="text-2xl font-bold mb-4">Can't find what you're looking for?</h2>
+        <p class="text-blue-100 mb-6 max-w-lg mx-auto">
+          Have a specific topic you'd like us to cover? We're always looking for new ideas and feedback from our community.
+        </p>
+        <button 
+          class="bg-white text-primary font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors shadow-lg"
+          data-suggest-topic
+        >
+          Suggest a Topic
+        </button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  class TopicsPage {
+    private suggestButton: HTMLButtonElement | null = null;
+    private topicCards: NodeListOf<HTMLAnchorElement> | null = null;
+
+    constructor() {
+      this.init();
+    }
+
+    private init(): void {
+      this.suggestButton = document.querySelector('[data-suggest-topic]') as HTMLButtonElement;
+      this.topicCards = document.querySelectorAll('a[href^="/blog/category/"]') as NodeListOf<HTMLAnchorElement>;
+
+      if (this.suggestButton) {
+        this.suggestButton.addEventListener('click', this.handleSuggestTopic.bind(this));
+      }
+
+      // Add click tracking for topic cards
+      if (this.topicCards) {
+        this.topicCards.forEach(card => {
+          card.addEventListener('click', this.handleTopicClick.bind(this));
+        });
+      }
+
+      // Initialize animations
+      this.initAnimations();
+    }
+
+    private handleSuggestTopic(): void {
+      // Track suggest topic click
+      this.trackEvent('suggest_topic_click', {
+        source: 'topics_page',
+        timestamp: new Date().toISOString()
+      });
+
+      // Show topic suggestion modal or form
+      this.showTopicSuggestionModal();
+    }
+
+    private handleTopicClick(event: Event): void {
+      const target = event.currentTarget as HTMLAnchorElement;
+      const topicName = target.querySelector('h3')?.textContent || 'Unknown';
+      
+      // Track topic selection
+      this.trackEvent('topic_selected', {
+        topic: topicName.toLowerCase(),
+        source: 'topics_page',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    private showTopicSuggestionModal(): void {
+      // Create modal overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          this.closeModal(overlay);
+        }
+      });
+
+      // Create modal content
+      const modal = document.createElement('div');
+      modal.className = 'bg-white dark:bg-surface-dark rounded-xl p-6 max-w-md w-full shadow-2xl transform transition-all';
+      
+      modal.innerHTML = `
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white">Suggest a Topic</h3>
+          <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" data-close-modal>
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        
+        <form data-suggestion-form>
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Topic Title
+            </label>
+            <input 
+              type="text" 
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-background-dark text-gray-900 dark:text-white"
+              placeholder="e.g., Advanced React Patterns"
+              required
+              data-topic-title
+            />
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Description (Optional)
+            </label>
+            <textarea 
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-background-dark text-gray-900 dark:text-white"
+              rows="3"
+              placeholder="Tell us more about what you'd like to learn..."
+              data-topic-description
+            ></textarea>
+          </div>
+          
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Your Email (Optional)
+            </label>
+            <input 
+              type="email" 
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-background-dark text-gray-900 dark:text-white"
+              placeholder="your@email.com"
+              data-user-email
+            />
+          </div>
+          
+          <div class="flex gap-3">
+            <button 
+              type="submit"
+              class="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition-colors"
+            >
+              Submit Suggestion
+            </button>
+            <button 
+              type="button"
+              class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+              data-close-modal
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      `;
+
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+
+      // Add event listeners
+      const closeButtons = modal.querySelectorAll('[data-close-modal]');
+      closeButtons.forEach(button => {
+        button.addEventListener('click', () => this.closeModal(overlay));
+      });
+
+      const form = modal.querySelector('[data-suggestion-form]') as HTMLFormElement;
+      form.addEventListener('submit', (e) => this.handleSuggestionSubmit(e, overlay));
+
+      // Focus first input
+      const firstInput = modal.querySelector('input') as HTMLInputElement;
+      setTimeout(() => firstInput?.focus(), 100);
+    }
+
+    private async handleSuggestionSubmit(event: Event, overlay: HTMLElement): Promise<void> {
+      event.preventDefault();
+      
+      const form = event.target as HTMLFormElement;
+      const formData = new FormData(form);
+      
+      const title = (form.querySelector('[data-topic-title]') as HTMLInputElement).value;
+      const description = (form.querySelector('[data-topic-description]') as HTMLTextAreaElement).value;
+      const email = (form.querySelector('[data-user-email]') as HTMLInputElement).value;
+
+      // Track suggestion submission
+      this.trackEvent('topic_suggestion_submitted', {
+        title,
+        has_description: !!description,
+        has_email: !!email,
+        timestamp: new Date().toISOString()
+      });
+
+      try {
+        // Here you would send the suggestion to your backend
+        // For now, we'll simulate the API call
+        await this.submitTopicSuggestion({ title, description, email });
+        
+        this.showNotification('Thank you for your suggestion! We\'ll consider it for future articles.', 'success');
+        this.closeModal(overlay);
+      } catch (error) {
+        console.error('Error submitting suggestion:', error);
+        this.showNotification('Sorry, there was an error submitting your suggestion. Please try again.', 'error');
+      }
+    }
+
+    private async submitTopicSuggestion(data: { title: string; description: string; email: string }): Promise<void> {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // In a real app, you would make an API call:
+      // const response = await fetch('/api/suggestions', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // });
+      // 
+      // if (!response.ok) {
+      //   throw new Error('Failed to submit suggestion');
+      // }
+    }
+
+    private closeModal(overlay: HTMLElement): void {
+      overlay.classList.add('opacity-0');
+      setTimeout(() => {
+        if (overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay);
+        }
+      }, 200);
+    }
+
+    private initAnimations(): void {
+      // Add stagger animation to topic cards
+      const cards = document.querySelectorAll('a[href^="/blog/category/"]');
+      cards.forEach((card, index) => {
+        (card as HTMLElement).style.animationDelay = `${index * 100}ms`;
+        card.classList.add('animate-fade-in-up');
+      });
+    }
+
+    private trackEvent(eventName: string, properties: Record<string, any>): void {
+      console.log('Event tracked:', eventName, properties);
+
+      // Example with Google Analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, properties);
+      }
+    }
+
+    private showNotification(message: string, type: 'success' | 'error' | 'info'): void {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
+        type === 'success' ? 'bg-green-500 text-white' :
+        type === 'error' ? 'bg-red-500 text-white' :
+        'bg-blue-500 text-white'
+      }`;
+      notification.textContent = message;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+      }, 100);
+
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 4000);
+    }
+  }
+
+  // Initialize topics page functionality when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new TopicsPage();
+    });
+  } else {
+    new TopicsPage();
+  }
+</script>
+
+<style>
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

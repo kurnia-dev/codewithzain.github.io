@@ -1,49 +1,151 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CategoryFilter from '../components/CategoryFilter.astro';
+import SearchBox from '../components/SearchBox.astro';
+import Newsletter from '../components/Newsletter.astro';
+import Pagination from '../components/Pagination.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, CATEGORIES } from '../consts';
+
+// Sample articles data - in real app this would come from your content collection
+const sampleArticles = [
+  {
+    title: "Automating CI/CD Pipelines with GitHub Actions",
+    excerpt: "A comprehensive guide to setting up your first pipeline. We explore workflows, jobs, and steps to streamline your deployment process.",
+    category: "DevOps",
+    date: "Oct 24, 2023",
+    readTime: "5 min read",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBeFPJ7CLHLtvVlQbG59q-1EFLdk3BV8zKTG8aML-IpWVgg0Xo4lh21eHTZ2WEPBPm9cBtfryK6-44vdmaUk72N8TQAQraOak2Nby5i949sLDIwqhi7UD_3WSVUmai6QTuydIIK8QeEnb4yi6HZF73gEZAXS2rjdEtUz_9QHk4r-p2pNm8LacMWfNnzb2AiLIyfdlx2TYYuPfWl8SnfxR0UjSRj5WZf12qf5qTm7ZtmVmVkjQ3C7eMNXLU_FFJVqLXLWP1yuZeALH__",
+    author: {
+      name: "Sarah Jenkins",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBlZuW9EvAM8ZVvCj-aG9SI1J0JY-xyjJwZdTtGeVkdwRQCc8SUIOUJ_dWjhyH-Wxv9jpjjBpUA-rc-yyn4Kv_HIDYUpO2TcsSsSgCJg3EIEf4dO1hMKe-nqNwB33vgrIf9W4NQGHlSV66DXnWbE4GKyNIjS9NSkpPwQBiq8AUj1WHPWpyt25bGJwLxQ4dwpaxAhOMG_5xb6fH_-xm45IHuE5FRUG79H8XDXwx3jOB3Fdds-vEErMXQ8KrCBSG4xlkIOIb-dVw2WcOs"
+    },
+    slug: "automating-cicd-pipelines-github-actions"
+  },
+  {
+    title: "React Server Components: A Deep Dive",
+    excerpt: "Understanding the paradigm shift in React 18. How server components can reduce bundle size and improve load performance.",
+    category: "Front-end",
+    date: "Oct 22, 2023",
+    readTime: "8 min read",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAprB24xdkeeyPsvWJ3s8tejabGUPGwQiTvEUDeWYwYDLCVPjJh9nZNCofOg7DXrlDbLVihMwqEljjVdeAmaiD7rKJw9nhO9fEygg7KZcQfTiJTFIy8BfedfNB6yJ0TErZgY8-6e_eLoTrddsbuDDUVy-ZjynW75s58-9-6irrxTyddW84P6mJ3ib8gi1iDD65KQKUgitXk1Inz36Pj4JBNDK03TUO9BAMOQuvyKjy13x2JFV0DRstKQ1wvhoadapxNdkbDn-tTdjoc",
+    author: {
+      name: "Alex Chen",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuCnMQok1iy21U79yAcJy2L4Fr6KawelmC8saBdqc6yiu8R57plwR1xCkkcc0YCTw1sV7750lzsWSebCwU6_GmNRe18UwmSN8cJSvjTch-6nBbuQgwn-CIkj1k4zxq1YVMFM0SmjyvUT48iBVvaRDsGb6mobT_pugBKF0C060ZiAnj4DIzg7Wg9Iy_UPgKZB2etmysgjxoZKwUNPo9bLF-T_XFi5zflVedgw6YbbZGcv1rGVlR-HnGHcTjvSaTpoRXITlpcaPBSloMba"
+    },
+    slug: "react-server-components-deep-dive"
+  },
+  {
+    title: "Flutter vs React Native in 2024",
+    excerpt: "Which framework should you choose for your next mobile project? We compare performance, developer experience, and community support.",
+    category: "Mobile",
+    date: "Oct 18, 2023",
+    readTime: "6 min read",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBKbi2QfC3X0Q-na42iK48aBUu5nSlkfLxua7vR53OfjIh7jJTXbhTJAzSk2EWwrdrRnfg8KU3dGEqHZg1UDkzBMLpGhR0ZRVUM0-7DT_GvlUv7QdnUEE-dVEBo1AhQReO7ZAVZ7L0lsC4d16oikxTFX84o8Vhbm3MhMCr_Vz_pviIiSmBT_coSXPHJmvkDTcQ6B4HSs1OX4hAttd_ttlDT8M01GF22U5IcxUZZ72epaB6_gGc6sUBMRDgZHz0QXe4JvlqcARwhYjpf",
+    author: {
+      name: "David Kim",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBCp6Az6wijPBEaSYvnoDb51azIDLyC_9NJ2hKHnEdQlXaSzsMYocKSZgsJBvnLJUVFiDfOCI28YgtVL5GZDQdPkqxBV6YvAmT8TNUqPB7OAzFjjTR22p2DDHGalfzqNSkmezNSEY4nwQE3ZvDzSdLdFtUP12k6EiutsFEu_x5c4qByWwAYgKL0Mu3bn1bsiwvNy-XhdvubwsOAi0yzar97U7z4IqBqrbE4vH-GZsw2KWiBKt77msa6G74ZYgLdpZXAG_3myVoDJEda"
+    },
+    slug: "flutter-vs-react-native-2024"
+  },
+  {
+    title: "Scalable Microservices Architecture",
+    excerpt: "Moving from monolith to microservices. Strategies for decomposition, communication patterns, and handling distributed transactions.",
+    category: "Back-end",
+    date: "Oct 15, 2023",
+    readTime: "12 min read",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBHRnUAmCJ08PY6iaInu3W2t7bAx4XZRsXcPpGEKiyhw3XMaX9M0RfkJ6sm8TYzTnknPev9rMCRTh64CYz2s1CGr8MyQ5OeBfLGfxs1G5rcOlKW6DcLiqYXO6t5wd0MtKrqwjpxgWJDHLjVzMyFXUSLLH00yFs6miBTiqa4a9s_eLvRTD5feJMG5RbNhVHDKN9KFcrR7HKvGwDfl1jmP9Uc4GZPUBa1yNf17dyAR3J9A7QKbsDQ4SBsJkNY38bosH_J-mvdZTfeDT-u",
+    author: {
+      name: "Maria Garcia",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDnHdhb_wB_D6akzOvIzwz3cr070cwIjeNs75k6E4ugMbZDUvACtB85gzQBP1IyVVnLsdSA34DszUypgAtgtEZk0hJ8BgevnpdHbsslSvZN56Tx6Pn5phQKeonW-GysE_ayW-01eKESeIz39dZkwzlJD79GUUIeEN0xr7TpjhZgEwufhkgwcI0bm2rjfeSkzcJIRcTEaMRy5K5G8xZT637no_cqc9m3LAZFfr4x7tCQtge5TnJ2siOkTI69cadYpb271ScvoWlwrjo-"
+    },
+    slug: "scalable-microservices-architecture"
+  },
+  {
+    title: "E2E Testing with Cypress",
+    excerpt: "Writing robust end-to-end tests for modern web applications. Best practices for selecting elements and handling async operations.",
+    category: "QA",
+    date: "Oct 10, 2023",
+    readTime: "7 min read",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDz5-An-IQPz88m2jgxF-i-F1OzamJ0uMf7uN7VvQ76DjbcLFqMJeH-yiPpB7ilE6xJkwbE1QWSBbJJsUYNtTup4AKyM-NFqqvfu3gNhQssxiu1Gx6-8AO3HIfqnAigyLwI4A7NSUKtAk3mOVpgNKw8N7Bjn4_p6EJJfdHNyrLIlpAUQSCszRREI2A8TJ0GCV-k8TH6caqZdrXeNSEoHLjIW5LdvAjU2U6irGr6aVnCXW_uqnHWjSWr-yU0EI-TJSTEtV3O9HtIxziu",
+    author: {
+      name: "James Wilson",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDd5OoLnhgHSye8RzIsvinbGNU8uyv1zllIs7xw_WrnkjGP8vZHkV928UDypUVp_XJw-ZKJ3nkTwLcUvzHmNJmf9c6gz5YU68YX6QjwfxICIJ4U6iIfz7Na0smUoG_4rYOSWd48Du0TKBqTyj0WQzq5qKBB4qLTFTt05C-Ln7XHahMr9J1R_2BZi3pyQ287Wj0UoHOE1WGR0ESM3yn0vmI9nhFVeGFJuCvVZJJ116bi6D2385pzPGB1OO4tABD2K9os1HPNxb-5yO1l"
+    },
+    slug: "e2e-testing-with-cypress"
+  },
+  {
+    title: "Designing for Dark Mode",
+    excerpt: "Key considerations when implementing dark mode in your application. Color theory, contrast ratios, and accessibility tips.",
+    category: "Design",
+    date: "Oct 05, 2023",
+    readTime: "4 min read",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDBp1O1gV3Gp8YmL7T5QUAKuJLYxxWqKv_Cl1wx2S56D4QKR1Zuirt10C6k9zQ2wgl6V8D3iWjNAHrprdQs-qgprkqcuv22kq0LkHDYNl1hgsh33BJrc-67dlGv4FidPCV6vlAH5bJQfwMByeZum9M-CHtER20x8EDQ46-avzJuhrKHgAoYwtEEJOH-a5KZZXMTy5X0_zdSA1j08oXsh6bsJ7Qa9dkY0FGz7v1gSlKQmYVG0qnAckqb7BOlBvqYKSmpLl14su5zXVmx",
+    author: {
+      name: "Emma Roberts",
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZun9fH48vVjv9_i43k-0FiO1AhhnDWLQoGQJsPxdCxyR2VxQKj9svixqhgij7l6isB-IWVqzx4E3E7cc9CPiRsYvxikvSapHhp-FLrbKhVq-k2PKnkP8lDBh0O6sP4fZoW5yy-F3Iauf1nqfHOmxKNFe09xTPsylaA43hmQQ399dDm5iSTymcXoXGWrAoq9KVFg1J1rAtW3qQjIaubQxABCT_Su22Kf-tSUNTKym9R7_kLc2A4k_Owtfo6xAqkwncKPjr8Fh0kVab"
+    },
+    slug: "designing-for-dark-mode"
+  }
+];
+
+// Pagination
+const currentPage = 1;
+const totalPages = 8;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title="Latest Engineering Thoughts" currentPath="/">
+  <div class="w-full max-w-[1440px] mx-auto px-4 md:px-10 lg:px-40 py-10">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+      <div class="flex flex-col max-w-[700px]">
+        <h1 class="text-gray-900 dark:text-white tracking-tight text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+          Latest Engineering Thoughts
+        </h1>
+        <p class="text-gray-600 dark:text-text-secondary-dark text-lg leading-relaxed">
+          Deep dives into code, architecture, and the future of software development. Curated by engineers, for engineers.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-12">
+      <!-- Left Sidebar -->
+      <aside class="w-full lg:w-1/4 flex flex-col gap-8 flex-shrink-0">
+        <!-- Search -->
+        <SearchBox />
+        
+        <!-- Categories -->
+        <CategoryFilter activeCategory="all" />
+        
+        <!-- Newsletter -->
+        <Newsletter />
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1">
+        <!-- Mobile Category Filters -->
+        <div class="flex gap-2 mb-8 overflow-x-auto pb-2 lg:hidden no-scrollbar">
+          {CATEGORIES.map(category => (
+            <button class={`whitespace-nowrap h-8 px-4 rounded-full text-sm font-medium transition-colors ${
+              category.slug === 'all'
+                ? 'bg-primary text-white shadow-sm'
+                : 'bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-gray-50 dark:hover:bg-gray-800'
+            }`}>
+              {category.name}
+            </button>
+          ))}
+        </div>
+
+        <!-- Articles Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sampleArticles.map(article => (
+            <ArticleCard {...article} />
+          ))}
+        </div>
+
+        <!-- Pagination -->
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

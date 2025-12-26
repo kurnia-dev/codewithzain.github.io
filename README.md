@@ -1,62 +1,187 @@
-# Astro Starter Kit: Blog
+# CodeWithZain Blog
 
-```sh
-pnpm create astro@latest -- --template blog
+A modern, responsive blog built with Astro, featuring light/dark mode toggle and reusable components.
+
+## 🚀 Features
+
+- **Light/Dark Mode**: Seamless theme switching with system preference detection
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Component-Based**: Reusable Astro components for maintainable code
+- **SEO Optimized**: Proper meta tags and semantic HTML
+- **Fast Performance**: Static site generation with Astro
+- **Modern UI**: Clean, professional design inspired by modern tech blogs
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Astro](https://astro.build/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Icons**: [Material Symbols](https://fonts.google.com/icons)
+- **Fonts**: [Inter](https://fonts.google.com/specimen/Inter)
+- **Package Manager**: pnpm
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ArticleCard.astro
+│   ├── CategoryFilter.astro
+│   ├── Footer.astro
+│   ├── Header.astro
+│   ├── Newsletter.astro
+│   ├── Pagination.astro
+│   ├── SearchBox.astro
+│   └── ThemeToggle.astro
+├── layouts/             # Page layouts
+│   └── BaseLayout.astro
+├── pages/               # Route pages
+│   ├── blog/
+│   │   ├── [slug].astro # Dynamic blog post pages
+│   │   └── index.astro
+│   ├── about.astro
+│   └── index.astro      # Homepage
+├── scripts/             # Client-side scripts
+├── styles/              # Global styles
+│   └── global.css
+└── consts.ts           # Site constants and configuration
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🎨 Components
 
-Features:
+### Core Components
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+- **BaseLayout**: Main layout wrapper with head, navigation, and footer
+- **Header**: Navigation bar with theme toggle and responsive menu
+- **Footer**: Site footer with links and social media
+- **ThemeToggle**: Light/dark mode switcher
 
-## 🚀 Project Structure
+### Blog Components
 
-Inside of your Astro project, you'll see the following folders and files:
+- **ArticleCard**: Blog post preview card with image, metadata, and author
+- **CategoryFilter**: Sidebar category navigation with post counts
+- **SearchBox**: Article search functionality
+- **Newsletter**: Email subscription widget
+- **Pagination**: Page navigation for blog listings
 
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+### Page Templates
+
+- **Homepage** (`/`): Article listing with sidebar filters
+- **Blog Post** (`/blog/[slug]`): Individual article with TOC and related posts
+- **About Page** (`/about`): Author profile and experience
+
+## 🌙 Theme System
+
+The blog features a sophisticated theme system that:
+
+- Detects system preference on first visit
+- Persists user choice in localStorage
+- Prevents flash of unstyled content (FOUC)
+- Smoothly transitions between themes
+- Updates all UI elements consistently
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd codewithzain
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
+
+3. **Start development server**
+   ```bash
+   pnpm dev
+   ```
+
+4. **Build for production**
+   ```bash
+   pnpm build
+   ```
+
+## 📝 Content Management
+
+Currently using sample data in components. To integrate with a CMS or markdown files:
+
+1. Set up Astro Content Collections in `src/content/`
+2. Update components to use real data
+3. Configure dynamic routing for blog posts
+
+## 🎯 Customization
+
+### Colors and Branding
+
+Update the color scheme in `tailwind.config.mjs`:
+
+```js
+colors: {
+  "primary": "#135bec",        // Main brand color
+  "primary-dark": "#0f4bc4",   // Darker variant
+  // ... other colors
+}
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Site Information
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Modify site details in `src/consts.ts`:
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+```ts
+export const SITE_TITLE = 'Your Blog Name';
+export const SITE_DESCRIPTION = 'Your blog description';
+export const AUTHOR = {
+  name: 'Your Name',
+  // ... other author details
+};
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Navigation
 
-## 🧞 Commands
+Update navigation items in `src/components/Header.astro`.
 
-All commands are run from the root of the project, from a terminal:
+## 📱 Responsive Design
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+The blog is fully responsive with:
 
-## 👀 Want to learn more?
+- Mobile-first CSS approach
+- Collapsible navigation on mobile
+- Responsive grid layouts
+- Touch-friendly interactive elements
+- Optimized typography scaling
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## ⚡ Performance
 
-## Credit
+- Static site generation for fast loading
+- Optimized images and assets
+- Minimal JavaScript footprint
+- Efficient CSS with Tailwind's purging
+- Proper caching headers
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+## 🔧 Development
+
+### Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+
+### Code Style
+
+- TypeScript for type safety
+- Astro components for UI
+- Tailwind for styling
+- ESLint and Prettier (recommended)
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+Built with ❤️ using [Astro](https://astro.build/)

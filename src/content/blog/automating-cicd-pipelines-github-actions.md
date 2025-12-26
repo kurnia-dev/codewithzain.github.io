@@ -11,8 +11,6 @@ author:
   avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBlZuW9EvAM8ZVvCj-aG9SI1J0JY-xyjJwZdTtGeVkdwRQCc8SUIOUJ_dWjhyH-Wxv9jpjjBpUA-rc-yyn4Kv_HIDYUpO2TcsSsSgCJg3EIEf4dO1hMKe-nqNwB33vgrIf9W4NQGHlSV66DXnWbE4GKyNIjS9NSkpPwQBiq8AUj1WHPWpyt25bGJwLxQ4dwpaxAhOMG_5xb6fH_-xm45IHuE5FRUG79H8XDXwx3jOB3Fdds-vEErMXQ8KrCBSG4xlkIOIb-dVw2WcOs"
 ---
 
-# Automating CI/CD Pipelines with GitHub Actions
-
 Continuous Integration and Continuous Deployment (CI/CD) has become an essential part of modern software development. GitHub Actions provides a powerful platform to automate your workflows directly within your GitHub repository.
 
 ## What are GitHub Actions?

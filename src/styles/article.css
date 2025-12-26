@@ -1,0 +1,418 @@
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  @apply overflow-hidden;
+}
+
+/* Article content styling using @apply */
+.article-content {
+  @apply text-gray-700 dark:text-gray-300 space-y-6 leading-8 text-lg font-light tracking-wide mt-2;
+}
+
+.article-content p {
+  @apply mb-6 text-gray-700 dark:text-gray-300;
+}
+
+.article-content h1 {
+  @apply text-4xl font-extrabold text-gray-900 dark:text-white mt-8 mb-4 leading-tight;
+}
+
+.article-content h2 {
+  @apply text-3xl font-bold text-gray-900 dark:text-white mt-8 mb-4 leading-tight;
+}
+
+.article-content h3 {
+  @apply text-2xl font-semibold text-gray-800 dark:text-gray-100 mt-6 mb-3 leading-tight;
+}
+
+.article-content h4 {
+  @apply text-xl font-medium text-gray-700 dark:text-gray-200 mt-5 mb-2;
+}
+
+.article-content h5 {
+  @apply text-lg font-medium text-gray-600 dark:text-gray-300 mt-4 mb-2;
+}
+
+.article-content h6 {
+  @apply text-base font-medium text-gray-500 dark:text-gray-400 mt-4 mb-2;
+}
+
+/* Code styling */
+.article-content code {
+  @apply text-blue-600 dark:text-blue-400 bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-medium font-mono border border-border-light dark:border-border-dark;
+}
+
+/* Enhanced macOS-style code blocks */
+.article-content pre {
+  @apply my-8 rounded-xl overflow-hidden shadow-2xl border;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-color: #334155;
+}
+
+.dark .article-content pre {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  border-color: #374151;
+}
+
+.article-content pre code {
+  @apply bg-transparent text-slate-200 dark:text-gray-300 p-0 text-sm leading-relaxed block overflow-x-auto;
+  padding: 1.25rem 1.5rem;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+    "Courier New", monospace;
+}
+
+/* macOS-style code block header */
+.article-content .code-header {
+  @apply flex items-center justify-between px-4 py-3 border-b;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-bottom-color: #475569;
+}
+
+.dark .article-content .code-header {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  border-bottom-color: #4b5563;
+}
+
+.article-content .code-dots {
+  @apply flex gap-2;
+}
+
+.article-content .code-dot {
+  @apply w-3 h-3 rounded-full shadow-sm;
+}
+
+.article-content .code-dot.red {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.3);
+}
+.article-content .code-dot.yellow {
+  background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+  box-shadow: 0 0 0 1px rgba(234, 179, 8, 0.3);
+}
+.article-content .code-dot.green {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
+}
+
+.article-content .code-filename {
+  @apply text-sm text-slate-300 dark:text-gray-400 font-medium;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+    "Courier New", monospace;
+}
+
+.article-content .code-copy {
+  @apply flex items-center gap-2 text-xs text-slate-400 dark:text-gray-500 cursor-pointer hover:text-slate-200 dark:hover:text-gray-300 transition-all duration-200 px-3 py-1.5 rounded-md hover:bg-slate-700/50 dark:hover:bg-gray-700/50;
+}
+
+.article-content .code-copy:hover {
+  transform: translateY(-1px);
+}
+
+.article-content .code-copy svg {
+  @apply w-4 h-4;
+}
+
+/* Line numbers for code blocks */
+.article-content .code-with-lines {
+  @apply flex;
+}
+
+.article-content .line-numbers {
+  @apply flex flex-col text-slate-500 dark:text-gray-600 select-none text-right pr-4 border-r border-slate-700 dark:border-gray-700 mr-4 text-sm;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+    "Courier New", monospace;
+  line-height: 1.5;
+  padding-top: 0.125rem;
+}
+
+.article-content .line-numbers span {
+  @apply block;
+  min-height: 1.5rem;
+}
+
+.article-content .code-content {
+  @apply flex-1 overflow-x-auto;
+}
+
+/* Enhanced syntax highlighting */
+.article-content pre code .token.comment {
+  @apply text-slate-500 dark:text-gray-500 italic;
+}
+
+.article-content pre code .token.keyword {
+  @apply text-purple-400 dark:text-purple-300 font-medium;
+}
+
+.article-content pre code .token.string {
+  @apply text-green-400 dark:text-green-300;
+}
+
+.article-content pre code .token.number {
+  @apply text-orange-400 dark:text-orange-300;
+}
+
+.article-content pre code .token.function {
+  @apply text-blue-400 dark:text-blue-300;
+}
+
+.article-content pre code .token.operator {
+  @apply text-slate-300 dark:text-gray-400;
+}
+
+.article-content pre code .token.punctuation {
+  @apply text-slate-400 dark:text-gray-500;
+}
+
+/* Blockquotes */
+.article-content blockquote {
+  @apply border-l-4 border-blue-500 dark:border-blue-400 pl-6 my-6 italic text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/10 py-5 pr-5 rounded-r-lg;
+}
+
+/* Info boxes */
+.article-content .info-box {
+  @apply p-5 border-l-4 border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/10 rounded-r-lg my-6;
+}
+
+.article-content .info-box.warning {
+  @apply border-amber-500 dark:border-amber-400 bg-amber-50 dark:bg-amber-900/10;
+}
+
+.article-content .info-box.error {
+  @apply border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-900/10;
+}
+
+.article-content .info-box.success {
+  @apply border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/10;
+}
+
+.article-content .info-box .info-header {
+  @apply flex gap-3 items-start;
+}
+
+.article-content .info-box .info-icon {
+  @apply text-blue-500 dark:text-blue-400 flex-shrink-0;
+}
+
+.article-content .info-box.warning .info-icon {
+  @apply text-amber-500 dark:text-amber-400;
+}
+
+.article-content .info-box.error .info-icon {
+  @apply text-red-500 dark:text-red-400;
+}
+
+.article-content .info-box.success .info-icon {
+  @apply text-green-500 dark:text-green-400;
+}
+
+.article-content .info-box h4 {
+  @apply text-gray-900 dark:text-white font-bold text-sm uppercase tracking-wide m-0 mb-1;
+}
+
+.article-content .info-box p {
+  @apply text-sm text-gray-600 dark:text-gray-400 m-0;
+}
+
+/* Links */
+.article-content a {
+  @apply text-blue-600 dark:text-blue-400 underline font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors;
+}
+
+/* Strong text */
+.article-content strong {
+  @apply text-gray-900 dark:text-white font-semibold;
+}
+
+/* Lists */
+.article-content ul,
+.article-content ol {
+  @apply my-6 pl-6;
+}
+
+.article-content li {
+  @apply mb-2 text-gray-700 dark:text-gray-300;
+}
+
+/* Enhanced task list styling */
+.article-content ul li:has(input[type="checkbox"]) {
+  @apply list-none -ml-6 pl-0 flex items-start gap-2;
+}
+
+.article-content input[type="checkbox"] {
+  @apply mt-1 accent-blue-600 dark:accent-blue-400;
+}
+
+/* Tables */
+.article-content table {
+  @apply w-full my-8 border-separate border-spacing-0 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-md;
+}
+
+.article-content th {
+  background: linear-gradient(
+    135deg,
+    rgb(249 250 251) 0%,
+    rgb(243 244 246) 100%
+  );
+  @apply font-bold text-gray-900 dark:text-white text-xs uppercase tracking-wide p-4 border-b-2 border-gray-200 dark:border-gray-600;
+}
+
+.dark .article-content th {
+  background: linear-gradient(135deg, rgb(55 65 81) 0%, rgb(75 85 99) 100%);
+}
+
+.article-content td {
+  @apply px-4 py-3.5 text-gray-700 dark:text-gray-300 border-b border-gray-100 dark:border-gray-800 align-top;
+}
+
+.article-content tbody tr:hover {
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+
+.article-content tbody tr:last-child td {
+  @apply border-b-0;
+}
+
+/* Strikethrough text */
+.article-content del {
+  @apply text-gray-500 dark:text-gray-400 line-through;
+}
+
+/* Highlighted text */
+.article-content mark {
+  background: linear-gradient(
+    120deg,
+    rgb(254 240 138) 0%,
+    rgb(253 224 71) 100%
+  );
+  @apply text-gray-900 dark:text-white px-1 py-0.5 rounded shadow-sm;
+}
+
+.dark .article-content mark {
+  background: linear-gradient(120deg, rgb(133 77 14) 0%, rgb(161 98 7) 100%);
+}
+
+/* Keyboard key styling */
+.article-content kbd {
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255) 0%,
+    rgb(243 244 246) 100%
+  );
+  @apply border border-gray-300 dark:border-gray-500 border-b-2 border-b-gray-400 dark:border-b-gray-600 rounded-md px-2 py-1 text-xs font-mono font-semibold shadow-sm inline-block min-w-6 text-center;
+}
+
+.dark .article-content kbd {
+  background: linear-gradient(135deg, rgb(75 85 99) 0%, rgb(55 65 81) 100%);
+  @apply text-white;
+}
+
+/* Details/summary styling */
+.article-content details {
+  @apply my-8 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-sm transition-all;
+}
+
+.article-content details[open] {
+  @apply shadow-md;
+}
+
+.article-content summary {
+  background: linear-gradient(
+    135deg,
+    rgb(249 250 251) 0%,
+    rgb(243 244 246) 100%
+  );
+  @apply px-5 py-4 cursor-pointer font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 flex items-center gap-3 transition-all;
+}
+
+.dark .article-content summary {
+  background: linear-gradient(135deg, rgb(55 65 81) 0%, rgb(75 85 99) 100%);
+}
+
+.article-content summary:hover {
+  background: linear-gradient(
+    135deg,
+    rgb(243 244 246) 0%,
+    rgb(229 231 235) 100%
+  );
+}
+
+.dark .article-content summary:hover {
+  background: linear-gradient(135deg, rgb(75 85 99) 0%, rgb(107 114 128) 100%);
+}
+
+.article-content summary::marker {
+  @apply hidden;
+}
+
+.article-content summary::before {
+  content: "▶";
+  @apply transition-transform text-blue-600 dark:text-blue-400 font-bold;
+}
+
+.article-content details[open] summary::before {
+  @apply rotate-90;
+}
+
+.article-content details > *:not(summary) {
+  @apply p-6 bg-white dark:bg-gray-800;
+}
+
+/* Horizontal rules */
+.article-content hr {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(209 213 219) 20%,
+    rgb(156 163 175) 50%,
+    rgb(209 213 219) 80%,
+    transparent 100%
+  );
+  @apply border-0 h-0.5 my-12 rounded;
+}
+
+.dark .article-content hr {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(75 85 99) 20%,
+    rgb(107 114 128) 50%,
+    rgb(75 85 99) 80%,
+    transparent 100%
+  );
+}
+
+/* Video container for responsive embedding */
+.article-content .video-container {
+  @apply relative w-full h-0 pb-[56.25%] my-6 rounded-lg overflow-hidden shadow-lg;
+}
+
+.article-content .video-container iframe {
+  @apply absolute top-0 left-0 w-full h-full border-0;
+}
+
+/* Small caps styling */
+.article-content [style*="font-variant: small-caps"] {
+  @apply font-semibold tracking-wide;
+  font-variant: small-caps;
+}
+
+/* Subscript and superscript */
+.article-content sub,
+.article-content sup {
+  @apply text-xs leading-none relative;
+}
+
+.article-content sup {
+  @apply -top-2;
+}
+
+.article-content sub {
+  @apply -bottom-1;
+}
+
+/* Image captions */
+.article-content img + em {
+  @apply block text-center italic text-gray-500 dark:text-gray-400 text-sm mt-2 mb-6;
+}

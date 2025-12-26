@@ -19,7 +19,6 @@ This comprehensive guide demonstrates every markdown formatting element availabl
 
 Headings create structure and hierarchy in your content. Here are all available heading levels:
 
-# Heading Level 1 (H1)
 ## Heading Level 2 (H2)
 ### Heading Level 3 (H3)
 #### Heading Level 4 (H4)
@@ -42,7 +41,7 @@ You can format text using various inline styles:
 
 Use `inline code` for highlighting code snippets, variables, or commands within sentences. For example, the `useState` hook or the `npm install` command.
 
-## Code Blocks
+## Code Blocks with macOS-Style Headers
 
 ### Basic Code Block
 
@@ -51,7 +50,23 @@ This is a basic code block without syntax highlighting.
 You can use it for plain text or pseudo-code.
 ```
 
-### JavaScript Code Block
+### JavaScript with macOS-Style Header
+
+<div class="code-header">
+  <div class="code-dots">
+    <div class="code-dot red"></div>
+    <div class="code-dot yellow"></div>
+    <div class="code-dot green"></div>
+  </div>
+  <div class="code-filename">greeting.js</div>
+  <div class="code-copy">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="m5 15-4-4 4-4"></path>
+    </svg>
+    Copy
+  </div>
+</div>
 
 ```javascript
 // JavaScript example with syntax highlighting
@@ -70,7 +85,23 @@ const multiply = (a, b) => a * b;
 const result = multiply(5, 3);
 ```
 
-### Python Code Block
+### Python with macOS-Style Header
+
+<div class="code-header">
+  <div class="code-dots">
+    <div class="code-dot red"></div>
+    <div class="code-dot yellow"></div>
+    <div class="code-dot green"></div>
+  </div>
+  <div class="code-filename">blog_post.py</div>
+  <div class="code-copy">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="m5 15-4-4 4-4"></path>
+    </svg>
+    Copy
+  </div>
+</div>
 
 ```python
 # Python example with syntax highlighting

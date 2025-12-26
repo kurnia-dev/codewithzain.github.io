@@ -67,7 +67,11 @@ Each Server Component is automatically code-split, loading only what's needed.
 - Can handle user interactions
 - Re-render based on state changes
 
+> **Important**: Server Components are the default in the App Router. You only need to add `'use client'` when you need browser-specific features.
+
 ## Implementation Example
+
+Here's how you can structure your components:
 
 ```jsx
 // ServerComponent.js (runs on server)
@@ -102,6 +106,16 @@ function ClientComponent({ initialData }) {
   );
 }
 ```
+
+<div class="info-box">
+  <div class="info-header">
+    <span class="material-symbols-outlined info-icon">lightbulb</span>
+    <div>
+      <h4>Performance Tip</h4>
+      <p>Server Components can directly access your database, eliminating the need for API routes in many cases.</p>
+    </div>
+  </div>
+</div>
 
 ## Best Practices
 

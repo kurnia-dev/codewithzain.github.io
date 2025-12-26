@@ -19,6 +19,8 @@ Continuous Integration and Continuous Deployment (CI/CD) has become an essential
 
 GitHub Actions is a CI/CD platform that allows you to automate your build, test, and deployment pipeline. You can create workflows that build and test every pull request to your repository, or deploy merged pull requests to production.
 
+> **Pro Tip**: GitHub Actions provides 2,000 free minutes per month for private repositories, and unlimited minutes for public repositories.
+
 ## Setting Up Your First Workflow
 
 Let's start with a basic workflow that runs tests on every push:
@@ -51,6 +53,16 @@ jobs:
     - name: Run tests
       run: npm test
 ```
+
+<div class="info-box">
+  <div class="info-header">
+    <span class="material-symbols-outlined info-icon">info</span>
+    <div>
+      <h4>Workflow Tip</h4>
+      <p>Always use specific versions for actions (e.g., @v3) instead of @main to ensure reproducible builds.</p>
+    </div>
+  </div>
+</div>
 
 ## Key Components
 

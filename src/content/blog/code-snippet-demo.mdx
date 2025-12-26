@@ -1,0 +1,180 @@
+---
+title: "Code Snippet Component Demo"
+description: "Demonstration of the new enhanced code snippet component with macOS-style headers, line numbers, and copy functionality."
+excerpt: "See the new code snippet component in action with various features like file names, line numbers, syntax highlighting, and copy-to-clipboard functionality."
+category: "Documentation"
+pubDate: "2024-12-27"
+readTime: "5 min read"
+image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDBp1O1gV3Gp8YmL7T5QUAKuJLYxxWqKv_Cl1wx2S56D4QKR1Zuirt10C6k9zQ2wgl6V8D3iWjNAHrprdQs-qgprkqcuv22kq0LkHDYNl1hgsh33BJrc-67dlGv4FidPCV6vlAH5bJQfwMByeZum9M-CHtER20x8EDQ46-avzJuhrKHgAoYwtEEJOH-a5KZZXMTy5X0_zdSA1j08oXsh6bsJ7Qa9dkY0FGz7v1gSlKQmYVG0qnAckqb7BOlBvqYKSmpLl14su5zXVmx"
+author:
+  name: "Development Team"
+  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZun9fH48vVjv9_i43k-0FiO1AhhnDWLQoGQJsPxdCxyR2VxQKj9svixqhgij7l6isB-IWVqzx4E3E7cc9CPiRsYvxikvSapHhp-FLrbKhVq-k2PKnkP8lDBh0O6sP4fZoW5yy-F3Iauf1nqfHOmxKNFe09xTPsylaA43hmQQ399dDm5iSTymcXoXGWrAoq9KVFg1J1rAtW3qQjIaubQxABCT_Su22Kf-tSUNTKym9R7_kLc2A4k_Owtfo6xAqkwncKPjr8Fh0kVab"
+---
+
+# Enhanced Code Snippet Component
+
+This page demonstrates the new enhanced code snippet component with macOS-style headers, optional line numbers, and copy functionality. **No imports needed!** - The component is configured globally.
+
+## Basic Code Block
+
+Here's a simple JavaScript example:
+
+```javascript
+const greeting = "Hello, World!";
+console.log(greeting);
+```
+
+## Code Block with Filename
+
+You can add a filename to the header using the `filename` metadata:
+
+```javascript filename=app.js
+import express from 'express';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Hello, World!' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+```
+
+## Code Block without Line Numbers
+
+You can disable line numbers by setting `lines=false`:
+
+```python lines=false
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))
+```
+
+## Code Block with Line Highlighting
+
+You can highlight specific lines using the `{1,3-5}` syntax:
+
+```typescript filename=user.service.ts {2,4-6}
+import { Injectable } from '@nestjs/common';
+import { User } from './user.entity';
+
+@Injectable()
+export class UserService {
+  private users: User[] = [];
+
+  async findAll(): Promise<User[]> {
+    return this.users;
+  }
+
+  async findById(id: string): Promise<User | null> {
+    return this.users.find(user => user.id === id) || null;
+  }
+}
+```
+
+## HTML/CSS Example
+
+```html filename=index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Snippet Demo</title>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Demo</h1>
+        <p>This demonstrates the new code snippet component.</p>
+    </div>
+</body>
+</html>
+```
+
+## Shell Commands
+
+```bash filename=deploy.sh
+#!/bin/bash
+
+# Build the application
+npm run build
+
+# Deploy to server
+rsync -avz --delete dist/ user@server:/var/www/html/
+
+# Restart services
+ssh user@server "sudo systemctl restart nginx"
+
+echo "Deployment completed successfully!"
+```
+
+## SQL Example
+
+```sql filename=schema.sql {1-3,8-10}
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_users_created_at ON users(created_at);
+
+INSERT INTO users (username, email, password_hash) VALUES
+('johndoe', 'john@example.com', 'hashed_password_123'),
+('janedoe', 'jane@example.com', 'hashed_password_456');
+```
+
+## Features
+
+The enhanced code snippet component includes:
+
+- **macOS-style header** with colored dots
+- **Filename display** when specified in metadata
+- **Language indicator** when no filename is provided
+- **Copy to clipboard** functionality with visual feedback
+- **Optional line numbers** (enabled by default)
+- **Line highlighting** support using Shiki's syntax
+- **Dark/light theme** support
+- **Responsive design** with horizontal scrolling for long lines
+
+## Usage
+
+The enhanced code snippet component is **automatically enabled** for all MDX files! No imports needed.
+
+To use these features in your MDX files:
+
+1. **Just create `.mdx` files** - No imports required!
+
+2. **Add metadata** to your code blocks:
+   - `filename=example.js` - Shows filename in header
+   - `lines=false` - Disables line numbers
+   - `{1,3-5}` - Highlights specific lines
+
+3. **Enjoy enhanced code blocks** with all the new features!
+
+Example usage:
+````
+```javascript filename=app.js {2,4}
+import express from 'express';
+const app = express(); // highlighted
+const PORT = 3000;
+app.listen(PORT); // highlighted
+```
+````

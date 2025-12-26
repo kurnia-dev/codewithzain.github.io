@@ -2,6 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { formatDate } from '../../utils/date';
+import CodeSnippet from '../../components/CodeSnippet.astro';
 
 // Generate static paths for blog posts
 export async function getStaticPaths() {
@@ -164,7 +165,7 @@ const tags = generateTags(post.data.category, post.data.title);
 
         <!-- Article Content -->
         <div class="article-content">
-          <Content />
+            <Content components={{ pre: CodeSnippet }} />
         </div>
 
         <!-- Article Footer -->

@@ -144,7 +144,7 @@ export class NotificationManager {
     // Reset classes
     this.container.className = 'fixed z-50 space-y-2 pointer-events-none';
 
-    const positions = {
+    const positions: Record<string, string> = {
       'top-right': 'top-4 right-4',
       'top-left': 'top-4 left-4',
       'bottom-right': 'bottom-4 right-4',

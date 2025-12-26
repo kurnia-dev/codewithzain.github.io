@@ -43,9 +43,9 @@ export class Analytics {
   }
 
   private sendToGoogleAnalytics(event: AnalyticsEvent): void {
-    if (typeof gtag !== 'undefined') {
-      gtag('event', event.name, event.properties);
-    }
+    // if (typeof gtag !== 'undefined') {
+    //   gtag('event', event.name, event.properties);
+    // }
   }
 
   private sendToCustomAnalytics(event: AnalyticsEvent): void {

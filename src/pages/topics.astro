@@ -8,7 +8,7 @@ const topicsWithDescription = CATEGORIES.filter(cat => cat.slug !== 'all').map(c
 }));
 
 function getTopicDescription(slug: string): string {
-  const descriptions = {
+  const descriptions: Record<string, string> = {
     'frontend': 'Modern web development with React, Vue, and cutting-edge frameworks. Learn about component architecture, state management, and performance optimization.',
     'backend': 'Server-side development, APIs, databases, and system architecture. Dive deep into scalable backend solutions and microservices.',
     'mobile': 'Cross-platform mobile development with Flutter and React Native. Build native experiences for iOS and Android.',
@@ -291,9 +291,9 @@ function getTopicDescription(slug: string): string {
       console.log('Event tracked:', eventName, properties);
 
       // Example with Google Analytics
-      if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, properties);
-      }
+      // if (typeof gtag !== 'undefined') {
+      //   gtag('event', eventName, properties);
+      // }
     }
 
     private showNotification(message: string, type: 'success' | 'error' | 'info'): void {

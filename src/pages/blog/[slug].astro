@@ -1,100 +1,108 @@
 ---
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { AUTHOR } from '../../consts';
+import { formatDate } from '../../utils/date';
 
 // Generate static paths for blog posts
 export async function getStaticPaths() {
-  // In a real app, this would come from your content collection
-  // For now, we'll generate a few sample posts
-  const posts = [
-    'understanding-microservices-2024',
-    'automating-cicd-pipelines-github-actions',
-    'react-server-components-deep-dive',
-    'flutter-vs-react-native-2024',
-    'scalable-microservices-architecture',
-    'e2e-testing-with-cypress',
-    'designing-for-dark-mode'
-  ];
-
-  return posts.map(slug => ({
-    params: { slug }
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
   }));
 }
 
-// This would normally come from your content collection
-// For now, we'll use the slug to determine which article to show
-const { slug } = Astro.params;
-
-// Sample article data - in real app this would come from your content collection
-const article = {
-  title: "Understanding Microservices in 2024: A comprehensive guide",
-  description: "Everything you need to know about breaking down your monolith and building scalable, resilient architectures in the modern cloud era.",
-  category: "Microservices",
-  tags: ["microservices", "python", "devops"],
-  date: "Oct 12, 2024",
-  readTime: "8 min read",
-  author: {
-    name: "Jane Doe",
-    title: "Senior Staff Engineer @ TechCorp",
-    avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuCw3X39DfYm-KUUjEoI57RNXvS-LLs4iU5D_5GRWn5SWTWr3MsGSK5e-c2OKVxzGt_bZN5NlG3vIjbMtBznMkQeX1Y4sBY0ZHLQsICCD8Ff3YTqjCxjSkb1s2H0-72q5t_QiqQjuPOMQTrmSbJmtH_u0u1ydgFeXVqC8SAwvzGG1KvBvO3aIHVoIBucGTtNqJDvesE2XDkZOOFOv-Rw5wsDn6iKJ5WNxt1SI8tz20URAPr5sZPL2Ht-GIipMCDn8eRuk-IbJtZHRN99",
-    bio: "Jane is a Senior Staff Engineer specializing in distributed systems. She has helped scale startups from 0 to 10M users. When not coding, she writes about tech leadership."
-  }
+type Props = {
+  data: {
+    title: string;
+    description: string;
+    excerpt: string;
+    category: string;
+    pubDate: Date;
+    updatedDate?: Date;
+    readTime: string;
+    image: string;
+    author: {
+      name: string;
+      avatar: string;
+    };
+  };
+  id: string;
 };
 
-const tableOfContents = [
-  { id: 'intro', title: 'Introduction', level: 1 },
-  { id: 'prerequisites', title: 'Prerequisites', level: 1 },
-  { id: 'implementation', title: 'Implementation', level: 1 },
-  { id: 'microservices-pattern', title: 'The Pattern', level: 2 },
-  { id: 'api-gateway', title: 'API Gateway', level: 2 },
-  { id: 'deployment', title: 'Deployment', level: 1 },
-  { id: 'conclusion', title: 'Conclusion', level: 1 }
-];
+const post = Astro.props;
+const { Content, headings } = await render(post);
 
-const relatedPosts = [
-  {
-    title: "Optimizing SQL Queries for Scale",
-    description: "Database performance is the bottleneck of 90% of applications. Learn how to index properly.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAUnF-buU4dC0TltJtHzAR-HpAvVKxaTYpl515u9F2MbTfW3fTb145v5mNVqFY8dNf1nyFVY8p8r-YRAEwBxWXq0Ya8RcP4SevVb9Erqg788xAvExvv320pxecwJy1JDX2220atgBa_jfHwm7Tka3JtNTSaya3NOe1fZAAXGGKIrW9PZQE0mUMZgGrFl62tszurKUw-eGrdAMHwJqVTPd6FReZf6UVk44_xqINpbBrw0OGNfHB5XXkG_Wl-wk7MZSMmw6TA2R658h5U",
-    slug: "optimizing-sql-queries-scale"
-  },
-  {
-    title: "React Server Components Explained",
-    description: "The future of frontend is here. How RSC changes the way we think about data fetching.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA59sPPiGn5jZzevRHnvQYM2GdVPip-OCmrBBn6lkCY-AYn5EEPznWanu8444rNY8t8riWzsAyJeoAiHxcwxWitDJeLA09DN5nu6zgGaQG3auCeB9Dm2rGdUubxjuNJ__3smDn8oqBojyWwJpL9ntJOWSK6PHTzO_2LmPR025rYWMo9NHf17rgbyeIH9iA89um_O12PxOdtEw7OE4aHW4Swh7Hz9FdDDRjKXKwnC53RZk4OdjWw_3Qs-PkZ0CFaTKw5WmhVrwRk4cCi",
-    slug: "react-server-components-explained"
-  }
-];
+// Generate table of contents from headings
+const tableOfContents = headings.map(heading => ({
+  id: heading.slug,
+  title: heading.text,
+  level: heading.depth
+}));
+
+// Get related posts (other posts from same category or random)
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(p => p.id !== post.id)
+  .filter(p => p.data.category === post.data.category || Math.random() > 0.5)
+  .slice(0, 2)
+  .map(p => ({
+    title: p.data.title,
+    description: p.data.excerpt,
+    image: p.data.image,
+    slug: p.id
+  }));
+
+// Generate some tags based on category and content
+const generateTags = (category: string, title: string) => {
+  const categoryTags: Record<string, string[]> = {
+    'DevOps': ['devops', 'cicd', 'automation'],
+    'Front-end': ['frontend', 'react', 'javascript'],
+    'Mobile': ['mobile', 'flutter', 'react-native'],
+    'Back-end': ['backend', 'microservices', 'api'],
+    'Architecture': ['architecture', 'microservices', 'scalability'],
+    'QA': ['testing', 'cypress', 'automation'],
+    'Design': ['design', 'ui', 'dark-mode']
+  };
+  
+  return categoryTags[category] || ['programming', 'development'];
+};
+
+const tags = generateTags(post.data.category, post.data.title);
 ---
 
-<BaseLayout title={article.title} description={article.description} currentPath={`/blog/${slug}`}>
+<BaseLayout title={post.data.title} description={post.data.description} currentPath={`/blog/${post.id}`}>
   <div class="layout-container w-full max-w-[1440px] mx-auto p-4 md:p-6 lg:p-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
       
       <!-- Left Sidebar (TOC) -->
       <aside class="hidden lg:block lg:col-span-3 xl:col-span-2 relative">
         <div class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
-          <h3 class="text-gray-600 dark:text-text-secondary-dark text-xs font-bold uppercase tracking-wider mb-4 px-3">On this page</h3>
-          <nav class="flex flex-col gap-1 border-l border-gray-200 dark:border-border-dark">
-            {tableOfContents.map((item, index) => (
-              <a 
-                class={`flex items-center gap-3 px-3 py-2 border-l-2 transition-all -ml-[2px] ${
-                  index === 0 
-                    ? 'border-primary bg-primary/5 rounded-r-lg' 
-                    : 'border-transparent hover:border-gray-400 dark:hover:border-text-secondary-dark'
-                } ${item.level === 2 ? 'pl-6' : ''}`}
-                href={`#${item.id}`}
-              >
-                <span class={`text-sm leading-normal ${
-                  index === 0 
-                    ? 'text-primary font-medium' 
-                    : 'text-gray-600 dark:text-text-secondary-dark hover:text-gray-900 dark:hover:text-white'
-                } ${item.level === 2 ? 'font-normal' : 'font-medium'}`}>
-                  {item.title}
-                </span>
-              </a>
-            ))}
-          </nav>
+          {tableOfContents.length > 0 && (
+            <>
+              <h3 class="text-gray-600 dark:text-text-secondary-dark text-xs font-bold uppercase tracking-wider mb-4 px-3">On this page</h3>
+              <nav class="flex flex-col gap-1 border-l border-gray-200 dark:border-border-dark">
+                {tableOfContents.map((item, index) => (
+                  <a 
+                    class={`flex items-center gap-3 px-3 py-2 border-l-2 transition-all -ml-[2px] ${
+                      index === 0 
+                        ? 'border-primary bg-primary/5 rounded-r-lg' 
+                        : 'border-transparent hover:border-gray-400 dark:hover:border-text-secondary-dark'
+                    } ${item.level > 1 ? 'pl-6' : ''}`}
+                    href={`#${item.id}`}
+                  >
+                    <span class={`text-sm leading-normal ${
+                      index === 0 
+                        ? 'text-primary font-medium' 
+                        : 'text-gray-600 dark:text-text-secondary-dark hover:text-gray-900 dark:hover:text-white'
+                    } ${item.level > 1 ? 'font-normal' : 'font-medium'}`}>
+                      {item.title}
+                    </span>
+                  </a>
+                ))}
+              </nav>
+            </>
+          )}
           
           <!-- Share Buttons -->
           <div class="mt-8 pt-6 border-t border-gray-200 dark:border-border-dark">
@@ -120,105 +128,65 @@ const relatedPosts = [
         <!-- Article Tags -->
         <div class="flex gap-2 flex-wrap">
           <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 hover:bg-primary/20 cursor-pointer transition-colors px-3 border border-primary/20 hover:border-primary/50">
-            <p class="text-primary text-xs font-semibold uppercase tracking-wide">{article.category}</p>
+            <p class="text-primary text-xs font-semibold uppercase tracking-wide">{post.data.category}</p>
           </div>
-          <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-surface-dark px-3 border border-gray-200 dark:border-border-dark">
-            <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-medium">Architecture</p>
-          </div>
-          <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-surface-dark px-3 border border-gray-200 dark:border-border-dark">
-            <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-medium">Backend</p>
-          </div>
-          <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-surface-dark px-3 border border-gray-200 dark:border-border-dark">
-            <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-medium">Scalability</p>
-          </div>
+          {tags.slice(0, 3).map(tag => (
+            <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-surface-dark px-3 border border-gray-200 dark:border-border-dark">
+              <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-medium">{tag}</p>
+            </div>
+          ))}
         </div>
 
         <!-- Article Header -->
         <div class="flex flex-col gap-4">
           <h1 class="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em]">
-            {article.title}
+            {post.data.title}
           </h1>
           <p class="text-gray-600 dark:text-text-secondary-dark text-lg md:text-xl font-normal leading-relaxed">
-            {article.description}
+            {post.data.description}
           </p>
         </div>
 
         <!-- Author & Meta -->
         <div class="flex items-center justify-between py-4 border-b border-gray-200 dark:border-border-dark">
           <div class="flex gap-4 items-center">
-            <div class="size-12 rounded-full bg-center bg-cover border border-gray-200 dark:border-border-dark shadow-sm" style={`background-image: url("${article.author.avatar}")`}></div>
+            <div class="size-12 rounded-full bg-center bg-cover border border-gray-200 dark:border-border-dark shadow-sm" style={`background-image: url("${post.data.author.avatar}")`}></div>
             <div class="flex flex-col justify-center">
               <div class="flex items-center gap-2">
-                <p class="text-gray-900 dark:text-white text-base font-bold leading-tight">{article.author.name}</p>
+                <p class="text-gray-900 dark:text-white text-base font-bold leading-tight">{post.data.author.name}</p>
                 <span class="material-symbols-outlined text-primary text-[16px]" title="Verified Author">verified</span>
               </div>
-              <p class="text-gray-600 dark:text-text-secondary-dark text-sm font-normal">{article.author.title}</p>
+              <p class="text-gray-600 dark:text-text-secondary-dark text-sm font-normal">Software Engineer</p>
             </div>
           </div>
           <div class="text-gray-600 dark:text-text-secondary-dark text-sm text-right hidden sm:block">
-            <p>Published {article.date}</p>
-            <p>{article.readTime}</p>
+            <p>Published {formatDate(post.data.pubDate)}</p>
+            <p>{post.data.readTime}</p>
           </div>
         </div>
 
+        <!-- Hero Image -->
+        {post.data.image && (
+          <div class="w-full aspect-video rounded-lg overflow-hidden shadow-lg">
+            <img 
+              src={post.data.image} 
+              alt={post.data.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        )}
+
         <!-- Article Content -->
-        <div class="text-gray-700 dark:text-gray-300 space-y-6 leading-8 text-lg font-light tracking-wide mt-2">
-          <p id="intro">
-            <span class="text-gray-900 dark:text-white font-medium">Microservices</span> have become the de-facto standard for building large-scale applications. However, migrating from a monolith is fraught with peril. In this guide, we'll explore the strategic patterns that ensure success.
-          </p>
-          
-          <p>When we talk about distributed systems, the complexity moves from the code to the infrastructure. It's a trade-off that pays dividends only if managed correctly.</p>
-
-          <h2 class="text-gray-900 dark:text-white text-2xl font-bold mt-8 mb-2" id="prerequisites">Prerequisites</h2>
-          <p>Before diving into the code, ensure you have Docker and Kubernetes installed. We will be using Python and FastAPI for our service examples.</p>
-
-          <!-- Code Block -->
-          <div class="my-6 rounded-lg overflow-hidden bg-gray-900 dark:bg-gray-800 border border-gray-700 dark:border-gray-600 shadow-lg">
-            <div class="flex items-center justify-between px-4 py-2 bg-gray-800 dark:bg-gray-700 border-b border-gray-700 dark:border-gray-600">
-              <div class="flex gap-2">
-                <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <span class="text-xs text-gray-400 font-mono">service_setup.sh</span>
-              <button class="flex items-center gap-1 text-xs text-gray-400 hover:text-white transition-colors">
-                <span class="material-symbols-outlined text-[14px]">content_copy</span> Copy
-              </button>
-            </div>
-            <div class="p-4 overflow-x-auto custom-scrollbar font-mono text-sm leading-relaxed text-gray-200">
-              <pre><code class="language-bash"><span class="text-pink-400"># Install dependencies</span>
-<span class="text-blue-400">pip</span> install fastapi uvicorn redis
-<span class="text-pink-400"># Start the redis container</span>
-<span class="text-blue-400">docker</span> run --name redis-cache -d -p 6379:6379 redis:alpine</code></pre>
-            </div>
-          </div>
-
-          <h2 class="text-gray-900 dark:text-white text-2xl font-bold mt-8 mb-2" id="implementation">Implementation</h2>
-          <p>Let's define our core service. We use FastAPI for its asynchronous capabilities which are crucial for high-throughput microservices.</p>
-
-          <!-- Info Box -->
-          <div class="p-5 border-l-4 border-primary bg-primary/5 rounded-r-lg my-6">
-            <div class="flex gap-3">
-              <span class="material-symbols-outlined text-primary">info</span>
-              <div>
-                <h4 class="text-gray-900 dark:text-white font-bold text-sm uppercase tracking-wide mb-1">Architecture Note</h4>
-                <p class="text-sm text-gray-600 dark:text-text-secondary-dark">Avoid sharing the Redis instance between multiple services. Each microservice should own its data store to prevent tight coupling.</p>
-              </div>
-            </div>
-          </div>
-
-          <h3 class="text-gray-900 dark:text-white text-xl font-bold mt-6 mb-2" id="api-gateway">The API Gateway Pattern</h3>
-          <p>An API Gateway acts as a single entry point for all clients. It handles routing, composition, and protocol translation.</p>
-
-          <h2 class="text-gray-900 dark:text-white text-2xl font-bold mt-8 mb-2" id="conclusion">Conclusion</h2>
-          <p>Microservices aren't a silver bullet, but with the right patterns—like the ones discussed here—you can achieve a level of scalability that monolithic applications simply cannot match.</p>
+        <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-primary prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-primary prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-pre:bg-gray-900 dark:prose-pre:bg-gray-800 prose-pre:border prose-pre:border-gray-700">
+          <Content />
         </div>
 
         <!-- Article Footer -->
         <div class="py-8 mt-4 border-t border-gray-200 dark:border-border-dark">
           <div class="flex flex-wrap gap-2 mb-6">
             <span class="text-gray-600 dark:text-text-secondary-dark text-sm mr-2 py-1">Tags:</span>
-            {article.tags.map(tag => (
+            {tags.map(tag => (
               <a class="text-primary text-sm hover:underline" href={`/blog/tag/${tag}`}>#{tag}</a>
             ))}
           </div>
@@ -226,10 +194,13 @@ const relatedPosts = [
 
         <!-- Author Bio -->
         <div class="bg-gray-50 dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-border-dark flex flex-col sm:flex-row gap-6 items-start">
-          <div class="size-20 rounded-full bg-center bg-cover border border-white dark:border-gray-800 shadow-md shrink-0" style={`background-image: url("${article.author.avatar}")`}></div>
+          <div class="size-20 rounded-full bg-center bg-cover border border-white dark:border-gray-800 shadow-md shrink-0" style={`background-image: url("${post.data.author.avatar}")`}></div>
           <div class="flex flex-col">
-            <h3 class="text-gray-900 dark:text-white text-lg font-bold">About {article.author.name}</h3>
-            <p class="text-gray-600 dark:text-text-secondary-dark text-sm mt-2 mb-4">{article.author.bio}</p>
+            <h3 class="text-gray-900 dark:text-white text-lg font-bold">About {post.data.author.name}</h3>
+            <p class="text-gray-600 dark:text-text-secondary-dark text-sm mt-2 mb-4">
+              {post.data.author.name} is a software engineer specializing in {post.data.category.toLowerCase()} development. 
+              Passionate about building scalable applications and sharing knowledge with the developer community.
+            </p>
             <div class="flex gap-3">
               <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href="#" aria-label="Website">
                 <span class="material-symbols-outlined text-xl">language</span>
@@ -245,22 +216,24 @@ const relatedPosts = [
         </div>
 
         <!-- Related Posts -->
-        <div class="pt-8">
-          <h3 class="text-gray-900 dark:text-white text-xl font-bold mb-6">Read Next</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {relatedPosts.map(post => (
-              <div class="flex flex-col gap-3 group cursor-pointer">
-                <div class="aspect-video w-full rounded-lg bg-cover bg-center overflow-hidden shadow-sm" style={`background-image: url("${post.image}")`}>
-                  <div class="w-full h-full bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors"></div>
+        {relatedPosts.length > 0 && (
+          <div class="pt-8">
+            <h3 class="text-gray-900 dark:text-white text-xl font-bold mb-6">Read Next</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {relatedPosts.map(relatedPost => (
+                <div class="flex flex-col gap-3 group cursor-pointer">
+                  <div class="aspect-video w-full rounded-lg bg-cover bg-center overflow-hidden shadow-sm" style={`background-image: url("${relatedPost.image}")`}>
+                    <div class="w-full h-full bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                  </div>
+                  <h4 class="text-gray-900 dark:text-white font-bold group-hover:text-primary transition-colors">
+                    <a href={`/blog/${relatedPost.slug}`}>{relatedPost.title}</a>
+                  </h4>
+                  <p class="text-gray-600 dark:text-text-secondary-dark text-sm line-clamp-2">{relatedPost.description}</p>
                 </div>
-                <h4 class="text-gray-900 dark:text-white font-bold group-hover:text-primary transition-colors">
-                  <a href={`/blog/${post.slug}`}>{post.title}</a>
-                </h4>
-                <p class="text-gray-600 dark:text-text-secondary-dark text-sm line-clamp-2">{post.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </article>
 
       <!-- Right Sidebar -->
@@ -284,15 +257,15 @@ const relatedPosts = [
             <h4 class="text-gray-900 dark:text-white font-bold text-sm uppercase tracking-wide mb-4">Trending Topics</h4>
             <div class="flex flex-col gap-2">
               <a class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" href="#">
-                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">System Design</span>
+                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">Microservices</span>
                 <span class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded">12k</span>
               </a>
               <a class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" href="#">
-                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">Rust Lang</span>
+                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">React</span>
                 <span class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded">8.5k</span>
               </a>
               <a class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" href="#">
-                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">AI Engineering</span>
+                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">DevOps</span>
                 <span class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded">24k</span>
               </a>
             </div>
@@ -302,3 +275,50 @@ const relatedPosts = [
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  .prose {
+    --tw-prose-body: theme('colors.gray.700');
+    --tw-prose-headings: theme('colors.gray.900');
+    --tw-prose-lead: theme('colors.gray.600');
+    --tw-prose-links: theme('colors.blue.600');
+    --tw-prose-bold: theme('colors.gray.900');
+    --tw-prose-counters: theme('colors.gray.500');
+    --tw-prose-bullets: theme('colors.gray.300');
+    --tw-prose-hr: theme('colors.gray.200');
+    --tw-prose-quotes: theme('colors.gray.900');
+    --tw-prose-quote-borders: theme('colors.gray.200');
+    --tw-prose-captions: theme('colors.gray.500');
+    --tw-prose-code: theme('colors.blue.600');
+    --tw-prose-pre-code: theme('colors.gray.200');
+    --tw-prose-pre-bg: theme('colors.gray.900');
+    --tw-prose-th-borders: theme('colors.gray.300');
+    --tw-prose-td-borders: theme('colors.gray.200');
+  }
+
+  .dark .prose {
+    --tw-prose-body: theme('colors.gray.300');
+    --tw-prose-headings: theme('colors.white');
+    --tw-prose-lead: theme('colors.gray.400');
+    --tw-prose-links: theme('colors.blue.400');
+    --tw-prose-bold: theme('colors.white');
+    --tw-prose-counters: theme('colors.gray.400');
+    --tw-prose-bullets: theme('colors.gray.600');
+    --tw-prose-hr: theme('colors.gray.700');
+    --tw-prose-quotes: theme('colors.gray.100');
+    --tw-prose-quote-borders: theme('colors.gray.700');
+    --tw-prose-captions: theme('colors.gray.400');
+    --tw-prose-code: theme('colors.blue.400');
+    --tw-prose-pre-code: theme('colors.gray.200');
+    --tw-prose-pre-bg: theme('colors.gray.800');
+    --tw-prose-th-borders: theme('colors.gray.600');
+    --tw-prose-td-borders: theme('colors.gray.700');
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

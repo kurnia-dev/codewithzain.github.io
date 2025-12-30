@@ -1,0 +1,19 @@
+---
+import { iconToCssClass } from '../utils/iconMapping';
+
+export interface Props {
+  name: string;
+  class?: string;
+  size?: string | number;
+}
+
+const { name, class: className = '', size } = Astro.props;
+
+const iconClass = iconToCssClass(name);
+const sizeStyle = size ? `width: ${typeof size === 'number' ? size + 'px' : size}; height: ${typeof size === 'number' ? size + 'px' : size};` : '';
+---
+
+<span 
+  class={`icon-${iconClass} ${className}`}
+  style={sizeStyle}
+></span>

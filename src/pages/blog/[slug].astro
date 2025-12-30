@@ -55,6 +55,7 @@ const generateTags = (category: string, title: string) => {
 };
 
 const tags = generateTags(post.data.category, post.data.title);
+import Icon from '../../components/Icon.astro';
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} currentPath={`/blog/${post.id}`}>
@@ -95,13 +96,13 @@ const tags = generateTags(post.data.category, post.data.title);
             <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-bold mb-3">Share this article</p>
             <div class="flex gap-2">
               <button class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors">
-                <span class="material-symbols-outlined text-[18px]">share</span>
+                <Icon name="share" class="text-[18px]" />
               </button>
               <button class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors">
-                <span class="material-symbols-outlined text-[18px]">favorite</span>
+                <Icon name="favorite" class="text-[18px]" />
               </button>
               <button class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors">
-                <span class="material-symbols-outlined text-[18px]">bookmark</span>
+                <Icon name="bookmark" class="text-[18px]" />
               </button>
             </div>
           </div>
@@ -140,7 +141,7 @@ const tags = generateTags(post.data.category, post.data.title);
             <div class="flex flex-col justify-center">
               <div class="flex items-center gap-2">
                 <p class="text-gray-900 dark:text-white text-base font-bold leading-tight">{post.data.author.name}</p>
-                <span class="material-symbols-outlined text-primary text-[16px]" title="Verified Author">verified</span>
+                <Icon name="verified" class="text-primary text-[16px]" />
               </div>
               <p class="text-gray-600 dark:text-text-secondary-dark text-sm font-normal">Software Engineer</p>
             </div>
@@ -189,7 +190,7 @@ const tags = generateTags(post.data.category, post.data.title);
             </p>
             <div class="flex gap-3">
               <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href="#" aria-label="Website">
-                <span class="material-symbols-outlined text-xl">language</span>
+                <Icon name="language" class="text-xl" />
               </a>
               <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href="#" aria-label="Twitter">
                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
@@ -228,7 +229,7 @@ const tags = generateTags(post.data.category, post.data.title);
           <!-- Newsletter Widget -->
           <div class="bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl p-6 shadow-sm">
             <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
-              <span class="material-symbols-outlined">mail</span>
+              <Icon name="mail" />
             </div>
             <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Join the inner circle</h3>
             <p class="text-gray-600 dark:text-text-secondary-dark text-sm mb-4">Get the latest tutorials and insights delivered to your inbox weekly. No spam.</p>

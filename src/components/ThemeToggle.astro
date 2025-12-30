@@ -1,5 +1,6 @@
 ---
 // Theme toggle component
+import Icon from './Icon.astro';
 ---
 
 <button 
@@ -7,8 +8,112 @@
   class="flex items-center justify-center size-10 rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:border-primary dark:hover:border-primary transition-all shadow-sm hover:shadow-md"
   title="Toggle theme"
 >
-  <span class="material-symbols-outlined theme-icon">dark_mode</span>
+  <Icon name="dark_mode" class="theme-icon" />
 </button>
+
+<script>
+  class ThemeToggle {
+    private button: HTMLButtonElement | null = null;
+    private icon: HTMLElement | null = null;
+    private currentTheme: string = 'light';
+
+    constructor() {
+      this.init();
+    }
+
+    private init(): void {
+      this.button = document.querySelector('[data-theme-toggle]') as HTMLButtonElement;
+      this.icon = this.button?.querySelector('.theme-icon') as HTMLElement;
+      
+      if (!this.button || !this.icon) return;
+
+      // Get initial theme
+      this.currentTheme = this.getStoredTheme() || this.getSystemTheme();
+      this.updateIcon(this.currentTheme);
+
+      // Setup click handler
+      this.button.addEventListener('click', this.handleToggle.bind(this));
+
+      // Listen for theme changes from other sources
+      window.addEventListener('theme-changed', this.handleThemeChange.bind(this));
+    }
+
+    private handleToggle(): void {
+      this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+      this.applyTheme(this.currentTheme);
+      this.updateIcon(this.currentTheme);
+      
+      // Dispatch custom event for other components
+      window.dispatchEvent(new CustomEvent('theme-changed', { 
+        detail: { theme: this.currentTheme } 
+      }));
+    }
+
+    private handleThemeChange(event: CustomEvent): void {
+      const { theme } = event.detail;
+      if (theme !== this.currentTheme) {
+        this.currentTheme = theme;
+        this.updateIcon(theme);
+      }
+    }
+
+    private updateIcon(theme: string): void {
+      if (!this.icon) return;
+      
+      // Remove all existing icon classes
+      this.icon.className = this.icon.className.replace(/icon-[^\s]+/g, '').trim();
+      
+      // Add theme-icon class back and new icon class
+      const iconName = theme === 'dark' ? 'light_mode' : 'dark_mode';
+      const iconMapping: Record<string, string> = {
+        'light_mode': 'icon-material-symbols-light-mode',
+        'dark_mode': 'icon-material-symbols-dark-mode'
+      };
+      
+      this.icon.className = `theme-icon ${iconMapping[iconName]}`;
+    }
+
+    private applyTheme(theme: string): void {
+      const root = document.documentElement;
+      
+      if (theme === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+      
+      // Store theme preference
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('theme', theme);
+      }
+    }
+
+    private getStoredTheme(): string | null {
+      if (typeof localStorage !== 'undefined') {
+        return localStorage.getItem('theme');
+      }
+      return null;
+    }
+
+    private getSystemTheme(): string {
+      if (typeof window !== 'undefined' && window.matchMedia) {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      return 'light';
+    }
+  }
+
+  // Initialize theme toggle when DOM is ready
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        new ThemeToggle();
+      });
+    } else {
+      new ThemeToggle();
+    }
+  }
+</script>
 
 <style>
   [data-theme-toggle] {

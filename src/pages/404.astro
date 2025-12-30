@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 ---
 
 <BaseLayout title="Page Not Found" currentPath="/404">
@@ -8,7 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <!-- 404 Illustration -->
       <div class="mb-8">
         <div class="inline-flex items-center justify-center size-32 rounded-full bg-primary/10 text-primary mb-6">
-          <span class="material-symbols-outlined text-6xl">search_off</span>
+          <Icon name="search_off" class="text-6xl" />
         </div>
         <h1 class="text-6xl md:text-8xl font-black text-gray-900 dark:text-white mb-4">
           404
@@ -31,14 +32,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           href="/"
           class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-lg shadow-primary/20"
         >
-          <span class="material-symbols-outlined text-[20px]">home</span>
+          <Icon name="home" class="text-[20px]" />
           Go Home
         </a>
         <button 
           class="inline-flex items-center gap-2 bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark text-gray-900 dark:text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           data-go-back
         >
-          <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+          <Icon name="arrow_back" class="text-[20px]" />
           Go Back
         </button>
       </div>

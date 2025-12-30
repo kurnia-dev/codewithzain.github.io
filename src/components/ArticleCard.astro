@@ -26,6 +26,7 @@ const categoryColors: Record<string, string> = {
 };
 
 const categoryColor = categoryColors[category] || 'bg-primary/90';
+import Icon from './Icon.astro';
 ---
 
 <article class="group flex flex-col bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
@@ -49,12 +50,12 @@ const categoryColor = categoryColors[category] || 'bg-primary/90';
     <!-- Meta -->
     <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-text-secondary-dark mb-3 font-medium">
       <span class="flex items-center gap-1">
-        <span class="material-symbols-outlined text-[16px]">calendar_today</span> 
+        <Icon name="calendar_today" class="text-[16px]" /> 
         {date}
       </span>
       <span>•</span>
       <span class="flex items-center gap-1">
-        <span class="material-symbols-outlined text-[16px]">schedule</span> 
+        <Icon name="schedule" class="text-[16px]" /> 
         {readTime}
       </span>
     </div>

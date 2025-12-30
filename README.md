@@ -15,7 +15,7 @@ A modern, responsive blog built with Astro, featuring light/dark mode toggle and
 
 - **Framework**: [Astro](https://astro.build/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Icons**: [Material Symbols](https://fonts.google.com/icons)
+- **Icons**: [Iconify](https://iconify.design/) (Optimized loading)
 - **Fonts**: [Inter](https://fonts.google.com/specimen/Inter)
 - **Package Manager**: pnpm
 
@@ -71,13 +71,20 @@ src/
 
 ## 🌙 Theme System
 
-The blog features a sophisticated theme system that:
+The blog features a sophisticated, event-driven theme system that:
 
-- Detects system preference on first visit
-- Persists user choice in localStorage
-- Prevents flash of unstyled content (FOUC)
-- Smoothly transitions between themes
-- Updates all UI elements consistently
+- **Self-Contained Components**: Each component manages its own theme logic
+- **Event-Driven Architecture**: Uses custom events for component communication
+- **No Manual DOM Queries**: Components handle their own DOM updates
+- **Prevents FOUC**: Inline script for immediate theme application
+- **Extensible**: Easy to add new theme-aware components
+- **Smooth Transitions**: CSS transitions between themes
+- **Persistent Storage**: Remembers user preference in localStorage
+
+### Architecture
+- **BaseLayout**: Handles initial theme setup and FOUC prevention
+- **ThemeToggle**: Self-contained component with internal state management
+- **Custom Events**: `theme-changed` event for component communication
 
 ## 🚀 Getting Started
 
@@ -166,6 +173,8 @@ The blog is fully responsive with:
 - `pnpm dev` - Start development server
 - `pnpm build` - Build for production
 - `pnpm preview` - Preview production build
+- `pnpm generate-icons` - Generate optimized icon CSS
+- `pnpm replace-icons` - Replace material-symbols with Icon components
 
 ### Code Style
 

@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE } from '../consts';
+import Icon from './Icon.astro';
 ---
 
 <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mt-auto">
@@ -20,13 +21,13 @@ import { SITE_TITLE } from '../consts';
         </p>
         <div class="flex gap-4">
           <a class="text-gray-400 hover:text-primary transition-colors" href="#" aria-label="Website">
-            <span class="material-symbols-outlined">public</span>
+            <Icon name="public" />
           </a>
           <a class="text-gray-400 hover:text-primary transition-colors" href="#" aria-label="RSS Feed">
-            <span class="material-symbols-outlined">rss_feed</span>
+            <Icon name="rss_feed" />
           </a>
           <a class="text-gray-400 hover:text-primary transition-colors" href="#" aria-label="Email">
-            <span class="material-symbols-outlined">alternate_email</span>
+            <Icon name="alternate_email" />
           </a>
         </div>
       </div>

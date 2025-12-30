@@ -30,6 +30,7 @@ if (dataMeta) {
 const filename = meta.filename || meta.title;
 const showLineNumbers = meta.lines !== 'false'; // Default to true unless explicitly set to false
 const uniqueId = `code-${Math.random().toString(36).substr(2, 9)}`;
+import Icon from './Icon.astro';
 ---
 
 <div class="code-snippet-wrapper">
@@ -54,7 +55,7 @@ const uniqueId = `code-${Math.random().toString(36).substr(2, 9)}`;
       data-code={dataCode}
       aria-label="Copy code to clipboard"
     >
-      <span class="material-symbols-outlined">content_copy</span>
+      <Icon name="content_copy" />
       <span class="copy-text">Copy</span>
     </button>
   </div>

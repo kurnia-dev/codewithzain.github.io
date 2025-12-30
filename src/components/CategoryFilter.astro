@@ -1,11 +1,13 @@
 ---
 import { CATEGORIES } from '../consts';
+import { getIconClass } from '../utils/iconMapping';
 
 interface Props {
   activeCategory?: string;
 }
 
 const { activeCategory = 'all' } = Astro.props;
+import Icon from './Icon.astro';
 ---
 
 <div>
@@ -21,7 +23,7 @@ const { activeCategory = 'all' } = Astro.props;
         href={category.slug === 'all' ? '/blog' : `/blog/category/${category.slug}`}
       >
         <span class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-[20px]">{category.icon}</span>
+          <span class={getIconClass(category.icon, 'text-[20px]')}></span>
           {category.name}
         </span>
         <span class={`text-xs py-0.5 px-2 rounded-full ${

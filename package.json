@@ -6,12 +6,17 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-icons": "node scripts/generate-all-icons.js",
+    "replace-icons": "node scripts/replace-icons.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
+    "@iconify/icons-material-symbols": "^1.2.58",
+    "@iconify/json": "^2.2.422",
+    "@iconify/utils": "^3.1.0",
     "@shikijs/transformers": "^3.20.0",
     "astro": "^5.16.6",
     "sharp": "^0.34.3",

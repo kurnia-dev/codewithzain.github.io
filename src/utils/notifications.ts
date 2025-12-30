@@ -89,13 +89,13 @@ export class NotificationManager {
     const iconHtml = options.icon || this.getDefaultIcon(type);
     const closeButton = options.closable ? `
       <button class="ml-auto flex-shrink-0 text-current opacity-70 hover:opacity-100 transition-opacity" data-close>
-        <span class="material-symbols-outlined text-[20px]">close</span>
+        <span class="icon-material-symbols-close text-[20px]"></span>
       </button>
     ` : '';
 
     notification.innerHTML = `
       <div class="flex-shrink-0">
-        <span class="material-symbols-outlined text-[20px]">${iconHtml}</span>
+        <span class="icon-material-symbols-${iconHtml} text-[20px]"></span>
       </div>
       <div class="flex-1 text-sm font-medium leading-relaxed">
         ${message}
@@ -130,7 +130,7 @@ export class NotificationManager {
 
   private getDefaultIcon(type: NotificationType): string {
     const icons = {
-      success: 'check_circle',
+      success: 'check-circle',
       error: 'error',
       warning: 'warning',
       info: 'info'

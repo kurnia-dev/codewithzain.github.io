@@ -14,10 +14,11 @@ const {
 
 // Generate unique ID for this instance
 const formId = `newsletter-${Math.random().toString(36).substr(2, 9)}`;
+import Icon from './Icon.astro';
 ---
 
 <div class="mt-4 p-6 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark shadow-sm">
-  <span class="material-symbols-outlined text-4xl mb-3 text-primary">mail</span>
+  <Icon name="mail" class="text-4xl mb-3 text-primary" />
   <h4 class="font-bold text-lg mb-2 text-gray-900 dark:text-white">{title}</h4>
   <p class="text-sm text-gray-600 dark:text-text-secondary-dark mb-4">
     {description}

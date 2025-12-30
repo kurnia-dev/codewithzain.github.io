@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CATEGORIES } from '../consts';
+import { getIconClass } from '../utils/iconMapping';
 
 const topicsWithDescription = CATEGORIES.filter(cat => cat.slug !== 'all').map(cat => ({
   ...cat,
@@ -17,6 +18,7 @@ function getTopicDescription(slug: string): string {
   };
   return descriptions[slug] || 'Explore articles and tutorials on this topic.';
 }
+import Icon from '../components/Icon.astro';
 ---
 
 <BaseLayout title="Topics" currentPath="/topics">
@@ -40,7 +42,7 @@ function getTopicDescription(slug: string): string {
         >
           <div class="flex items-center gap-4 mb-4">
             <div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-              <span class="material-symbols-outlined text-2xl">{topic.icon}</span>
+              <span class={getIconClass(topic.icon, 'text-2xl')}></span>
             </div>
             <div>
               <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
@@ -145,7 +147,7 @@ function getTopicDescription(slug: string): string {
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xl font-bold text-gray-900 dark:text-white">Suggest a Topic</h3>
           <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" data-close-modal>
-            <span class="material-symbols-outlined">close</span>
+            <Icon name="close" />
           </button>
         </div>
         

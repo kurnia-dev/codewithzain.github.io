@@ -12,6 +12,7 @@ const {
 
 // Generate unique ID for this instance
 const searchId = `search-${Math.random().toString(36).substr(2, 9)}`;
+import Icon from './Icon.astro';
 ---
 
 <div class="relative w-full">
@@ -29,7 +30,7 @@ const searchId = `search-${Math.random().toString(36).substr(2, 9)}`;
       type="button"
       data-search-button
     >
-      <span class="material-symbols-outlined">search</span>
+      <Icon name="search" />
     </button>
   </div>
 </div>

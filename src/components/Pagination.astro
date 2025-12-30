@@ -60,6 +60,7 @@ const getPageUrl = (page: number): string => {
   if (page === 1) return baseUrl;
   return `${baseUrl}/page/${page}`;
 };
+import Icon from './Icon.astro';
 ---
 
 <div class="flex flex-col items-center mt-12 gap-4">
@@ -84,7 +85,7 @@ const getPageUrl = (page: number): string => {
       data-url={currentPage > 1 ? getPageUrl(currentPage - 1) : null}
       aria-label="Previous page"
     >
-      <span class="material-symbols-outlined">chevron_left</span>
+      <Icon name="chevron_left" />
     </button>
 
     <!-- Page Numbers -->
@@ -120,7 +121,7 @@ const getPageUrl = (page: number): string => {
       data-url={currentPage < totalPages ? getPageUrl(currentPage + 1) : null}
       aria-label="Next page"
     >
-      <span class="material-symbols-outlined">chevron_right</span>
+      <Icon name="chevron_right" />
     </button>
   </div>
 </div>

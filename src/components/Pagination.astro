@@ -57,8 +57,8 @@ const pageNumbers = generatePageNumbers(currentPage, totalPages);
 
 // Helper function to generate URL for a page
 const getPageUrl = (page: number): string => {
-  if (page === 1) return baseUrl;
-  return `${baseUrl}/page/${page}`;
+  if (page === 1) return '/';
+  return `/blog/page/${page}`;
 };
 import Icon from './Icon.astro';
 ---

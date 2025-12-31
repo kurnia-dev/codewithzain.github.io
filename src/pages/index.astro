@@ -1,12 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogListing from '../components/BlogListing.astro';
-import { formatDate } from '../utils/date';
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogListing from "../components/BlogListing.astro";
+import { formatDate } from "../utils/date";
+
+// Page content
+const pageTitle = "Latest Engineering Thoughts";
+const pageDescription =
+  "Deep dives into code, architecture, and the future of software development. Curated by engineers, for engineers.";
 
 // Get all blog posts and sort by date (newest first)
-const allPosts = await getCollection('blog');
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allPosts = await getCollection("blog");
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 
 // Pagination settings for page 1
 const POSTS_PER_PAGE = 9;
@@ -20,7 +27,7 @@ const endIndex = startIndex + POSTS_PER_PAGE;
 const currentPosts = sortedPosts.slice(startIndex, endIndex);
 
 // Transform posts to match ArticleCard props
-const articles = currentPosts.map(post => ({
+const articles = currentPosts.map((post) => ({
   title: post.data.title,
   excerpt: post.data.excerpt,
   category: post.data.category,
@@ -28,20 +35,17 @@ const articles = currentPosts.map(post => ({
   readTime: post.data.readTime,
   image: post.data.image,
   author: post.data.author,
-  slug: post.id
+  slug: post.id,
 }));
 ---
 
-<BaseLayout 
-  title="Latest Engineering Thoughts"
-  description="Deep dives into code, architecture, and the future of software development. Curated by engineers, for engineers."
-  currentPath="/"
->
-  <BlogListing 
+<BaseLayout title={pageTitle} description={pageDescription} currentPath="/">
+  <BlogListing
     articles={articles}
     currentPage={currentPage}
     totalPages={totalPages}
     totalPosts={totalPosts}
+    pageTitle={pageTitle}
+    pageDescription={pageDescription}
   />
 </BaseLayout>
-

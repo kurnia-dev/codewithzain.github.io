@@ -1,29 +1,36 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import BlogListing from '../../../components/BlogListing.astro';
-import { formatDate } from '../../../utils/date';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BlogListing from "../../../components/BlogListing.astro";
+import { formatDate } from "../../../utils/date";
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
-  const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-  
+  const allPosts = await getCollection("blog");
+  const sortedPosts = allPosts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+
   const POSTS_PER_PAGE = 9;
   const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
-  
+
   // Generate pages 2 and above (page 1 is handled by /blog/index.astro)
   return Array.from({ length: totalPages - 1 }, (_, i) => ({
     params: { page: String(i + 2) },
-    props: { 
+    props: {
       posts: sortedPosts,
       currentPage: i + 2,
       totalPages,
-      postsPerPage: POSTS_PER_PAGE
-    }
+      postsPerPage: POSTS_PER_PAGE,
+    },
   }));
 }
 
 const { posts, currentPage, totalPages, postsPerPage } = Astro.props;
+
+// Page content
+const pageTitle = "Latest Engineering Thoughts";
+const pageDescription =
+  "Deep dives into code, architecture, and the future of software development. Curated by engineers, for engineers.";
 
 // Get posts for current page
 const startIndex = (currentPage - 1) * postsPerPage;
@@ -31,7 +38,7 @@ const endIndex = startIndex + postsPerPage;
 const currentPosts = posts.slice(startIndex, endIndex);
 
 // Transform posts to match ArticleCard props
-const articles = currentPosts.map(post => ({
+const articles = currentPosts.map((post) => ({
   title: post.data.title,
   excerpt: post.data.excerpt,
   category: post.data.category,
@@ -39,19 +46,21 @@ const articles = currentPosts.map(post => ({
   readTime: post.data.readTime,
   image: post.data.image,
   author: post.data.author,
-  slug: post.id
+  slug: post.id,
 }));
 ---
 
-<BaseLayout 
-  title={`All Articles - Page ${currentPage}`}
-  description="Explore our complete collection of articles covering software development, architecture, and engineering best practices."
+<BaseLayout
+  title={`${pageTitle} - Page ${currentPage}`}
+  description={pageDescription}
   currentPath="/blog"
 >
-  <BlogListing 
+  <BlogListing
     articles={articles}
     currentPage={currentPage}
     totalPages={totalPages}
     totalPosts={posts.length}
+    pageTitle={pageTitle}
+    pageDescription={pageDescription}
   />
 </BaseLayout>

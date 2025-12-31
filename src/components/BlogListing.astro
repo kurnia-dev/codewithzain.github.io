@@ -1,10 +1,10 @@
 ---
-import ArticleCard from './ArticleCard.astro';
-import CategoryFilter from './CategoryFilter.astro';
-import SearchBox from './SearchBox.astro';
-import Newsletter from './Newsletter.astro';
-import Pagination from './Pagination.astro';
-import { CATEGORIES } from '../consts';
+import ArticleCard from "./ArticleCard.astro";
+import CategoryFilter from "./CategoryFilter.astro";
+import SearchBox from "./SearchBox.astro";
+import Newsletter from "./Newsletter.astro";
+import Pagination from "./Pagination.astro";
+import { CATEGORIES } from "../consts";
 
 interface Props {
   articles: Array<{
@@ -23,20 +23,26 @@ interface Props {
   currentPage: number;
   totalPages: number;
   totalPosts: number;
+  pageTitle: string;
+  pageDescription: string;
 }
 
-const { articles, currentPage, totalPages, totalPosts } = Astro.props;
+const { articles, currentPage, totalPages, totalPosts, pageTitle, pageDescription } = Astro.props;
 ---
 
 <div class="w-full max-w-[1440px] mx-auto px-4 md:px-10 lg:px-40 py-10">
   <!-- Header Section -->
   <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
     <div class="flex flex-col max-w-[700px]">
-      <h1 class="text-gray-900 dark:text-white tracking-tight text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-        All Articles
+      <h1
+        class="text-gray-900 dark:text-white tracking-tight text-3xl md:text-5xl font-extrabold leading-tight mb-4"
+      >
+        {pageTitle}
       </h1>
-      <p class="text-gray-600 dark:text-text-secondary-dark text-lg leading-relaxed">
-        Explore our complete collection of {totalPosts} articles covering software development, architecture, and engineering best practices.
+      <p
+        class="text-gray-600 dark:text-text-secondary-dark text-lg leading-relaxed"
+      >
+        {pageDescription}
       </p>
     </div>
   </div>
@@ -46,10 +52,10 @@ const { articles, currentPage, totalPages, totalPosts } = Astro.props;
     <aside class="w-full lg:w-1/4 flex flex-col gap-8 flex-shrink-0">
       <!-- Search -->
       <SearchBox />
-      
+
       <!-- Categories -->
       <CategoryFilter activeCategory="all" />
-      
+
       <!-- Newsletter -->
       <Newsletter />
     </aside>
@@ -58,33 +64,37 @@ const { articles, currentPage, totalPages, totalPosts } = Astro.props;
     <div class="flex-1">
       <!-- Mobile Category Filters -->
       <div class="flex gap-2 mb-8 overflow-x-auto pb-2 lg:hidden no-scrollbar">
-        {CATEGORIES.map(category => (
-          <button class={`whitespace-nowrap h-8 px-4 rounded-full text-sm font-medium transition-colors ${
-            category.slug === 'all'
-              ? 'bg-primary text-white shadow-sm'
-              : 'bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-gray-50 dark:hover:bg-gray-800'
-          }`}>
-            {category.name}
-          </button>
-        ))}
+        {
+          CATEGORIES.map((category) => (
+            <button
+              class={`whitespace-nowrap h-8 px-4 rounded-full text-sm font-medium transition-colors ${
+                category.slug === "all"
+                  ? "bg-primary text-white shadow-sm"
+                  : "bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-gray-50 dark:hover:bg-gray-800"
+              }`}
+            >
+              {category.name}
+            </button>
+          ))
+        }
       </div>
 
       <!-- Articles Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {articles.map(article => (
-          <ArticleCard {...article} />
-        ))}
+        {articles.map((article) => <ArticleCard {...article} />)}
       </div>
 
       <!-- Pagination -->
-      {totalPages > 1 && (
-        <Pagination 
-          currentPage={currentPage}
-          totalPages={totalPages}
-          baseUrl="/blog"
-          showInfo={true}
-        />
-      )}
+      {
+        totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl="/blog"
+            showInfo={true}
+          />
+        )
+      }
     </div>
   </div>
 </div>

@@ -19,7 +19,7 @@ import Icon from './Icon.astro';
   <label class="sr-only">Search</label>
   <div class="flex w-full items-center rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all shadow-sm">
     <input 
-      class="w-full bg-transparent text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-text-secondary-dark border-none focus:ring-0 h-12 px-4 text-base" 
+      class="w-full outline-none bg-transparent text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-text-secondary-dark border-none focus:ring-0 h-12 px-4 text-base" 
       placeholder={placeholder}
       type="search"
       id={searchId}
@@ -30,7 +30,7 @@ import Icon from './Icon.astro';
       type="button"
       data-search-button
     >
-      <Icon name="search" />
+      <Icon name="search" class='text-xl' />
     </button>
   </div>
 </div>

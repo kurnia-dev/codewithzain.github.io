@@ -6,9 +6,6 @@ category: "Front-end"
 pubDate: "2023-10-22"
 readTime: "8 min read"
 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAprB24xdkeeyPsvWJ3s8tejabGUPGwQiTvEUDeWYwYDLCVPjJh9nZNCofOg7DXrlDbLVihMwqEljjVdeAmaiD7rKJw9nhO9fEygg7KZcQfTiJTFIy8BfedfNB6yJ0TErZgY8-6e_eLoTrddsbuDDUVy-ZjynW75s58-9-6irrxTyddW84P6mJ3ib8gi1iDD65KQKUgitXk1Inz36Pj4JBNDK03TUO9BAMOQuvyKjy13x2JFV0DRstKQ1wvhoadapxNdkbDn-tTdjoc"
-author:
-  name: "Alex Chen"
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuCnMQok1iy21U79yAcJy2L4Fr6KawelmC8saBdqc6yiu8R57plwR1xCkkcc0YCTw1sV7750lzsWSebCwU6_GmNRe18UwmSN8cJSvjTch-6nBbuQgwn-CIkj1k4zxq1YVMFM0SmjyvUT48iBVvaRDsGb6mobT_pugBKF0C060ZiAnj4DIzg7Wg9Iy_UPgKZB2etmysgjxoZKwUNPo9bLF-T_XFi5zflVedgw6YbbZGcv1rGVlR-HnGHcTjvSaTpoRXITlpcaPBSloMba"
 ---
 
 # React Server Components: A Deep Dive

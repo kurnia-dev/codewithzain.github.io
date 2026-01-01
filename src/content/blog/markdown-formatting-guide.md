@@ -6,9 +6,6 @@ category: "Documentation"
 pubDate: "2023-12-26"
 readTime: "15 min read"
 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDBp1O1gV3Gp8YmL7T5QUAKuJLYxxWqKv_Cl1wx2S56D4QKR1Zuirt10C6k9zQ2wgl6V8D3iWjNAHrprdQs-qgprkqcuv22kq0LkHDYNl1hgsh33BJrc-67dlGv4FidPCV6vlAH5bJQfwMByeZum9M-CHtER20x8EDQ46-avzJuhrKHgAoYwtEEJOH-a5KZZXMTy5X0_zdSA1j08oXsh6bsJ7Qa9dkY0FGz7v1gSlKQmYVG0qnAckqb7BOlBvqYKSmpLl14su5zXVmx"
-author:
-  name: "Documentation Team"
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZun9fH48vVjv9_i43k-0FiO1AhhnDWLQoGQJsPxdCxyR2VxQKj9svixqhgij7l6isB-IWVqzx4E3E7cc9CPiRsYvxikvSapHhp-FLrbKhVq-k2PKnkP8lDBh0O6sP4fZoW5yy-F3Iauf1nqfHOmxKNFe09xTPsylaA43hmQQ399dDm5iSTymcXoXGWrAoq9KVFg1J1rAtW3qQjIaubQxABCT_Su22Kf-tSUNTKym9R7_kLc2A4k_Owtfo6xAqkwncKPjr8Fh0kVab"
 ---
 
 # Complete Markdown Formatting Guide

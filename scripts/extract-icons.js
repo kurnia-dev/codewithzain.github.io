@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getIconData, iconExists } from '@iconify/utils';
+import { getIconData } from '@iconify/utils';
 import { locate } from '@iconify/json';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +36,22 @@ const iconMapping = {
   'schedule': 'material-symbols:schedule',
   'rocket_launch': 'material-symbols:rocket-launch',
   
+  // Social Media Icons
+  'github': 'mdi:github',
+  'linkedin': 'mdi:linkedin',
+  'email': 'material-symbols:mail-outline',
+  
+  // Additional icons used in the project
+  'grid_view': 'material-symbols:grid-view',
+  'smartphone': 'material-symbols:smartphone',
+  'dns': 'material-symbols:dns',
+  'account_tree': 'material-symbols:account-tree',
+  'bug_report': 'material-symbols:bug-report',
+  'palette': 'material-symbols:palette',
+  'description': 'material-symbols:description',
+  'devices': 'material-symbols:devices',
+  'cloud': 'material-symbols:cloud-outline',
+  
   // Categories/Topics (common ones)
   'javascript': 'logos:javascript',
   'react': 'logos:react',
@@ -49,7 +65,6 @@ const iconMapping = {
   'performance': 'material-symbols:speed',
   'mobile': 'material-symbols:smartphone',
   'web': 'material-symbols:web',
-  'cloud': 'material-symbols:cloud-outline',
   'ai': 'material-symbols:psychology-outline',
   'tutorial': 'material-symbols:school-outline',
   'tips': 'material-symbols:lightbulb-outline',
@@ -79,11 +94,11 @@ function scanForIcons(dir, icons = new Set()) {
         });
       }
       
-      // Find icon references in data/config
-      const iconMatches = content.match(/icon:\s*["']([^"']+)["']/g);
-      if (iconMatches) {
-        iconMatches.forEach(match => {
-          const iconName = match.match(/["']([^"']+)["']/)?.[1];
+      // Find Icon component usage
+      const iconComponentMatches = content.match(/<Icon\s+name=["']([^"']+)["']/g);
+      if (iconComponentMatches) {
+        iconComponentMatches.forEach(match => {
+          const iconName = match.match(/name=["']([^"']+)["']/)?.[1];
           if (iconName) {
             icons.add(iconName);
           }

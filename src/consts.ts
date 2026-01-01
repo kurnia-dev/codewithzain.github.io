@@ -10,7 +10,11 @@ export const AUTHOR = {
   name: 'Zain Kurnia',
   title: 'Software Engineer',
   bio: 'I build scalable applications across the full stack. From pixel-perfect front-ends to robust back-end systems and reliable QA automation.',
-  avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBtfPAbMu53K0gW05dgcUu6NONOtRKvZ3jZc1u-iPc80snWeKs7zviN66Pt5jXvSmmPm_M8sgMlsWBSySgyAc9D-pGWoz6Iy0WJQ26axXCAR_MiTXiGNG2yf_Jn--IvgxxMcY-3z8s7rNm7plvluGuu6ofABuJDTWo7B7DWlW_tH6FFYfjHEqUYxQPRlH85jP_fOnaF66kTdEDWATgCt-MK92CaAxkv932lrcSFc1vPOp4y6EOLo8dWksVFX7TkoQIYx-YH8e_1NRhs',
+  avatar: {
+    small: '/profile-48x48.png',    // For Post Meta component
+    medium: '/profile-80x80.png',    // For AuthorBio component
+    large: '/profile-312x312.png'   // For About page
+  },
   social: {
     github: '#',
     linkedin: '#',

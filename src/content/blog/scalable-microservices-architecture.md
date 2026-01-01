@@ -6,9 +6,6 @@ category: "Back-end"
 pubDate: "2023-10-15"
 readTime: "12 min read"
 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBHRnUAmCJ08PY6iaInu3W2t7bAx4XZRsXcPpGEKiyhw3XMaX9M0RfkJ6sm8TYzTnknPev9rMCRTh64CYz2s1CGr8MyQ5OeBfLGfxs1G5rcOlKW6DcLiqYXO6t5wd0MtKrqwjpxgWJDHLjVzMyFXUSLLH00yFs6miBTiqa4a9s_eLvRTD5feJMG5RbNhVHDKN9KFcrR7HKvGwDfl1jmP9Uc4GZPUBa1yNf17dyAR3J9A7QKbsDQ4SBsJkNY38bosH_J-mvdZTfeDT-u"
-author:
-  name: "Maria Garcia"
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDnHdhb_wB_D6akzOvIzwz3cr070cwIjeNs75k6E4ugMbZDUvACtB85gzQBP1IyVVnLsdSA34DszUypgAtgtEZk0hJ8BgevnpdHbsslSvZN56Tx6Pn5phQKeonW-GysE_ayW-01eKESeIz39dZkwzlJD79GUUIeEN0xr7TpjhZgEwufhkgwcI0bm2rjfeSkzcJIRcTEaMRy5K5G8xZT637no_cqc9m3LAZFfr4x7tCQtge5TnJ2siOkTI69cadYpb271ScvoWlwrjo-"
 ---
 
 # Scalable Microservices Architecture

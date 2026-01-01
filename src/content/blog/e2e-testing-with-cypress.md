@@ -6,9 +6,6 @@ category: "QA"
 pubDate: "2023-10-10"
 readTime: "7 min read"
 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDz5-An-IQPz88m2jgxF-i-F1OzamJ0uMf7uN7VvQ76DjbcLFqMJeH-yiPpB7ilE6xJkwbE1QWSBbJJsUYNtTup4AKyM-NFqqvfu3gNhQssxiu1Gx6-8AO3HIfqnAigyLwI4A7NSUKtAk3mOVpgNKw8N7Bjn4_p6EJJfdHNyrLIlpAUQSCszRREI2A8TJ0GCV-k8TH6caqZdrXeNSEoHLjIW5LdvAjU2U6irGr6aVnCXW_uqnHWjSWr-yU0EI-TJSTEtV3O9HtIxziu"
-author:
-  name: "James Wilson"
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDd5OoLnhgHSye8RzIsvinbGNU8uyv1zllIs7xw_WrnkjGP8vZHkV928UDypUVp_XJw-ZKJ3nkTwLcUvzHmNJmf9c6gz5YU68YX6QjwfxICIJ4U6iIfz7Na0smUoG_4rYOSWd48Du0TKBqTyj0WQzq5qKBB4qLTFTt05C-Ln7XHahMr9J1R_2BZi3pyQ287Wj0UoHOE1WGR0ESM3yn0vmI9nhFVeGFJuCvVZJJ116bi6D2385pzPGB1OO4tABD2K9os1HPNxb-5yO1l"
 ---
 
 # E2E Testing with Cypress

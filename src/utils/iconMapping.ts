@@ -28,6 +28,11 @@ export const iconToCssClass = (iconName: string): string => {
     'schedule': 'material-symbols-schedule',
     'rocket_launch': 'material-symbols-rocket-launch',
     
+    // Social Media Icons
+    'github': 'mdi-github',
+    'linkedin': 'mdi-linkedin',
+    'email': 'material-symbols-mail-outline',
+    
     // Additional icons
     'grid_view': 'material-symbols-grid-view',
     'smartphone': 'material-symbols-smartphone',

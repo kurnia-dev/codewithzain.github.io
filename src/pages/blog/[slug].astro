@@ -1,107 +1,132 @@
 ---
-import { getCollection, render, type CollectionEntry } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { formatDate } from '../../utils/date';
-import CodeSnippet from '../../components/CodeSnippet.astro';
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../utils/date";
+import CodeSnippet from "../../components/CodeSnippet.astro";
+import AuthorBio from "../../components/AuthorBio.astro";
+import { AUTHOR } from "../../consts";
 
 // Generate static paths for blog posts
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection("blog");
   return posts.map((post) => ({
     params: { slug: post.id },
     props: post,
   }));
 }
 
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content, headings } = await render(post);
 
 // Generate table of contents from headings
-const tableOfContents = headings.map(heading => ({
+const tableOfContents = headings.map((heading) => ({
   id: heading.slug,
   title: heading.text,
-  level: heading.depth
+  level: heading.depth,
 }));
 
 // Get related posts (other posts from same category or random)
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection("blog");
 const relatedPosts = allPosts
-  .filter(p => p.id !== post.id)
-  .filter(p => p.data.category === post.data.category || Math.random() > 0.5)
+  .filter((p) => p.id !== post.id)
+  .filter((p) => p.data.category === post.data.category || Math.random() > 0.5)
   .slice(0, 2)
-  .map(p => ({
+  .map((p) => ({
     title: p.data.title,
     description: p.data.excerpt,
     image: p.data.image,
-    slug: p.id
+    slug: p.id,
   }));
 
 // Generate some tags based on category and content
 const generateTags = (category: string, title: string) => {
   const categoryTags: Record<string, string[]> = {
-    'DevOps': ['devops', 'cicd', 'automation'],
-    'Front-end': ['frontend', 'react', 'javascript'],
-    'Mobile': ['mobile', 'flutter', 'react-native'],
-    'Back-end': ['backend', 'microservices', 'api'],
-    'Architecture': ['architecture', 'microservices', 'scalability'],
-    'QA': ['testing', 'cypress', 'automation'],
-    'Design': ['design', 'ui', 'dark-mode'],
-    'Documentation': ['markdown', 'formatting', 'guide']
+    DevOps: ["devops", "cicd", "automation"],
+    "Front-end": ["frontend", "react", "javascript"],
+    Mobile: ["mobile", "flutter", "react-native"],
+    "Back-end": ["backend", "microservices", "api"],
+    Architecture: ["architecture", "microservices", "scalability"],
+    QA: ["testing", "cypress", "automation"],
+    Design: ["design", "ui", "dark-mode"],
+    Documentation: ["markdown", "formatting", "guide"],
   };
-  
-  return categoryTags[category] || ['programming', 'development'];
+
+  return categoryTags[category] || ["programming", "development"];
 };
 
 const tags = generateTags(post.data.category, post.data.title);
-import Icon from '../../components/Icon.astro';
+import Icon from "../../components/Icon.astro";
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} currentPath={`/blog/${post.id}`}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  currentPath={`/blog/${post.id}`}
+>
   <div class="layout-container w-full max-w-[1440px] mx-auto p-4 md:p-6 lg:p-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
-      
       <!-- Left Sidebar (TOC) -->
       <aside class="hidden lg:block lg:col-span-3 xl:col-span-2 relative">
-        <div class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4">
-          {tableOfContents.length > 0 && (
-            <>
-              <h3 class="text-gray-600 dark:text-text-secondary-dark text-xs font-bold uppercase tracking-wider mb-4 px-3">On this page</h3>
-              <nav class="flex flex-col gap-1 border-l border-gray-200 dark:border-border-dark">
-                {tableOfContents.map((item, index) => (
-                  <a 
-                    class={`flex items-center gap-3 px-3 py-2 border-l-2 transition-all -ml-[2px] ${
-                      index === 0 
-                        ? 'border-primary bg-primary/5 rounded-r-lg' 
-                        : 'border-transparent hover:border-gray-400 dark:hover:border-text-secondary-dark'
-                    } ${item.level > 1 ? 'pl-6' : ''}`}
-                    href={`#${item.id}`}
-                  >
-                    <span class={`text-sm leading-normal ${
-                      index === 0 
-                        ? 'text-primary font-medium' 
-                        : 'text-gray-600 dark:text-text-secondary-dark hover:text-gray-900 dark:hover:text-white'
-                    } ${item.level > 1 ? 'font-normal' : 'font-medium'}`}>
-                      {item.title}
-                    </span>
-                  </a>
-                ))}
-              </nav>
-            </>
-          )}
-          
+        <div
+          class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-4"
+        >
+          {
+            tableOfContents.length > 0 && (
+              <>
+                <h3 class="text-gray-600 dark:text-text-secondary-dark text-xs font-bold uppercase tracking-wider mb-4 px-3">
+                  On this page
+                </h3>
+                <nav class="flex flex-col gap-1 border-l border-gray-200 dark:border-border-dark">
+                  {tableOfContents.map((item, index) => (
+                    <a
+                      class={`flex items-center gap-3 px-3 py-2 border-l-2 transition-all -ml-[2px] ${
+                        index === 0
+                          ? "border-primary bg-primary/5 rounded-r-lg"
+                          : "border-transparent hover:border-gray-400 dark:hover:border-text-secondary-dark"
+                      } ${item.level > 1 ? "pl-6" : ""}`}
+                      href={`#${item.id}`}
+                    >
+                      <span
+                        class={`text-sm leading-normal ${
+                          index === 0
+                            ? "text-primary font-medium"
+                            : "text-gray-600 dark:text-text-secondary-dark hover:text-gray-900 dark:hover:text-white"
+                        } ${item.level > 1 ? "font-normal" : "font-medium"}`}
+                      >
+                        {item.title}
+                      </span>
+                    </a>
+                  ))}
+                </nav>
+              </>
+            )
+          }
+
           <!-- Share Buttons -->
-          <div class="mt-8 pt-6 border-t border-gray-200 dark:border-border-dark">
-            <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-bold mb-3">Share this article</p>
+          <div
+            class="mt-8 pt-6 border-t border-gray-200 dark:border-border-dark"
+          >
+            <p
+              class="text-gray-600 dark:text-text-secondary-dark text-xs font-bold mb-3"
+            >
+              Share this article
+            </p>
             <div class="flex gap-2">
-              <button class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors">
+              <button
+                class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors"
+              >
                 <Icon name="share" class="text-[18px]" />
               </button>
-              <button class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors">
+              <button
+                class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors"
+              >
                 <Icon name="favorite" class="text-[18px]" />
               </button>
-              <button class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors">
+              <button
+                class="size-8 rounded-full bg-gray-100 dark:bg-surface-dark flex items-center justify-center text-gray-600 dark:text-text-secondary-dark hover:text-primary hover:bg-primary/10 transition-colors"
+              >
                 <Icon name="bookmark" class="text-[18px]" />
               </button>
             </div>
@@ -110,150 +135,231 @@ import Icon from '../../components/Icon.astro';
       </aside>
 
       <!-- Main Article Content -->
-      <article class="lg:col-span-9 xl:col-span-7 flex flex-col gap-6 max-w-3xl mx-auto w-full">
-        
+      <article
+        class="lg:col-span-9 xl:col-span-7 flex flex-col gap-6 max-w-3xl mx-auto w-full"
+      >
         <!-- Article Tags -->
         <div class="flex gap-2 flex-wrap">
-          <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 hover:bg-primary/20 cursor-pointer transition-colors px-3 border border-primary/20 hover:border-primary/50">
-            <p class="text-primary text-xs font-semibold uppercase tracking-wide">{post.data.category}</p>
+          <div
+            class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/10 hover:bg-primary/20 cursor-pointer transition-colors px-3 border border-primary/20 hover:border-primary/50"
+          >
+            <p
+              class="text-primary text-xs font-semibold uppercase tracking-wide"
+            >
+              {post.data.category}
+            </p>
           </div>
-          {tags.slice(0, 3).map(tag => (
-            <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-surface-dark px-3 border border-gray-200 dark:border-border-dark">
-              <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-medium">{tag}</p>
-            </div>
-          ))}
+          {
+            tags.slice(0, 3).map((tag) => (
+              <div class="flex h-7 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-surface-dark px-3 border border-gray-200 dark:border-border-dark">
+                <p class="text-gray-600 dark:text-text-secondary-dark text-xs font-medium">
+                  {tag}
+                </p>
+              </div>
+            ))
+          }
         </div>
 
         <!-- Article Header -->
         <div class="flex flex-col gap-4">
-          <h1 class="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em]">
+          <h1
+            class="text-gray-900 dark:text-white text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em]"
+          >
             {post.data.title}
           </h1>
-          <p class="text-gray-600 dark:text-text-secondary-dark text-lg md:text-xl font-normal leading-relaxed">
+          <p
+            class="text-gray-600 dark:text-text-secondary-dark text-lg md:text-xl font-normal leading-relaxed"
+          >
             {post.data.description}
           </p>
         </div>
 
         <!-- Author & Meta -->
-        <div class="flex items-center justify-between py-4 border-b border-gray-200 dark:border-border-dark">
+        <div
+          class="flex items-center justify-between py-4 border-b border-gray-200 dark:border-border-dark"
+        >
           <div class="flex gap-4 items-center">
-            <div class="size-12 rounded-full bg-center bg-cover border border-gray-200 dark:border-border-dark shadow-sm" style={`background-image: url("${post.data.author.avatar}")`}></div>
+            <div
+              class="size-12 rounded-full bg-center bg-cover border border-gray-200 dark:border-border-dark shadow-sm"
+              style={`background-image: url("${AUTHOR.avatar.small}")`}
+            >
+            </div>
             <div class="flex flex-col justify-center">
               <div class="flex items-center gap-2">
-                <p class="text-gray-900 dark:text-white text-base font-bold leading-tight">{post.data.author.name}</p>
+                <p
+                  class="text-gray-900 dark:text-white text-base font-bold leading-tight"
+                >
+                  {AUTHOR.name}
+                </p>
                 <Icon name="verified" class="text-primary text-[16px]" />
               </div>
-              <p class="text-gray-600 dark:text-text-secondary-dark text-sm font-normal">Software Engineer</p>
+              <p
+                class="text-gray-600 dark:text-text-secondary-dark text-sm font-normal"
+              >
+                {AUTHOR.title}
+              </p>
             </div>
           </div>
-          <div class="text-gray-600 dark:text-text-secondary-dark text-sm text-right hidden sm:block">
+          <div
+            class="text-gray-600 dark:text-text-secondary-dark text-sm text-right hidden sm:block"
+          >
             <p>Published {formatDate(post.data.pubDate)}</p>
             <p>{post.data.readTime}</p>
           </div>
         </div>
 
         <!-- Hero Image -->
-        {post.data.image && (
-          <div class="w-full aspect-video rounded-lg overflow-hidden shadow-lg">
-            <img 
-              src={post.data.image} 
-              alt={post.data.title}
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        )}
+        {
+          post.data.image && (
+            <div class="w-full aspect-video rounded-lg overflow-hidden shadow-lg">
+              <img
+                src={post.data.image}
+                alt={post.data.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          )
+        }
 
         <!-- Article Content -->
         <div class="article-content">
-            <Content components={{ pre: CodeSnippet }} />
+          <Content components={{ pre: CodeSnippet }} />
         </div>
 
         <!-- Article Footer -->
         <div class="py-8 mt-4 border-t border-gray-200 dark:border-border-dark">
           <div class="flex flex-wrap gap-2 mb-6">
-            <span class="text-gray-600 dark:text-text-secondary-dark text-sm mr-2 py-1">Tags:</span>
-            {tags.map(tag => (
-              <a class="text-primary text-sm hover:underline" href={`/blog/tag/${tag}`}>#{tag}</a>
-            ))}
+            <span
+              class="text-gray-600 dark:text-text-secondary-dark text-sm mr-2 py-1"
+              >Tags:</span
+            >
+            {
+              tags.map((tag) => (
+                <a
+                  class="text-primary text-sm hover:underline"
+                  href={`/blog/tag/${tag}`}
+                >
+                  #{tag}
+                </a>
+              ))
+            }
           </div>
         </div>
 
         <!-- Author Bio -->
-        <div class="bg-gray-50 dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-border-dark flex flex-col sm:flex-row gap-6 items-start">
-          <div class="size-20 rounded-full bg-center bg-cover border border-white dark:border-gray-800 shadow-md shrink-0" style={`background-image: url("${post.data.author.avatar}")`}></div>
-          <div class="flex flex-col">
-            <h3 class="text-gray-900 dark:text-white text-lg font-bold">About {post.data.author.name}</h3>
-            <p class="text-gray-600 dark:text-text-secondary-dark text-sm mt-2 mb-4">
-              {post.data.author.name} is a software engineer specializing in {post.data.category.toLowerCase()} development. 
-              Passionate about building scalable applications and sharing knowledge with the developer community.
-            </p>
-            <div class="flex gap-3">
-              <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href="#" aria-label="Website">
-                <Icon name="language" class="text-xl" />
-              </a>
-              <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href="#" aria-label="Twitter">
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
-              </a>
-              <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href="#" aria-label="LinkedIn">
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-              </a>
-            </div>
-          </div>
-        </div>
+        <AuthorBio />
 
         <!-- Related Posts -->
-        {relatedPosts.length > 0 && (
-          <div class="pt-8">
-            <h3 class="text-gray-900 dark:text-white text-xl font-bold mb-6">Read Next</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {relatedPosts.map(relatedPost => (
-                <div class="flex flex-col gap-3 group cursor-pointer">
-                  <div class="aspect-video w-full rounded-lg bg-cover bg-center overflow-hidden shadow-sm" style={`background-image: url("${relatedPost.image}")`}>
-                    <div class="w-full h-full bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors"></div>
+        {
+          relatedPosts.length > 0 && (
+            <div class="pt-8">
+              <h3 class="text-gray-900 dark:text-white text-xl font-bold mb-6">
+                Read Next
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {relatedPosts.map((relatedPost) => (
+                  <div class="flex flex-col gap-3 group cursor-pointer">
+                    <div
+                      class="aspect-video w-full rounded-lg bg-cover bg-center overflow-hidden shadow-sm"
+                      style={`background-image: url("${relatedPost.image}")`}
+                    >
+                      <div class="w-full h-full bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors" />
+                    </div>
+                    <h4 class="text-gray-900 dark:text-white font-bold group-hover:text-primary transition-colors">
+                      <a href={`/blog/${relatedPost.slug}`}>
+                        {relatedPost.title}
+                      </a>
+                    </h4>
+                    <p class="text-gray-600 dark:text-text-secondary-dark text-sm line-clamp-2">
+                      {relatedPost.description}
+                    </p>
                   </div>
-                  <h4 class="text-gray-900 dark:text-white font-bold group-hover:text-primary transition-colors">
-                    <a href={`/blog/${relatedPost.slug}`}>{relatedPost.title}</a>
-                  </h4>
-                  <p class="text-gray-600 dark:text-text-secondary-dark text-sm line-clamp-2">{relatedPost.description}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
       </article>
 
       <!-- Right Sidebar -->
       <aside class="hidden xl:block xl:col-span-3">
         <div class="sticky top-24 flex flex-col gap-8">
           <!-- Newsletter Widget -->
-          <div class="bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl p-6 shadow-sm">
-            <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+          <div
+            class="bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl p-6 shadow-sm"
+          >
+            <div
+              class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4"
+            >
               <Icon name="mail" />
             </div>
-            <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">Join the inner circle</h3>
-            <p class="text-gray-600 dark:text-text-secondary-dark text-sm mb-4">Get the latest tutorials and insights delivered to your inbox weekly. No spam.</p>
+            <h3 class="text-gray-900 dark:text-white font-bold text-lg mb-2">
+              Join the inner circle
+            </h3>
+            <p class="text-gray-600 dark:text-text-secondary-dark text-sm mb-4">
+              Get the latest tutorials and insights delivered to your inbox
+              weekly. No spam.
+            </p>
             <form class="flex flex-col gap-3">
-              <input class="w-full bg-gray-50 dark:bg-background-dark border border-gray-200 dark:border-border-dark rounded-lg px-4 py-2 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-primary transition-colors placeholder:text-gray-500 dark:placeholder:text-text-secondary-dark" placeholder="your@email.com" type="email"/>
-              <button class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 rounded-lg transition-colors text-sm shadow-sm shadow-primary/20" type="button">Subscribe</button>
+              <input
+                class="w-full bg-gray-50 dark:bg-background-dark border border-gray-200 dark:border-border-dark rounded-lg px-4 py-2 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-primary transition-colors placeholder:text-gray-500 dark:placeholder:text-text-secondary-dark"
+                placeholder="your@email.com"
+                type="email"
+              />
+              <button
+                class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 rounded-lg transition-colors text-sm shadow-sm shadow-primary/20"
+                type="button">Subscribe</button
+              >
             </form>
           </div>
 
           <!-- Trending Topics -->
           <div>
-            <h4 class="text-gray-900 dark:text-white font-bold text-sm uppercase tracking-wide mb-4">Trending Topics</h4>
+            <h4
+              class="text-gray-900 dark:text-white font-bold text-sm uppercase tracking-wide mb-4"
+            >
+              Trending Topics
+            </h4>
             <div class="flex flex-col gap-2">
-              <a class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" href="#">
-                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">Microservices</span>
-                <span class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded">12k</span>
+              <a
+                class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors"
+                href="#"
+              >
+                <span
+                  class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium"
+                  >Microservices</span
+                >
+                <span
+                  class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded"
+                  >12k</span
+                >
               </a>
-              <a class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" href="#">
-                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">React</span>
-                <span class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded">8.5k</span>
+              <a
+                class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors"
+                href="#"
+              >
+                <span
+                  class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium"
+                  >React</span
+                >
+                <span
+                  class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded"
+                  >8.5k</span
+                >
               </a>
-              <a class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" href="#">
-                <span class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium">DevOps</span>
-                <span class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded">24k</span>
+              <a
+                class="group flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors"
+                href="#"
+              >
+                <span
+                  class="text-gray-600 dark:text-text-secondary-dark group-hover:text-gray-900 dark:group-hover:text-white text-sm font-medium"
+                  >DevOps</span
+                >
+                <span
+                  class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-border-dark group-hover:bg-white dark:group-hover:bg-background-dark px-2 py-0.5 rounded"
+                  >24k</span
+                >
               </a>
             </div>
           </div>
@@ -270,14 +376,14 @@ import Icon from '../../components/Icon.astro';
     width: 8px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f5f9; 
+    background: #f1f5f9;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e1; 
+    background: #cbd5e1;
     border-radius: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8; 
+    background: #94a3b8;
   }
 
   /* tailwind @apply not working, style moved into ~/styles/article.css */

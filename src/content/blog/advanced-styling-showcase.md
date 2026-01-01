@@ -6,9 +6,6 @@ category: "Design"
 pubDate: "2023-12-27"
 readTime: "10 min read"
 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC4gOWBnlveYcqPGpAImUZlowspblNI0Abt1mrN7SlZLhQs0GBz9QVmwEUfyt-v-ZtLCtD1DBMgXV9kKzK_TeKHctGf3ZKyj6d6TYWkJ45zTKecMq44Jtg8_eaYFDcaohVwCeCu96hiVQJR6_M3raZOKLRjRYb2ypESJM6xebDQOAhgsb9YuIQYuWpBz4aM5lKQkjRT3EKXizha27gegUxaXfs83ANCWHzsPsyYCmK3U8BaqknlA5l-ICkpjp5c22lUh4KhCTtuBUvR"
-author:
-  name: "Design Team"
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZun9fH48vVjv9_i43k-0FiO1AhhnDWLQoGQJsPxdCxyR2VxQKj9svixqhgij7l6isB-IWVqzx4E3E7cc9CPiRsYvxikvSapHhp-FLrbKhVq-k2PKnkP8lDBh0O6sP4fZoW5yy-F3Iauf1nqfHOmxKNFe09xTPsylaA43hmQQ399dDm5iSTymcXoXGWrAoq9KVFg1J1rAtW3qQjIaubQxABCT_Su22Kf-tSUNTKym9R7_kLc2A4k_Owtfo6xAqkwncKPjr8Fh0kVab"
 ---
 
 **Welcome!** This post serves as a comprehensive style guide showcasing advanced CSS techniques that mimic Tailwind classes for markdown-rendered content. We demonstrate how custom styling can create beautiful, responsive layouts with excellent readability and visual hierarchy.

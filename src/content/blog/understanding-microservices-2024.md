@@ -6,9 +6,6 @@ category: "Architecture"
 pubDate: "2023-10-01"
 readTime: "10 min read"
 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBHRnUAmCJ08PY6iaInu3W2t7bAx4XZRsXcPpGEKiyhw3XMaX9M0RfkJ6sm8TYzTnknPev9rMCRTh64CYz2s1CGr8MyQ5OeBfLGfxs1G5rcOlKW6t5wd0MtKrqwjpxgWJDHLjVzMyFXUSLLH00yFs6miBTiqa4a9s_eLvRTD5feJMG5RbNhVHDKN9KFcrR7HKvGwDfl1jmP9Uc4GZPUBa1yNf17dyAR3J9A7QKbsDQ4SBsJkNY38bosH_J-mvdZTfeDT-u"
-author:
-  name: "Michael Chen"
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuCnMQok1iy21U79yAcJy2L4Fr6KawelmC8saBdqc6yiu8R57plwR1xCkkcc0YCTw1sV7750lzsWSebCwU6_GmNRe18UwmSN8cJSvjTch-6nBbuQgwn-CIkj1k4zxq1YVMFM0SmjyvUT48iBVvaRDsGb6mobT_pugBKF0C060ZiAnj4DIzg7Wg9Iy_UPgKZB2etmysgjxoZKwUNPo9bLF-T_XFi5zflVedgw6YbbZGcv1rGVlR-HnGHcTjvSaTpoRXITlpcaPBSloMba"
 ---
 
 # Understanding Microservices in 2024

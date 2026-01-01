@@ -6,9 +6,6 @@ category: "Mobile"
 pubDate: "2023-10-18"
 readTime: "6 min read"
 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBKbi2QfC3X0Q-na42iK48aBUu5nSlkfLxua7vR53OfjIh7jJTXbhTJAzSk2EWwrdrRnfg8KU3dGEqHZg1UDkzBMLpGhR0ZRVUM0-7DT_GvlUv7QdnUEE-dVEBo1AhQReO7ZAVZ7L0lsC4d16oikxTFX84o8Vhbm3MhMCr_Vz_pviIiSmBT_coSXPHJmvkDTcQ6B4HSs1OX4hAttd_ttlDT8M01GF22U5IcxUZZ72epaB6_gGc6sUBMRDgZHz0QXe4JvlqcARwhYjpf"
-author:
-  name: "David Kim"
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBCp6Az6wijPBEaSYvnoDb51azIDLyC_9NJ2hKHnEdQlXaSzsMYocKSZgsJBvnLJUVFiDfOCI28YgtVL5GZDQdPkqxBV6YvAmT8TNUqPB7OAzFjjTR22p2DDHGalfzqNSkmezNSEY4nwQE3ZvDzSdLdFtUP12k6EiutsFEu_x5c4qByWwAYgKL0Mu3bn1bsiwvNy-XhdvubwsOAi0yzar97U7z4IqBqrbE4vH-GZsw2KWiBKt77msa6G74ZYgLdpZXAG_3myVoDJEda"
 ---
 
 # Flutter vs React Native in 2024

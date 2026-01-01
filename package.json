@@ -7,8 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-icons": "node scripts/generate-all-icons.js",
-    "replace-icons": "node scripts/replace-icons.js"
+    "generate-icons": "node scripts/generate-all-icons.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",

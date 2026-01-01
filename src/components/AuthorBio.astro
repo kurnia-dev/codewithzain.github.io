@@ -1,26 +1,53 @@
 ---
-import Icon from './Icon.astro';
-import { AUTHOR } from '../consts';
+import Icon from "./Icon.astro";
+import { AUTHOR } from "../consts";
 
 // Author bio specifically for blog posts
-const blogBio = "Passionate about sharing knowledge through technical writing. I write about modern development practices, architecture patterns, and lessons learned from building scalable applications.";
+const blogBio =
+  "Passionate about sharing knowledge through technical writing. I write about modern development practices, architecture patterns, and lessons learned from building scalable applications.";
 ---
 
-<div class="bg-gray-50 dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-border-dark flex flex-col sm:flex-row gap-6 items-start">
-  <div class="size-20 rounded-full bg-center bg-cover border border-white dark:border-gray-800 shadow-md shrink-0" style={`background-image: url("${AUTHOR.avatar.medium}")`}></div>
+<div
+  class="bg-gray-50 dark:bg-surface-dark p-6 rounded-xl border border-gray-200 dark:border-border-dark flex flex-col sm:flex-row gap-6 items-start"
+>
+  <div
+    class="size-20 rounded-full bg-center bg-cover border border-white dark:border-gray-800 shadow-md shrink-0"
+    style={`background-image: url("${AUTHOR.avatar.medium}")`}
+  >
+  </div>
   <div class="flex flex-col">
-    <h3 class="text-gray-900 dark:text-white text-lg font-bold">About {AUTHOR.name}</h3>
+    <h3 class="text-gray-900 dark:text-white text-lg font-bold">
+      About {AUTHOR.name}
+    </h3>
     <p class="text-gray-600 dark:text-text-secondary-dark text-sm mt-2 mb-4">
       {blogBio}
     </p>
     <div class="flex gap-3">
-      <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href={AUTHOR.social.github} aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+      <a
+        class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors"
+        href={AUTHOR.social.github}
+        aria-label="GitHub"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon name="github" class="text-xl" />
       </a>
-      <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href={AUTHOR.social.linkedin} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+      <a
+        class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors"
+        href={AUTHOR.social.linkedin}
+        aria-label="LinkedIn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon name="linkedin" class="text-xl" />
       </a>
-      <a class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors" href={`mailto:${AUTHOR.social.email}`} aria-label="Email" target="_blank" rel="noopener noreferrer">
+      <a
+        class="text-gray-600 dark:text-text-secondary-dark hover:text-primary transition-colors"
+        href={`mailto:${AUTHOR.social.email}`}
+        aria-label="Email"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon name="email" class="text-xl" />
       </a>
     </div>

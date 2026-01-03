@@ -11,9 +11,9 @@ export const AUTHOR = {
   title: 'Software Engineer',
   bio: 'I build scalable applications across the full stack. From pixel-perfect front-ends to robust back-end systems and reliable QA automation.',
   avatar: {
-    small: '/profile-48x48.png',    // For Post Meta component
-    medium: '/profile-80x80.png',    // For AuthorBio component
-    large: '/profile-312x312.png'   // For About page
+    small: '/profile-48x48.webp',    // For Post Meta component
+    medium: '/profile-80x80.webp',    // For AuthorBio component
+    large: '/profile-312x312.webp'   // For About page
   },
   social: {
     github: '#',

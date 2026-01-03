@@ -9,6 +9,16 @@ import { transformerMetaHighlight } from '@shikijs/transformers';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://kurnia-dev.github.io',
+	image: {
+		// Enable image optimization
+		domains: ['lh3.googleusercontent.com'],
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'lh3.googleusercontent.com',
+			},
+		],
+	},
 	integrations: [
 		mdx(), 
 		sitemap(),

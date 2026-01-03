@@ -5,7 +5,7 @@ excerpt: "A comprehensive guide to microservices architecture, patterns, and bes
 category: "Architecture"
 pubDate: "2023-10-01"
 readTime: "10 min read"
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBHRnUAmCJ08PY6iaInu3W2t7bAx4XZRsXcPpGEKiyhw3XMaX9M0RfkJ6sm8TYzTnknPev9rMCRTh64CYz2s1CGr8MyQ5OeBfLGfxs1G5rcOlKW6t5wd0MtKrqwjpxgWJDHLjVzMyFXUSLLH00yFs6miBTiqa4a9s_eLvRTD5feJMG5RbNhVHDKN9KFcrR7HKvGwDfl1jmP9Uc4GZPUBa1yNf17dyAR3J9A7QKbsDQ4SBsJkNY38bosH_J-mvdZTfeDT-u"
+image: "https://picsum.photos/800/400?random=5"
 ---
 
 # Understanding Microservices in 2024

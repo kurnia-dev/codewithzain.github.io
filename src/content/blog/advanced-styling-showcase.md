@@ -5,7 +5,7 @@ excerpt: "Explore advanced styling techniques and see how custom CSS can create 
 category: "Design"
 pubDate: "2023-12-27"
 readTime: "10 min read"
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC4gOWBnlveYcqPGpAImUZlowspblNI0Abt1mrN7SlZLhQs0GBz9QVmwEUfyt-v-ZtLCtD1DBMgXV9kKzK_TeKHctGf3ZKyj6d6TYWkJ45zTKecMq44Jtg8_eaYFDcaohVwCeCu96hiVQJR6_M3raZOKLRjRYb2ypESJM6xebDQOAhgsb9YuIQYuWpBz4aM5lKQkjRT3EKXizha27gegUxaXfs83ANCWHzsPsyYCmK3U8BaqknlA5l-ICkpjp5c22lUh4KhCTtuBUvR"
+image: "https://picsum.photos/800/400?random=7"
 ---
 
 **Welcome!** This post serves as a comprehensive style guide showcasing advanced CSS techniques that mimic Tailwind classes for markdown-rendered content. We demonstrate how custom styling can create beautiful, responsive layouts with excellent readability and visual hierarchy.
@@ -164,7 +164,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 ## Media Embedding with Captions
 
-![Advanced CSS Styling Showcase](https://lh3.googleusercontent.com/aida-public/AB6AXuC4gOWBnlveYcqPGpAImUZlowspblNI0Abt1mrN7SlZLhQs0GBz9QVmwEUfyt-v-ZtLCtD1DBMgXV9kKzK_TeKHctGf3ZKyj6d6TYWkJ45zTKecMq44Jtg8_eaYFDcaohVwCeCu96hiVQJR6_M3raZOKLRjRYb2ypESJM6xebDQOAhgsb9YuIQYuWpBz4aM5lKQkjRT3EKXizha27gegUxaXfs83ANCWHzsPsyYCmK3U8BaqknlA5l-ICkpjp5c22lUh4KhCTtuBUvR)
+![Advanced CSS Styling Showcase](https://picsum.photos/800/400?random=8)
 *Figure 1: A comprehensive demonstration of advanced styling techniques with responsive design and dark mode support.*
 
 ### Responsive Video Embedding

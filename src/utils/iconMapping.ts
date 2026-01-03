@@ -56,6 +56,6 @@ export const iconToCssClass = (iconName: string): string => {
 
 // Helper function untuk menggunakan di template
 export const getIconClass = (iconName: string, additionalClasses: string = ''): string => {
-  const baseClass = `icon-${iconToCssClass(iconName)}`;
+  const baseClass = `icon icon-${iconToCssClass(iconName)}`;
   return additionalClasses ? `${baseClass} ${additionalClasses}` : baseClass;
 };

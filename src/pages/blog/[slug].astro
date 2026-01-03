@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate } from "../../utils/date";
 import CodeSnippet from "../../components/CodeSnippet.astro";
 import AuthorBio from "../../components/AuthorBio.astro";
+import OptimizedImage from "../../components/OptimizedImage.astro";
 import { AUTHOR } from "../../consts";
 
 // Generate static paths for blog posts
@@ -212,11 +213,16 @@ import Icon from "../../components/Icon.astro";
         {
           post.data.image && (
             <div class="w-full aspect-video rounded-lg overflow-hidden shadow-lg">
-              <img
+              <OptimizedImage 
                 src={post.data.image}
                 alt={post.data.title}
-                class="w-full h-full object-cover"
-                loading="lazy"
+                width={800}
+                height={450}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
+                class="w-full h-full object-cover" 
+                loading="eager"
+                fetchpriority="high"
               />
             </div>
           )
@@ -260,11 +266,18 @@ import Icon from "../../components/Icon.astro";
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {relatedPosts.map((relatedPost) => (
                   <div class="flex flex-col gap-3 group cursor-pointer">
-                    <div
-                      class="aspect-video w-full rounded-lg bg-cover bg-center overflow-hidden shadow-sm"
-                      style={`background-image: url("${relatedPost.image}")`}
-                    >
-                      <div class="w-full h-full bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors" />
+                    <div class="aspect-video w-full rounded-lg overflow-hidden shadow-sm">
+                      <OptimizedImage 
+                        src={relatedPost.image}
+                        alt={relatedPost.title}
+                        width={400}
+                        height={225}
+                        widths={[200, 400]}
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        loading="lazy"
+                        quality={80}
+                      />
                     </div>
                     <h4 class="text-gray-900 dark:text-white font-bold group-hover:text-primary transition-colors">
                       <a href={`/blog/${relatedPost.slug}`}>

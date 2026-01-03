@@ -70,7 +70,7 @@ import Icon from './Icon.astro';
         'dark_mode': 'icon-material-symbols-dark-mode'
       };
       
-      this.icon.className = `theme-icon ${iconMapping[iconName]}`;
+      this.icon.className = `theme-icon icon ${iconMapping[iconName]}`;
     }
 
     private applyTheme(theme: string): void {

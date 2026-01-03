@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import { getImageAsset, isLocalAsset } from '../utils/imageMap';
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  sizes?: string;
+  widths?: number[];
+  quality?: number;
+}
+
+const { 
+  src, 
+  alt, 
+  width = 800, 
+  height = 400, 
+  class: className = '',
+  loading = 'lazy',
+  fetchpriority = 'auto',
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+  widths = [400, 600, 800, 1200],
+  quality = 85
+} = Astro.props;
+
+const imageAsset = getImageAsset(src);
+---
+
+{isLocalAsset(src) ? (
+  <Image
+    src={imageAsset}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    sizes={sizes}
+    widths={widths}
+    format="webp"
+    quality={quality}
+  />
+) : (
+  <img
+    src={src}
+    alt={alt}
+    class={className}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    width={width}
+    height={height}
+  />
+)}

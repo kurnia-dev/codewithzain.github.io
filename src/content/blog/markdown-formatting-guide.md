@@ -5,7 +5,7 @@ excerpt: "Master every markdown formatting technique with this complete guide sh
 category: "Documentation"
 pubDate: "2023-12-26"
 readTime: "15 min read"
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDBp1O1gV3Gp8YmL7T5QUAKuJLYxxWqKv_Cl1wx2S56D4QKR1Zuirt10C6k9zQ2wgl6V8D3iWjNAHrprdQs-qgprkqcuv22kq0LkHDYNl1hgsh33BJrc-67dlGv4FidPCV6vlAH5bJQfwMByeZum9M-CHtER20x8EDQ46-avzJuhrKHgAoYwtEEJOH-a5KZZXMTy5X0_zdSA1j08oXsh6bsJ7Qa9dkY0FGz7v1gSlKQmYVG0qnAckqb7BOlBvqYKSmpLl14su5zXVmx"
+image: "https://picsum.photos/800/400?random=3"
 ---
 
 # Complete Markdown Formatting Guide
@@ -389,12 +389,12 @@ You can also use automatic links:
 
 ### Images with Captions
 
-![Beautiful landscape with mountains and lake](https://lh3.googleusercontent.com/aida-public/AB6AXuDBp1O1gV3Gp8YmL7T5QUAKuJLYxxWqKv_Cl1wx2S56D4QKR1Zuirt10C6k9zQ2wgl6V8D3iWjNAHrprdQs-qgprkqcuv22kq0LkHDYNl1hgsh33BJrc-67dlGv4FidPCV6vlAH5bJQfwMByeZum9M-CHtER20x8EDQ46-avzJuhrKHgAoYwtEEJOH-a5KZZXMTy5X0_zdSA1j08oXsh6bsJ7Qa9dkY0FGz7v1gSlKQmYVG0qnAckqb7BOlBvqYKSmpLl14su5zXVmx)
+![Beautiful landscape with mountains and lake](https://picsum.photos/800/400?random=4)
 *Figure 1: A beautiful landscape showcasing natural beauty and serene environment*
 
 ### Image with Link
 
-[![Click to visit our homepage](https://lh3.googleusercontent.com/aida-public/AB6AXuBeFPJ7CLHLtvVlQbG59q-1EFLdk3BV8zKTG8aML-IpWVgg0Xo4lh21eHTZ2WEPBPm9cBtfryK6-44vdmaUk72N8TQAQraOak2Nby5i949sLDIwqhi7UD_3WSVUmai6QTuydIIK8QeEnb4yi6HZF73gEZAXS2rjdEtUz_9QHk4r-p2pNm8LacMWfNnzb2AiLIyfdlx2TYYuPfWl8SnfxR0UjSRj5WZf12qf5qTm7ZtmVmVkjQ3C7eMNXLU_FFJVqLXLWP1yuZeALH__)](/)
+[![Click to visit our homepage](https://picsum.photos/800/400?random=2)](/)
 *Figure 2: Click the image above to visit our homepage*
 
 ## Horizontal Rules

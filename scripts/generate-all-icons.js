@@ -74,6 +74,24 @@ async function generateIconCSS(icons) {
   let css = `/* Iconify Icons - Generated automatically */\n`;
   css += `/* Uses CSS mask for currentColor support */\n\n`;
 
+  // Base icon class with common properties
+  css += `/* Base icon class with common properties */\n`;
+  css += `.icon {\n`;
+  css += `  display: inline-block;\n`;
+  css += `  width: 1em;\n`;
+  css += `  height: 1em;\n`;
+  css += `  background-color: currentColor;\n`;
+  css += `  mask-repeat: no-repeat;\n`;
+  css += `  -webkit-mask-repeat: no-repeat;\n`;
+  css += `  mask-size: contain;\n`;
+  css += `  -webkit-mask-size: contain;\n`;
+  css += `  mask-position: center;\n`;
+  css += `  -webkit-mask-position: center;\n`;
+  css += `  vertical-align: middle;\n`;
+  css += `}\n\n`;
+
+  // Individual icon classes with only mask-image
+  css += `/* Individual icon classes - only mask-image property */\n`;
   for (const icon of icons) {
     const iconifyIcon = iconMapping[icon];
     if (iconifyIcon) {
@@ -92,19 +110,8 @@ async function generateIconCSS(icons) {
         const dataUrl = `data:image/svg+xml,${encodeURIComponent(cleanSvg)}`;
 
         css += `.icon-${className} {\n`;
-        css += `  display: inline-block;\n`;
-        css += `  width: 1em;\n`;
-        css += `  height: 1em;\n`;
-        css += `  background-color: currentColor;\n`;
         css += `  mask-image: url("${dataUrl}");\n`;
         css += `  -webkit-mask-image: url("${dataUrl}");\n`;
-        css += `  mask-repeat: no-repeat;\n`;
-        css += `  -webkit-mask-repeat: no-repeat;\n`;
-        css += `  mask-size: contain;\n`;
-        css += `  -webkit-mask-size: contain;\n`;
-        css += `  mask-position: center;\n`;
-        css += `  -webkit-mask-position: center;\n`;
-        css += `  vertical-align: middle;\n`;
         css += `}\n\n`;
       }
     } else {

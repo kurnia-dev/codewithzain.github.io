@@ -39,12 +39,12 @@ import Icon from '../components/Icon.astro';
 
 ```html
 <!-- Icon mengikuti warna parent -->
-<span class="icon-material-symbols-search text-xl"></span>
-<span class="icon-material-symbols-close text-red-500"></span>
+<span class="icon icon-material-symbols-search text-xl"></span>
+<span class="icon icon-material-symbols-close text-red-500"></span>
 
 <!-- Dalam konteks dengan warna berbeda -->
 <div class="text-primary">
-  <span class="icon-material-symbols-mail"></span>
+  <span class="icon icon-material-symbols-mail"></span>
 </div>
 ```
 
@@ -61,7 +61,7 @@ import { getIconClass } from '../utils/iconMapping';
 <span class={getIconClass(skill.icon)}></span>
 ```
 
-Utility function ini akan mengkonversi nama icon seperti `rocket_launch` menjadi CSS class yang benar `icon-material-symbols-rocket-launch`.
+Utility function ini akan mengkonversi nama icon seperti `rocket_launch` menjadi CSS class yang benar `icon-material-symbols-rocket-launch`. Pastikan untuk menambahkan base class `icon` juga.
 
 ## Utility Functions
 
@@ -73,8 +73,8 @@ Mengkonversi nama Material Symbols ke CSS class Iconify yang benar:
 import { getIconClass } from '../utils/iconMapping';
 
 // Contoh penggunaan
-getIconClass('rocket_launch') // → 'icon-material-symbols-rocket-launch'
-getIconClass('search', 'text-xl') // → 'icon-material-symbols-search text-xl'
+getIconClass('rocket_launch') // → 'icon icon-material-symbols-rocket-launch'
+getIconClass('search', 'text-xl') // → 'icon icon-material-symbols-search text-xl'
 ```
 
 ### `iconToCssClass(iconName)`
@@ -132,9 +132,26 @@ Script untuk mengganti `material-symbols-outlined` dengan komponen `Icon` (sudah
 Icon menggunakan CSS `mask-image` dengan `background-color: currentColor` untuk mendukung perubahan warna otomatis:
 
 ```css
-.icon-material-symbols-search {
+/* Base icon class with common properties */
+.icon {
   display: inline-block;
   width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  -webkit-mask-position: center;
+  vertical-align: middle;
+}
+
+/* Individual icon classes - only mask-image property */
+.icon-material-symbols-search {
+  mask-image: url("data:image/svg+xml,...");
+  -webkit-mask-image: url("data:image/svg+xml,...");
+}
   height: 1em;
   background-color: currentColor; /* Mengikuti warna text */
   mask-image: url("data:image/svg+xml,...");

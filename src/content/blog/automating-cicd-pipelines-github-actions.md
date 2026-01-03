@@ -5,7 +5,7 @@ excerpt: "A comprehensive guide to setting up your first pipeline. We explore wo
 category: "DevOps"
 pubDate: "2023-10-24"
 readTime: "5 min read"
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBeFPJ7CLHLtvVlQbG59q-1EFLdk3BV8zKTG8aML-IpWVgg0Xo4lh21eHTZ2WEPBPm9cBtfryK6-44vdmaUk72N8TQAQraOak2Nby5i949sLDIwqhi7UD_3WSVUmai6QTuydIIK8QeEnb4yi6HZF73gEZAXS2rjdEtUz_9QHk4r-p2pNm8LacMWfNnzb2AiLIyfdlx2TYYuPfWl8SnfxR0UjSRj5WZf12qf5qTm7ZtmVmVkjQ3C7eMNXLU_FFJVqLXLWP1yuZeALH__"
+image: "https://picsum.photos/800/400?random=9"
 ---
 
 Continuous Integration and Continuous Deployment (CI/CD) has become an essential part of modern software development. GitHub Actions provides a powerful platform to automate your workflows directly within your GitHub repository.

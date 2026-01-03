@@ -90,8 +90,8 @@ private updateIcon(theme: string): void {
   // Add new icon class
   const iconName = theme === 'dark' ? 'light_mode' : 'dark_mode';
   const iconMapping: Record<string, string> = {
-    'light_mode': 'icon-material-symbols-light-mode',
-    'dark_mode': 'icon-material-symbols-dark-mode'
+    'light_mode': 'icon icon-material-symbols-light-mode',
+    'dark_mode': 'icon icon-material-symbols-dark-mode'
   };
   
   this.icon.className = `theme-icon ${iconMapping[iconName]}`;

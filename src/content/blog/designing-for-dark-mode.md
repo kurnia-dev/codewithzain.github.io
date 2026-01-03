@@ -5,7 +5,7 @@ excerpt: "Key considerations when implementing dark mode in your application. Co
 category: "Design"
 pubDate: "2023-10-05"
 readTime: "4 min read"
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDBp1O1gV3Gp8YmL7T5QUAKuJLYxxWqKv_Cl1wx2S56D4QKR1Zuirt10C6k9zQ2wgl6V8D3iWjNAHrprdQs-qgprkqcuv22kq0LkHDYNl1hgsh33BJrc-67dlGv4FidPCV6vlAH5bJQfwMByeZum9M-CHtER20x8EDQ46-avzJuhrKHgAoYwtEEJOH-a5KZZXMTy5X0_zdSA1j08oXsh6bsJ7Qa9dkY0FGz7v1gSlKQmYVG0qnAckqb7BOlBvqYKSmpLl14su5zXVmx"
+image: "https://picsum.photos/800/400?random=2"
 ---
 
 # Designing for Dark Mode

@@ -5,7 +5,7 @@ excerpt: "Understanding the paradigm shift in React 18. How server components ca
 category: "Front-end"
 pubDate: "2023-10-22"
 readTime: "8 min read"
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAprB24xdkeeyPsvWJ3s8tejabGUPGwQiTvEUDeWYwYDLCVPjJh9nZNCofOg7DXrlDbLVihMwqEljjVdeAmaiD7rKJw9nhO9fEygg7KZcQfTiJTFIy8BfedfNB6yJ0TErZgY8-6e_eLoTrddsbuDDUVy-ZjynW75s58-9-6irrxTyddW84P6mJ3ib8gi1iDD65KQKUgitXk1Inz36Pj4JBNDK03TUO9BAMOQuvyKjy13x2JFV0DRstKQ1wvhoadapxNdkbDn-tTdjoc"
+image: "https://picsum.photos/800/400?random=3"
 ---
 
 # React Server Components: A Deep Dive

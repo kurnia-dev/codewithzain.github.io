@@ -1,4 +1,7 @@
 ---
+import Icon from './Icon.astro';
+import OptimizedImage from './OptimizedImage.astro';
+
 interface Props {
   title: string;
   excerpt: string;
@@ -7,9 +10,21 @@ interface Props {
   readTime: string;
   image: string;
   slug: string;
+  priority?: 'high' | 'low' | 'auto';
+  loading?: 'lazy' | 'eager';
 }
 
-const { title, excerpt, category, date, readTime, image, slug } = Astro.props;
+const { 
+  title, 
+  excerpt, 
+  category, 
+  date, 
+  readTime, 
+  image, 
+  slug,
+  priority = 'auto',
+  loading = 'lazy'
+} = Astro.props;
 
 // Category color mapping
 const categoryColors: Record<string, string> = {
@@ -22,7 +37,6 @@ const categoryColors: Record<string, string> = {
 };
 
 const categoryColor = categoryColors[category] || 'bg-primary/90';
-import Icon from './Icon.astro';
 ---
 
 <article class="group flex flex-col bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
@@ -33,11 +47,16 @@ import Icon from './Icon.astro';
         {category}
       </span>
     </div>
-    <img 
-      alt={title}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+    <OptimizedImage 
       src={image}
-      loading="lazy"
+      alt={title}
+      width={400}
+      height={192}
+      widths={[200, 400, 600]}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+      loading={loading}
+      fetchpriority={priority}
     />
   </div>
 

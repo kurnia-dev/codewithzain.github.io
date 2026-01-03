@@ -4,6 +4,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogListing from "../components/BlogListing.astro";
 import { formatDate } from "../utils/date";
 
+// Import CSS conditionally or use dynamic imports
+import '../styles/global.css';
+// Only import article styles for blog pages
+import '../styles/article.css';
+import '../styles/code-snippet.css';
+import '../styles/icons.css';
+
 // Page content
 const pageTitle = "Latest Engineering Thoughts";
 const pageDescription =

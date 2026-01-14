@@ -3,11 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogListing from "../components/BlogListing.astro";
 import { formatDate } from "../utils/date";
-
-// Page content
-const pageTitle = "Latest Engineering Thoughts";
-const pageDescription =
-  "Deep dives into code, architecture, and the future of software development. Curated by engineers, for engineers.";
+import { HEADLINE, SITE_DESCRIPTION } from "../consts";
 
 // Get all blog posts and sort by date (newest first)
 const allPosts = await getCollection("blog");
@@ -38,13 +34,13 @@ const articles = currentPosts.map((post) => ({
 }));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} currentPath="/">
+<BaseLayout title={HEADLINE} description={SITE_DESCRIPTION} currentPath="/">
   <BlogListing
     articles={articles}
     currentPage={currentPage}
     totalPages={totalPages}
     totalPosts={totalPosts}
-    pageTitle={pageTitle}
-    pageDescription={pageDescription}
+    headline={HEADLINE}
+    description={SITE_DESCRIPTION}
   />
 </BaseLayout>

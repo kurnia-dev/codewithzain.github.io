@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import BlogListing from "../../../components/BlogListing.astro";
 import { formatDate } from "../../../utils/date";
+import { HEADLINE, SITE_DESCRIPTION } from "../../../consts";
 
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog");
@@ -27,11 +28,6 @@ export async function getStaticPaths() {
 
 const { posts, currentPage, totalPages, postsPerPage } = Astro.props;
 
-// Page content
-const pageTitle = "Latest Engineering Thoughts";
-const pageDescription =
-  "Deep dives into code, architecture, and the future of software development. Curated by engineers, for engineers.";
-
 // Get posts for current page
 const startIndex = (currentPage - 1) * postsPerPage;
 const endIndex = startIndex + postsPerPage;
@@ -50,8 +46,8 @@ const articles = currentPosts.map((post) => ({
 ---
 
 <BaseLayout
-  title={`${pageTitle} - Page ${currentPage}`}
-  description={pageDescription}
+  title={`${HEADLINE} - Page ${currentPage}`}
+  description={SITE_DESCRIPTION}
   currentPath="/blog"
 >
   <BlogListing
@@ -59,7 +55,7 @@ const articles = currentPosts.map((post) => ({
     currentPage={currentPage}
     totalPages={totalPages}
     totalPosts={posts.length}
-    pageTitle={pageTitle}
-    pageDescription={pageDescription}
+    headline={HEADLINE}
+    description={SITE_DESCRIPTION}
   />
 </BaseLayout>

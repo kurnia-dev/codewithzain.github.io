@@ -13,7 +13,7 @@ import Icon from "./Icon.astro";
 ---
 
 <div class="relative w-full">
-  <label class="sr-only">Search</label>
+  <label for={searchId} class="sr-only">Search</label>
   <div
     class="flex w-full items-center rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all shadow-sm"
   >
@@ -22,6 +22,7 @@ import Icon from "./Icon.astro";
       placeholder={placeholder}
       type="search"
       id={searchId}
+      name="searchQuery"
       data-search-input
     />
     <button

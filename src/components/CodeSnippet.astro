@@ -1,24 +1,26 @@
 ---
+import Icon from "./Icon.astro";
+
 interface Props {
-  'data-language'?: string;
-  'data-meta'?: string;
-  'data-code'?: string;
+  "data-language"?: string;
+  "data-meta"?: string;
+  "data-code"?: string;
   class?: string;
   [key: string]: any;
 }
 
 const meta: Record<string, string> = {};
 const {
-  'data-meta': dataMeta,
-  'data-code': dataCode,
-  'data-language': lang,
+  "data-meta": dataMeta,
+  "data-code": dataCode,
+  "data-language": lang,
   class: className,
 } = Astro.props as Props;
 
 // Parse metadata from code block
 if (dataMeta) {
-  dataMeta.split(',').forEach((prop: string) => {
-    const tokens = prop.split('=');
+  dataMeta.split(",").forEach((prop: string) => {
+    const tokens = prop.split("=");
     const key = tokens[0]?.trim();
     const value = tokens[1]?.trim();
     if (key && value) {
@@ -28,9 +30,8 @@ if (dataMeta) {
 }
 
 const filename = meta.filename || meta.title;
-const showLineNumbers = meta.lines !== 'false'; // Default to true unless explicitly set to false
+const showLineNumbers = meta.lines !== "false"; // Default to true unless explicitly set to false
 const uniqueId = `code-${Math.random().toString(36).substr(2, 9)}`;
-import Icon from './Icon.astro';
 ---
 
 <div class="code-snippet-wrapper">
@@ -41,17 +42,13 @@ import Icon from './Icon.astro';
       <div class="code-dot yellow"></div>
       <div class="code-dot green"></div>
     </div>
-    
-    {filename && (
-      <span class="code-filename">{filename}</span>
-    )}
-    
-    {lang && !filename && (
-      <span class="code-language">{lang}</span>
-    )}
-    
-    <button 
-      class="code-copy-btn" 
+
+    {filename && <span class="code-filename">{filename}</span>}
+
+    {lang && !filename && <span class="code-language">{lang}</span>}
+
+    <button
+      class="code-copy-btn"
       data-code={dataCode}
       aria-label="Copy code to clipboard"
     >
@@ -59,49 +56,52 @@ import Icon from './Icon.astro';
       <span class="copy-text">Copy</span>
     </button>
   </div>
-  
+
   <!-- Code content -->
   <div class="code-content">
-    <pre 
-      class={`${className} ${showLineNumbers ? 'with-line-numbers' : ''}`} 
-      id={uniqueId}
-    ><slot /></pre>
+    <pre
+      class={`${className} ${showLineNumbers ? "with-line-numbers" : ""}`}
+      id={uniqueId}><slot /></pre>
   </div>
 </div>
 
 <script>
   // Copy functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const copyButtons = document.querySelectorAll('.code-copy-btn');
-    
-    copyButtons.forEach(button => {
-      button.addEventListener('click', async () => {
-        const codeContent = button.getAttribute('data-code');
-        const copyText = button.querySelector('.copy-text');
-        
+  document.addEventListener("DOMContentLoaded", () => {
+    const copyButtons = document.querySelectorAll(".code-copy-btn");
+
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const codeContent = button.getAttribute("data-code");
+        const copyText = button.querySelector(".copy-text");
+
         if (!codeContent || !copyText) return;
-        
+
         try {
           await navigator.clipboard.writeText(codeContent);
-          
+
           // Visual feedback
-          copyText.textContent = 'Copied!';
-          button.classList.add('copied');
-          
+          copyText.textContent = "Copied!";
+          button.classList.add("copied");
+
           // Reset after 2 seconds
           setTimeout(() => {
-            copyText.textContent = 'Copy';
-            button.classList.remove('copied');
+            copyText.textContent = "Copy";
+            button.classList.remove("copied");
           }, 2000);
         } catch (err) {
-          console.error('Failed to copy code:', err);
-          copyText.textContent = 'Failed';
-          
+          console.error("Failed to copy code:", err);
+          copyText.textContent = "Failed";
+
           setTimeout(() => {
-            copyText.textContent = 'Copy';
+            copyText.textContent = "Copy";
           }, 2000);
         }
       });
     });
   });
 </script>
+
+<style>
+  @import "../styles/code-snippet.css";
+</style>

@@ -213,14 +213,14 @@ import Icon from "../../components/Icon.astro";
         {
           post.data.image && (
             <div class="w-full aspect-video rounded-lg overflow-hidden shadow-lg">
-              <OptimizedImage 
+              <OptimizedImage
                 src={post.data.image}
                 alt={post.data.title}
                 width={800}
                 height={450}
                 widths={[400, 800, 1200]}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
-                class="w-full h-full object-cover" 
+                class="w-full h-full object-cover"
                 loading="eager"
                 fetchpriority="high"
               />
@@ -267,14 +267,14 @@ import Icon from "../../components/Icon.astro";
                 {relatedPosts.map((relatedPost) => (
                   <div class="flex flex-col gap-3 group cursor-pointer">
                     <div class="aspect-video w-full rounded-lg overflow-hidden shadow-sm">
-                      <OptimizedImage 
+                      <OptimizedImage
                         src={relatedPost.image}
                         alt={relatedPost.title}
                         width={400}
                         height={225}
                         widths={[200, 400]}
                         sizes="(max-width: 768px) 100vw, 400px"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                         quality={80}
                       />
@@ -383,6 +383,8 @@ import Icon from "../../components/Icon.astro";
 </BaseLayout>
 
 <style>
+  @import "../../styles/article.css";
+
   /* Custom scrollbar for code blocks */
   .custom-scrollbar::-webkit-scrollbar {
     height: 8px;

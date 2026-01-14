@@ -1,12 +1,10 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
-import '../styles/global.css';
-import '../styles/article.css';
-import '../styles/code-snippet.css';
-import '../styles/icons.css';
+import "../styles/global.css";
+import "../styles/icons.css";
 
 export interface Props {
   title?: string;
@@ -14,55 +12,61 @@ export interface Props {
   currentPath?: string;
 }
 
-const { 
-  title = SITE_TITLE, 
+const {
+  title = SITE_TITLE,
   description = SITE_DESCRIPTION,
-  currentPath = Astro.url.pathname
+  currentPath = Astro.url.pathname,
 } = Astro.props;
 
 const fullTitle = title === SITE_TITLE ? title : `${title} - ${SITE_TITLE}`;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
+
     <!-- Theme Script (inline to prevent flash) -->
     <script is:inline>
-      (function() {
-        const theme = localStorage.getItem('theme') || 
-          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
+      (function () {
+        const theme =
+          localStorage.getItem("theme") ||
+          (window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
         }
       })();
     </script>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
+
     <!-- Meta tags -->
     <meta name="generator" content={Astro.generator} />
   </head>
-  
-  <body class="bg-background-offset dark:bg-background-dark font-display text-text-primary dark:text-white antialiased flex flex-col min-h-screen transition-colors duration-200">
+
+  <body
+    class="bg-background-offset dark:bg-background-dark font-display text-text-primary dark:text-white antialiased flex flex-col min-h-screen transition-colors duration-200"
+  >
     <Header currentPath={currentPath} />
-    
+
     <main class="flex-grow">
       <slot />
     </main>
-    
+
     <Footer />
-    
+
     <!-- Theme management script -->
     <script is:inline>
       // Simplified theme management - only handles initial setup
@@ -73,34 +77,36 @@ const fullTitle = title === SITE_TITLE ? title : `${title} - ${SITE_TITLE}`;
         }
 
         getStoredTheme() {
-          if (typeof localStorage !== 'undefined') {
-            return localStorage.getItem('theme');
+          if (typeof localStorage !== "undefined") {
+            return localStorage.getItem("theme");
           }
           return null;
         }
 
         getSystemTheme() {
-          if (typeof window !== 'undefined' && window.matchMedia) {
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          if (typeof window !== "undefined" && window.matchMedia) {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           }
-          return 'light';
+          return "light";
         }
 
         applyInitialTheme(theme) {
           const root = document.documentElement;
-          
-          if (theme === 'dark') {
-            root.classList.add('dark');
+
+          if (theme === "dark") {
+            root.classList.add("dark");
           } else {
-            root.classList.remove('dark');
+            root.classList.remove("dark");
           }
         }
       }
 
       // Initialize theme manager when DOM is ready
-      if (typeof document !== 'undefined') {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', () => {
+      if (typeof document !== "undefined") {
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () => {
             new ThemeManager();
           });
         } else {

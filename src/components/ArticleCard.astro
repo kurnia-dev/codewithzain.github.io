@@ -1,6 +1,6 @@
 ---
-import Icon from './Icon.astro';
-import OptimizedImage from './OptimizedImage.astro';
+import Icon from "./Icon.astro";
+import OptimizedImage from "./OptimizedImage.astro";
 
 interface Props {
   title: string;
@@ -10,51 +10,55 @@ interface Props {
   readTime: string;
   image: string;
   slug: string;
-  priority?: 'high' | 'low' | 'auto';
-  loading?: 'lazy' | 'eager';
+  priority?: "high" | "low" | "auto";
+  loading?: "lazy" | "eager";
 }
 
-const { 
-  title, 
-  excerpt, 
-  category, 
-  date, 
-  readTime, 
-  image, 
+const {
+  title,
+  excerpt,
+  category,
+  date,
+  readTime,
+  image,
   slug,
-  priority = 'auto',
-  loading = 'lazy'
+  priority = "auto",
+  loading = "lazy",
 } = Astro.props;
 
 // Category color mapping
 const categoryColors: Record<string, string> = {
-  'DevOps': 'bg-orange-500/90',
-  'Front-end': 'bg-blue-500/90', 
-  'Mobile': 'bg-green-500/90',
-  'Back-end': 'bg-purple-500/90',
-  'QA': 'bg-red-500/90',
-  'Design': 'bg-pink-500/90'
+  DevOps: "bg-orange-500/90",
+  "Front-end": "bg-blue-500/90",
+  Mobile: "bg-green-500/90",
+  "Back-end": "bg-purple-500/90",
+  QA: "bg-red-500/90",
+  Design: "bg-pink-500/90",
 };
 
-const categoryColor = categoryColors[category] || 'bg-primary/90';
+const categoryColor = categoryColors[category] || "bg-primary/90";
 ---
 
-<article class="group flex flex-col bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 h-full shadow-sm">
+<article
+  class="group flex flex-col bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark rounded-xl overflow-hidden hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 h-full shadow-sm"
+>
   <!-- Image -->
   <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-800">
     <div class="absolute top-3 left-3 z-10">
-      <span class={`${categoryColor} backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm`}>
+      <span
+        class={`${categoryColor} backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-sm`}
+      >
         {category}
       </span>
     </div>
-    <OptimizedImage 
+    <OptimizedImage
       src={image}
       alt={title}
       width={400}
       height={192}
-      widths={[200, 400, 600]}
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+      widths={[360, 480, 720, 1080]}
+      sizes="(min-width: 1440px) 450px, (min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       loading={loading}
       fetchpriority={priority}
     />
@@ -63,27 +67,33 @@ const categoryColor = categoryColors[category] || 'bg-primary/90';
   <!-- Content -->
   <div class="p-5 flex flex-col flex-1">
     <!-- Meta -->
-    <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-text-secondary-dark mb-3 font-medium">
+    <div
+      class="flex items-center gap-2 text-xs text-gray-500 dark:text-text-secondary-dark mb-3 font-medium"
+    >
       <span class="flex items-center gap-1">
-        <Icon name="calendar_today" class="text-[16px]" /> 
+        <Icon name="calendar_today" class="text-[16px]" />
         {date}
       </span>
       <span>•</span>
       <span class="flex items-center gap-1">
-        <Icon name="schedule" class="text-[16px]" /> 
+        <Icon name="schedule" class="text-[16px]" />
         {readTime}
       </span>
     </div>
 
     <!-- Title -->
-    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-primary transition-colors">
+    <h3
+      class="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-primary transition-colors"
+    >
       <a href={`/blog/${slug}`} class="hover:underline">
         {title}
       </a>
     </h3>
 
     <!-- Excerpt -->
-    <p class="text-gray-600 dark:text-text-secondary-dark text-sm line-clamp-3 mb-4 flex-1">
+    <p
+      class="text-gray-600 dark:text-text-secondary-dark text-sm line-clamp-3 mb-4 flex-1"
+    >
       {excerpt}
     </p>
   </div>

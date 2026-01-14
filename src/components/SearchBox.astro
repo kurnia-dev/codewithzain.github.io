@@ -5,32 +5,32 @@ interface Props {
   onSearch?: (query: string) => void;
 }
 
-const { 
-  placeholder = "Search articles...",
-  onSearch 
-} = Astro.props;
+const { placeholder = "Search articles...", onSearch } = Astro.props;
 
 // Generate unique ID for this instance
 const searchId = `search-${Math.random().toString(36).substr(2, 9)}`;
-import Icon from './Icon.astro';
+import Icon from "./Icon.astro";
 ---
 
 <div class="relative w-full">
   <label class="sr-only">Search</label>
-  <div class="flex w-full items-center rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all shadow-sm">
-    <input 
-      class="w-full outline-none bg-transparent text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-text-secondary-dark border-none focus:ring-0 h-12 px-4 text-base" 
+  <div
+    class="flex w-full items-center rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all shadow-sm"
+  >
+    <input
+      class="w-full outline-none bg-transparent text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-text-secondary-dark border-none focus:ring-0 h-12 px-4 text-base"
       placeholder={placeholder}
       type="search"
       id={searchId}
       data-search-input
     />
-    <button 
-      class="p-3 text-gray-500 dark:text-text-secondary-dark hover:text-primary transition-colors" 
+    <button
+      class="p-3 text-gray-500 dark:text-text-secondary-dark hover:text-primary transition-colors"
       type="button"
       data-search-button
+      aria-label="Search"
     >
-      <Icon name="search" class='text-xl' />
+      <Icon name="search" class="text-xl" />
     </button>
   </div>
 </div>
@@ -46,16 +46,20 @@ import Icon from './Icon.astro';
     }
 
     private init(): void {
-      this.input = document.querySelector('[data-search-input]') as HTMLInputElement;
-      this.button = document.querySelector('[data-search-button]') as HTMLButtonElement;
+      this.input = document.querySelector(
+        "[data-search-input]"
+      ) as HTMLInputElement;
+      this.button = document.querySelector(
+        "[data-search-button]"
+      ) as HTMLButtonElement;
 
       if (this.input) {
-        this.input.addEventListener('input', this.handleInput.bind(this));
-        this.input.addEventListener('keydown', this.handleKeydown.bind(this));
+        this.input.addEventListener("input", this.handleInput.bind(this));
+        this.input.addEventListener("keydown", this.handleKeydown.bind(this));
       }
 
       if (this.button) {
-        this.button.addEventListener('click', this.handleSearch.bind(this));
+        this.button.addEventListener("click", this.handleSearch.bind(this));
       }
     }
 
@@ -75,7 +79,7 @@ import Icon from './Icon.astro';
     }
 
     private handleKeydown(event: KeyboardEvent): void {
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         event.preventDefault();
         const query = (event.target as HTMLInputElement).value.trim();
         this.performSearch(query);
@@ -96,16 +100,16 @@ import Icon from './Icon.astro';
       }
 
       // Dispatch custom event for search
-      const searchEvent = new CustomEvent('search', {
+      const searchEvent = new CustomEvent("search", {
         detail: { query },
-        bubbles: true
+        bubbles: true,
       });
-      
+
       document.dispatchEvent(searchEvent);
 
       // For now, just log the search query
-      console.log('Searching for:', query);
-      
+      console.log("Searching for:", query);
+
       // Here you can implement actual search logic:
       // - Filter articles on the page
       // - Make API calls to search endpoint
@@ -115,17 +119,17 @@ import Icon from './Icon.astro';
 
     private clearSearch(): void {
       // Dispatch clear search event
-      const clearEvent = new CustomEvent('search-clear', {
-        bubbles: true
+      const clearEvent = new CustomEvent("search-clear", {
+        bubbles: true,
       });
-      
+
       document.dispatchEvent(clearEvent);
     }
   }
 
   // Initialize search box when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
       new SearchBox();
     });
   } else {

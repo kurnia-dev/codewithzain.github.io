@@ -3,17 +3,14 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import node from "@astrojs/node";
+import vercel from "@astrojs/vercel";
 import { defineConfig } from "astro/config";
 import { transformerMetaHighlight } from "@shikijs/transformers";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://kurnia-dev.github.io",
-  output: "server",
-  adapter: node({
-    mode: "standalone",
-  }),
+  adapter: vercel(),
   image: {
     // Enable image optimization
     domains: ["lh3.googleusercontent.com"],

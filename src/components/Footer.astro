@@ -1,32 +1,55 @@
 ---
-import { SITE_TITLE } from '../consts';
-import Icon from './Icon.astro';
+import { SITE_TITLE } from "../consts";
+import Icon from "./Icon.astro";
 ---
 
-<footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mt-auto">
+<footer
+  class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 mt-auto"
+>
   <div class="px-4 md:px-10 lg:px-20 py-10 max-w-[1440px] mx-auto w-full">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <!-- Brand -->
       <div class="col-span-1 md:col-span-1">
         <div class="flex items-center gap-2 text-primary mb-4">
           <div class="size-6">
-            <svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path>
+            <svg
+              class="w-full h-full"
+              fill="none"
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z"
+                fill="currentColor"></path>
             </svg>
           </div>
-          <h2 class="text-gray-900 dark:text-white text-lg font-bold">{SITE_TITLE}</h2>
+          <h2 class="text-gray-900 dark:text-white text-lg font-bold">
+            {SITE_TITLE}
+          </h2>
         </div>
         <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
           Sharing knowledge and experiences in modern software development.
         </p>
         <div class="flex gap-4">
-          <a class="text-gray-400 hover:text-primary transition-colors" href="#" aria-label="Website">
+          <a
+            class="text-gray-400 hover:text-primary transition-colors"
+            href="#"
+            aria-label="Website"
+          >
             <Icon name="public" />
           </a>
-          <a class="text-gray-400 hover:text-primary transition-colors" href="#" aria-label="RSS Feed">
+          <a
+            class="text-gray-400 hover:text-primary transition-colors"
+            href="#"
+            aria-label="RSS Feed"
+          >
             <Icon name="rss_feed" />
           </a>
-          <a class="text-gray-400 hover:text-primary transition-colors" href="#" aria-label="Email">
+          <a
+            class="text-gray-400 hover:text-primary transition-colors"
+            href="#"
+            aria-label="Email"
+          >
             <Icon name="alternate_email" />
           </a>
         </div>
@@ -36,10 +59,31 @@ import Icon from './Icon.astro';
       <div>
         <h3 class="text-gray-900 dark:text-white font-bold mb-4">Topics</h3>
         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <li><a class="hover:text-primary transition-colors" href="/topics/frontend">Front-end Development</a></li>
-          <li><a class="hover:text-primary transition-colors" href="/topics/backend">Back-end Architecture</a></li>
-          <li><a class="hover:text-primary transition-colors" href="/topics/devops">DevOps & Cloud</a></li>
-          <li><a class="hover:text-primary transition-colors" href="/topics/mobile">Mobile App Dev</a></li>
+          <li>
+            <a
+              class="hover:text-primary transition-colors"
+              href="/blog?topic=frontend">Front-end</a>
+          </li>
+          <li>
+            <a
+              class="hover:text-primary transition-colors"
+              href="/blog?topic=backend">Back-end</a>
+          </li>
+          <li>
+            <a
+              class="hover:text-primary transition-colors"
+              href="/blog?topic=devops">DevOps</a>
+          </li>
+          <li>
+            <a
+              class="hover:text-primary transition-colors"
+              href="/blog?topic=mobile">Mobile</a>
+          </li>
+          <li class="pt-2 border-t border-gray-100 dark:border-gray-800">
+            <a
+              class="hover:text-primary transition-colors font-medium"
+              href="/blog/topics">View All Topics</a>
+          </li>
         </ul>
       </div>
 
@@ -47,10 +91,22 @@ import Icon from './Icon.astro';
       <div>
         <h3 class="text-gray-900 dark:text-white font-bold mb-4">Company</h3>
         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <li><a class="hover:text-primary transition-colors" href="/about">About Us</a></li>
-          <li><a class="hover:text-primary transition-colors" href="/careers">Careers</a></li>
-          <li><a class="hover:text-primary transition-colors" href="/contact">Contact</a></li>
-          <li><a class="hover:text-primary transition-colors" href="/privacy">Privacy Policy</a></li>
+          <li>
+            <a class="hover:text-primary transition-colors" href="/about"
+              >About Us</a>
+          </li>
+          <li>
+            <a class="hover:text-primary transition-colors" href="/careers"
+              >Careers</a>
+          </li>
+          <li>
+            <a class="hover:text-primary transition-colors" href="/contact"
+              >Contact</a>
+          </li>
+          <li>
+            <a class="hover:text-primary transition-colors" href="/privacy"
+              >Privacy Policy</a>
+          </li>
         </ul>
       </div>
 
@@ -58,20 +114,35 @@ import Icon from './Icon.astro';
       <div>
         <h3 class="text-gray-900 dark:text-white font-bold mb-4">Community</h3>
         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <li><a class="hover:text-primary transition-colors" href="#">Discord Server</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">GitHub Organization</a></li>
-          <li><a class="hover:text-primary transition-colors" href="#">Contributing</a></li>
+          <li>
+            <a class="hover:text-primary transition-colors" href="#"
+              >Discord Server</a>
+          </li>
+          <li>
+            <a class="hover:text-primary transition-colors" href="#"
+              >GitHub Organization</a>
+          </li>
+          <li>
+            <a class="hover:text-primary transition-colors" href="#"
+              >Contributing</a>
+          </li>
         </ul>
       </div>
     </div>
 
     <!-- Bottom Bar -->
-    <div class="mt-10 pt-6 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+    <div
+      class="mt-10 pt-6 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 dark:text-gray-400"
+    >
       <p>© 2024 {SITE_TITLE} Inc. All rights reserved.</p>
       <div class="flex gap-6 mt-4 md:mt-0">
         <a class="hover:text-primary transition-colors" href="/terms">Terms</a>
-        <a class="hover:text-primary transition-colors" href="/privacy">Privacy</a>
-        <a class="hover:text-primary transition-colors" href="/cookies">Cookies</a>
+        <a class="hover:text-primary transition-colors" href="/privacy"
+          >Privacy</a
+        >
+        <a class="hover:text-primary transition-colors" href="/cookies"
+          >Cookies</a
+        >
       </div>
     </div>
   </div>

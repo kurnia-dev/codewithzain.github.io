@@ -1,0 +1,117 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    lastUpdated: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <div class="w-full max-w-[1440px] mx-auto px-4 md:px-10 lg:px-20 py-16">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="mb-12 text-center">
+        <div
+          class="inline-flex items-center justify-center size-16 bg-primary/10 text-primary rounded-2xl mb-6"
+        >
+          <Icon name="verified" class="text-3xl" />
+        </div>
+        <h1
+          class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4"
+        >
+          {frontmatter.title}
+        </h1>
+        <p
+          class="text-lg text-gray-600 dark:text-text-secondary-dark font-medium"
+        >
+          Last Updated: {frontmatter.lastUpdated}
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div
+        class="bg-white dark:bg-surface-dark rounded-[2.5rem] border border-gray-200 dark:border-border-dark p-8 md:p-12 shadow-sm relative overflow-hidden"
+      >
+        <div
+          class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"
+        >
+        </div>
+        <div
+          class="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -ml-32 -mb-32"
+        >
+        </div>
+
+        <div class="prose-custom relative z-10">
+          <slot />
+        </div>
+      </div>
+
+      <!-- Support CTA -->
+      <div
+        class="mt-12 p-8 bg-gray-50 dark:bg-surface-dark/50 rounded-3xl border border-gray-100 dark:border-border-dark flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">
+            Have questions?
+          </h3>
+          <p class="text-gray-600 dark:text-text-secondary-dark">
+            Our legal team is here to help you understand our policies.
+          </p>
+        </div>
+        <a
+          href="mailto:legal@codewithzain.com"
+          class="px-8 py-3 bg-white dark:bg-surface-dark text-gray-900 dark:text-white font-bold rounded-xl border border-gray-200 dark:border-border-dark hover:border-primary transition-all shadow-sm"
+        >
+          Contact Legal
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .prose-custom {
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed;
+  }
+  .prose-custom h2 {
+    @apply text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mt-12 mb-6 scroll-mt-24 flex items-center gap-3;
+  }
+  .prose-custom h3 {
+    @apply text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4;
+  }
+  .prose-custom p {
+    @apply mb-6;
+  }
+  .prose-custom ul,
+  .prose-custom ol {
+    @apply mb-8 ml-6 space-y-3;
+  }
+  .prose-custom ul {
+    @apply list-disc;
+  }
+  .prose-custom ol {
+    @apply list-decimal;
+  }
+  .prose-custom li {
+    @apply pl-2;
+  }
+  .prose-custom blockquote {
+    @apply border-l-4 border-primary bg-primary/5 dark:bg-primary/10 px-8 py-6 rounded-r-2xl my-8 italic text-lg text-gray-800 dark:text-gray-200;
+  }
+  .prose-custom a {
+    @apply text-primary hover:underline font-medium;
+  }
+  .prose-custom strong {
+    @apply font-bold text-gray-900 dark:text-white;
+  }
+  .prose-custom hr {
+    @apply my-12 border-gray-100 dark:border-border-dark;
+  }
+</style>

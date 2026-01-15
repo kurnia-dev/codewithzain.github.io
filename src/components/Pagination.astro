@@ -4,19 +4,24 @@ interface Props {
   totalPages: number;
   baseUrl?: string;
   showInfo?: boolean;
+  currentTopic?: string;
 }
 
-const { 
-  currentPage, 
-  totalPages, 
-  baseUrl = '/blog',
-  showInfo = false 
+const {
+  currentPage,
+  totalPages,
+  baseUrl = "/blog",
+  showInfo = false,
+  currentTopic = "all",
 } = Astro.props;
 
 // Generate page numbers to show
-const generatePageNumbers = (current: number, total: number): (number | string)[] => {
+const generatePageNumbers = (
+  current: number,
+  total: number
+): (number | string)[] => {
   const pages: (number | string)[] = [];
-  
+
   if (total <= 7) {
     // Show all pages if total is 7 or less
     for (let i = 1; i <= total; i++) {
@@ -25,31 +30,31 @@ const generatePageNumbers = (current: number, total: number): (number | string)[
   } else {
     // Always show first page
     pages.push(1);
-    
+
     if (current > 4) {
-      pages.push('...');
+      pages.push("...");
     }
-    
+
     // Show pages around current
     const start = Math.max(2, current - 1);
     const end = Math.min(total - 1, current + 1);
-    
+
     for (let i = start; i <= end; i++) {
       if (!pages.includes(i)) {
         pages.push(i);
       }
     }
-    
+
     if (current < total - 3) {
-      pages.push('...');
+      pages.push("...");
     }
-    
+
     // Always show last page
     if (!pages.includes(total)) {
       pages.push(total);
     }
   }
-  
+
   return pages;
 };
 
@@ -57,21 +62,32 @@ const pageNumbers = generatePageNumbers(currentPage, totalPages);
 
 // Helper function to generate URL for a page
 const getPageUrl = (page: number): string => {
-  if (page === 1) return '/';
-  return `/blog/page/${page}`;
+  // For query-based routing (/blog?topic=:slug&page=:page)
+  if (currentTopic && currentTopic !== "all") {
+    if (page === 1) {
+      return `/blog?topic=${currentTopic}`;
+    }
+    return `/blog?topic=${currentTopic}&page=${page}`;
+  }
+
+  // For static pagination (/blog/page/:page)
+  if (page === 1) {
+    return baseUrl === "/blog" ? "/blog" : baseUrl;
+  }
+  return `${baseUrl}/page/${page}`;
 };
-import Icon from './Icon.astro';
+import Icon from "./Icon.astro";
 ---
 
 <div class="flex flex-col items-center mt-12 gap-4">
   <!-- Pagination Controls -->
   <div class="flex justify-center items-center gap-2" data-pagination>
     <!-- Previous Button -->
-    <button 
+    <button
       class={`flex items-center justify-center size-10 rounded-lg border transition-all ${
-        currentPage === 1 
-          ? 'border-gray-200 dark:border-border-dark text-gray-400 dark:text-gray-600 cursor-not-allowed' 
-          : 'border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-white dark:hover:bg-surface-dark hover:shadow-sm'
+        currentPage === 1
+          ? "border-gray-200 dark:border-border-dark text-gray-400 dark:text-gray-600 cursor-not-allowed"
+          : "border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-white dark:hover:bg-surface-dark hover:shadow-sm"
       }`}
       disabled={currentPage === 1}
       data-page={currentPage > 1 ? currentPage - 1 : null}
@@ -82,32 +98,36 @@ import Icon from './Icon.astro';
     </button>
 
     <!-- Page Numbers -->
-    {pageNumbers.map(page => (
-      page === '...' ? (
-        <span class="text-gray-500 dark:text-text-secondary-dark px-2">...</span>
-      ) : (
-        <button 
-          class={`flex items-center justify-center size-10 rounded-lg font-bold transition-all ${
-            page === currentPage
-              ? 'bg-primary text-white shadow-sm'
-              : 'border border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-white dark:hover:bg-surface-dark hover:text-primary hover:shadow-sm'
-          }`}
-          data-page={page !== currentPage ? page : null}
-          data-url={page !== currentPage ? getPageUrl(page as number) : null}
-          aria-label={`Go to page ${page}`}
-          aria-current={page === currentPage ? 'page' : undefined}
-        >
-          {page}
-        </button>
+    {
+      pageNumbers.map((page) =>
+        page === "..." ? (
+          <span class="text-gray-500 dark:text-text-secondary-dark px-2">
+            ...
+          </span>
+        ) : (
+          <button
+            class={`flex items-center justify-center size-10 rounded-lg font-bold transition-all ${
+              page === currentPage
+                ? "bg-primary text-white shadow-sm"
+                : "border border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-white dark:hover:bg-surface-dark hover:text-primary hover:shadow-sm"
+            }`}
+            data-page={page !== currentPage ? page : null}
+            data-url={page !== currentPage ? getPageUrl(page as number) : null}
+            aria-label={`Go to page ${page}`}
+            aria-current={page === currentPage ? "page" : undefined}
+          >
+            {page}
+          </button>
+        )
       )
-    ))}
+    }
 
     <!-- Next Button -->
-    <button 
+    <button
       class={`flex items-center justify-center size-10 rounded-lg border transition-all ${
-        currentPage === totalPages 
-          ? 'border-gray-200 dark:border-border-dark text-gray-400 dark:text-gray-600 cursor-not-allowed' 
-          : 'border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-white dark:hover:bg-surface-dark hover:shadow-sm'
+        currentPage === totalPages
+          ? "border-gray-200 dark:border-border-dark text-gray-400 dark:text-gray-600 cursor-not-allowed"
+          : "border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-white dark:hover:bg-surface-dark hover:shadow-sm"
       }`}
       disabled={currentPage === totalPages}
       data-page={currentPage < totalPages ? currentPage + 1 : null}
@@ -128,22 +148,24 @@ import Icon from './Icon.astro';
     }
 
     private init(): void {
-      this.container = document.querySelector('[data-pagination]') as HTMLElement;
-      
+      this.container = document.querySelector(
+        "[data-pagination]"
+      ) as HTMLElement;
+
       if (this.container) {
-        this.container.addEventListener('click', this.handleClick.bind(this));
+        this.container.addEventListener("click", this.handleClick.bind(this));
       }
     }
 
     private handleClick(event: Event): void {
       const target = event.target as HTMLElement;
-      const button = target.closest('button[data-page]') as HTMLButtonElement;
-      
+      const button = target.closest("button[data-page]") as HTMLButtonElement;
+
       if (!button || button.disabled) return;
 
       const page = button.dataset.page;
       const url = button.dataset.url;
-      
+
       if (page && url) {
         this.navigateToPage(parseInt(page), url);
       }
@@ -152,13 +174,13 @@ import Icon from './Icon.astro';
     private navigateToPage(page: number, url: string): void {
       // Add loading state
       this.setLoadingState(true);
-      
+
       // Dispatch custom event before navigation
-      const navigationEvent = new CustomEvent('pagination-navigate', {
+      const navigationEvent = new CustomEvent("pagination-navigate", {
         detail: { page, url },
-        bubbles: true
+        bubbles: true,
       });
-      
+
       document.dispatchEvent(navigationEvent);
 
       // Navigate to the new page
@@ -168,23 +190,25 @@ import Icon from './Icon.astro';
     private setLoadingState(loading: boolean): void {
       if (!this.container) return;
 
-      const buttons = this.container.querySelectorAll('button[data-page]') as NodeListOf<HTMLButtonElement>;
-      
-      buttons.forEach(button => {
+      const buttons = this.container.querySelectorAll(
+        "button[data-page]"
+      ) as NodeListOf<HTMLButtonElement>;
+
+      buttons.forEach((button) => {
         if (loading) {
           button.disabled = true;
-          button.style.opacity = '0.6';
+          button.style.opacity = "0.6";
         } else {
           button.disabled = false;
-          button.style.opacity = '1';
+          button.style.opacity = "1";
         }
       });
     }
   }
 
   // Initialize pagination when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
       new Pagination();
     });
   } else {
@@ -192,7 +216,7 @@ import Icon from './Icon.astro';
   }
 
   // Listen for browser back/forward navigation
-  window.addEventListener('popstate', () => {
+  window.addEventListener("popstate", () => {
     // Reload the page to ensure proper state
     window.location.reload();
   });

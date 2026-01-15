@@ -4,7 +4,7 @@ import CategoryFilter from "./CategoryFilter.astro";
 import SearchBox from "./SearchBox.astro";
 import Newsletter from "./Newsletter.astro";
 import Pagination from "./Pagination.astro";
-import { CATEGORIES } from "../consts";
+import { getCategories } from "../utils/categories";
 
 interface Props {
   articles: Array<{
@@ -21,10 +21,22 @@ interface Props {
   totalPosts: number;
   headline: string;
   description: string;
+  activeCategory?: string;
+  baseUrl?: string;
 }
 
-const { articles, currentPage, totalPages, totalPosts, headline, description } =
-  Astro.props;
+const {
+  articles,
+  currentPage,
+  totalPages,
+  totalPosts,
+  headline,
+  description,
+  activeCategory = "all",
+  baseUrl,
+} = Astro.props;
+
+const categories = await getCategories();
 ---
 
 <div class="w-full max-w-[1440px] mx-auto px-4 md:px-10 lg:px-20 py-10">
@@ -46,12 +58,14 @@ const { articles, currentPage, totalPages, totalPosts, headline, description } =
 
   <div class="flex flex-col lg:flex-row gap-12">
     <!-- Left Sidebar -->
-    <aside class="w-full hidden lg:flex lg:w-1/4 flex-col gap-8 flex-shrink-0">
+    <aside
+      class="w-full hidden lg:flex lg:w-1/4 flex-col gap-8 flex-shrink-0 sticky top-24 self-start"
+    >
       <!-- Search -->
       <SearchBox />
 
       <!-- Categories -->
-      <CategoryFilter activeCategory="all" />
+      <CategoryFilter activeCategory={activeCategory} />
 
       <!-- Newsletter -->
       <Newsletter />
@@ -65,16 +79,21 @@ const { articles, currentPage, totalPages, totalPosts, headline, description } =
       <!-- Mobile Category Filters -->
       <div class="flex gap-2 my-8 overflow-x-auto pb-2 lg:hidden no-scrollbar">
         {
-          CATEGORIES.map((category) => (
-            <button
-              class={`whitespace-nowrap h-8 px-4 rounded-full text-sm font-medium transition-colors ${
+          categories.map((category) => (
+            <a
+              href={
                 category.slug === "all"
+                  ? "/blog"
+                  : `/blog?topic=${category.slug}`
+              }
+              class={`whitespace-nowrap h-8 px-4 rounded-full text-sm font-medium transition-colors ${
+                activeCategory === category.slug
                   ? "bg-primary text-white shadow-sm"
                   : "bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark text-gray-600 dark:text-text-secondary-dark hover:bg-gray-50 dark:hover:bg-gray-800"
               }`}
             >
               {category.name}
-            </button>
+            </a>
           ))
         }
       </div>
@@ -98,7 +117,8 @@ const { articles, currentPage, totalPages, totalPosts, headline, description } =
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            baseUrl="/blog"
+            baseUrl={baseUrl || (activeCategory === "all" ? "/blog" : `/blog`)}
+            currentTopic={activeCategory}
             showInfo={true}
           />
         )

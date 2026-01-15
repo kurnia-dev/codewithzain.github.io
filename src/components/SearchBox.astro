@@ -12,7 +12,7 @@ const searchId = `search-${Math.random().toString(36).substr(2, 9)}`;
 import Icon from "./Icon.astro";
 ---
 
-<div class="relative w-full">
+<form action="/blog" method="GET" class="relative w-full" data-search-form>
   <label for={searchId} class="sr-only">Search</label>
   <div
     class="flex w-full items-center rounded-lg bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark overflow-hidden focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all shadow-sm"
@@ -22,118 +22,56 @@ import Icon from "./Icon.astro";
       placeholder={placeholder}
       type="search"
       id={searchId}
-      name="searchQuery"
+      name="search"
       data-search-input
     />
     <button
       class="p-3 text-gray-500 dark:text-text-secondary-dark hover:text-primary transition-colors"
-      type="button"
+      type="submit"
       data-search-button
       aria-label="Search"
     >
       <Icon name="search" class="text-xl" />
     </button>
   </div>
-</div>
+</form>
 
 <script>
-  class SearchBox {
-    private input: HTMLInputElement | null = null;
-    private button: HTMLButtonElement | null = null;
-    private debounceTimer: number | null = null;
+  const forms = document.querySelectorAll("[data-search-form]");
 
-    constructor() {
-      this.init();
-    }
+  forms.forEach((form) => {
+    form.addEventListener("submit", (e) => {
+      const formData = new FormData(form as HTMLFormElement);
+      const search = formData.get("search") as string;
 
-    private init(): void {
-      this.input = document.querySelector(
-        "[data-search-input]"
-      ) as HTMLInputElement;
-      this.button = document.querySelector(
-        "[data-search-button]"
-      ) as HTMLButtonElement;
+      // Get current topic if it exists in the URL
+      const url = new URL(window.location.href);
+      const topic = url.searchParams.get("topic");
 
-      if (this.input) {
-        this.input.addEventListener("input", this.handleInput.bind(this));
-        this.input.addEventListener("keydown", this.handleKeydown.bind(this));
+      // If we are on a topic page or have a topic filter, preserve it
+      if (topic && topic !== "all") {
+        e.preventDefault();
+        const newUrl = new URL("/blog", window.location.origin);
+        newUrl.searchParams.set("topic", topic);
+        if (search) {
+          newUrl.searchParams.set("search", search.trim());
+        }
+        window.location.href = newUrl.toString();
       }
-
-      if (this.button) {
-        this.button.addEventListener("click", this.handleSearch.bind(this));
-      }
-    }
-
-    private handleInput(event: Event): void {
-      const target = event.target as HTMLInputElement;
-      const query = target.value.trim();
-
-      // Clear previous debounce timer
-      if (this.debounceTimer) {
-        clearTimeout(this.debounceTimer);
-      }
-
-      // Debounce search to avoid too many calls
-      this.debounceTimer = window.setTimeout(() => {
-        this.performSearch(query);
-      }, 300);
-    }
-
-    private handleKeydown(event: KeyboardEvent): void {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        const query = (event.target as HTMLInputElement).value.trim();
-        this.performSearch(query);
-      }
-    }
-
-    private handleSearch(): void {
-      if (this.input) {
-        const query = this.input.value.trim();
-        this.performSearch(query);
-      }
-    }
-
-    private performSearch(query: string): void {
-      if (query.length === 0) {
-        this.clearSearch();
-        return;
-      }
-
-      // Dispatch custom event for search
-      const searchEvent = new CustomEvent("search", {
-        detail: { query },
-        bubbles: true,
-      });
-
-      document.dispatchEvent(searchEvent);
-
-      // For now, just log the search query
-      console.log("Searching for:", query);
-
-      // Here you can implement actual search logic:
-      // - Filter articles on the page
-      // - Make API calls to search endpoint
-      // - Update URL with search parameters
-      // - Show search results
-    }
-
-    private clearSearch(): void {
-      // Dispatch clear search event
-      const clearEvent = new CustomEvent("search-clear", {
-        bubbles: true,
-      });
-
-      document.dispatchEvent(clearEvent);
-    }
-  }
-
-  // Initialize search box when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      new SearchBox();
     });
-  } else {
-    new SearchBox();
-  }
+  });
+
+  // Handle URL changes to fill input on load
+  const updateInputs = () => {
+    const url = new URL(window.location.href);
+    const searchQuery = url.searchParams.get("search");
+    if (searchQuery) {
+      const inputs = document.querySelectorAll("[data-search-input]");
+      inputs.forEach((input) => {
+        (input as HTMLInputElement).value = searchQuery;
+      });
+    }
+  };
+
+  window.addEventListener("DOMContentLoaded", updateInputs);
 </script>

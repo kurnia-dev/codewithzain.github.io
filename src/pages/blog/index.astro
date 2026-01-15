@@ -1,4 +1,74 @@
 ---
-// Redirect to root page which shows blog page 1
-return Astro.redirect('/');
+import {
+  getAllPosts,
+  filterPostsByCategory,
+  paginatePosts,
+  transformPostsToArticles,
+  POSTS_PER_PAGE,
+} from "../../utils/blog";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogListing from "../../components/BlogListing.astro";
+import { formatDate } from "../../utils/date";
+import { HEADLINE, SITE_DESCRIPTION } from "../../consts";
+import { getTopicInfo } from "../../utils/topics";
+
+// This is now an SSR page to handle query parameters
+export const prerender = false;
+
+// Get query parameters
+const url = new URL(Astro.request.url);
+const topicParam = url.searchParams.get("topic") || "all";
+const pageParam = parseInt(url.searchParams.get("page") || "1", 10);
+const searchParam = url.searchParams.get("search") || "";
+
+// Get all posts
+const allPosts = await getAllPosts();
+
+// Filter by topic
+let filteredPosts = filterPostsByCategory(allPosts, topicParam);
+
+// Filter by search query
+if (searchParam) {
+  filteredPosts = filteredPosts.filter(
+    (post) =>
+      post.data.title.toLowerCase().includes(searchParam.toLowerCase()) ||
+      post.data.description.toLowerCase().includes(searchParam.toLowerCase())
+  );
+}
+
+// Paginate
+const { posts, totalPages, currentPage, totalPosts } = paginatePosts(
+  filteredPosts,
+  pageParam,
+  POSTS_PER_PAGE
+);
+
+// Transform to articles
+const articles = transformPostsToArticles(posts, formatDate);
+
+// Get topic information
+const topicInfo = topicParam !== "all" ? getTopicInfo(topicParam) : null;
+
+// Create headline and description
+let headline = topicInfo ? `${topicInfo.name} Articles` : HEADLINE;
+if (searchParam) {
+  headline = `Search results for "${searchParam}"${topicInfo ? ` in ${topicInfo.name}` : ""}`;
+}
+const description = topicInfo ? topicInfo.description : SITE_DESCRIPTION;
 ---
+
+<BaseLayout
+  title={currentPage > 1 ? `${headline} - Page ${currentPage}` : headline}
+  description={description}
+  currentPath="/blog"
+>
+  <BlogListing
+    articles={articles}
+    currentPage={currentPage}
+    totalPages={totalPages}
+    totalPosts={totalPosts}
+    headline={headline}
+    description={description}
+    activeCategory={topicParam}
+  />
+</BaseLayout>

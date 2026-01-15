@@ -27,23 +27,21 @@ export const AUTHOR = {
 
 // Categories
 export const CATEGORIES = [
-  { name: "All Posts", slug: "all", icon: "grid_view", count: 8 },
-  { name: "DevOps", slug: "devops", icon: "rocket_launch", count: 1 },
-  { name: "Front-end", slug: "frontend", icon: "code", count: 1 },
-  { name: "Mobile", slug: "mobile", icon: "smartphone", count: 1 },
-  { name: "Back-end", slug: "backend", icon: "dns", count: 1 },
+  { name: "All Posts", slug: "all", icon: "grid_view" },
+  { name: "DevOps", slug: "devops", icon: "rocket_launch" },
+  { name: "Front-end", slug: "frontend", icon: "code" },
+  { name: "Mobile", slug: "mobile", icon: "smartphone" },
+  { name: "Back-end", slug: "backend", icon: "dns" },
   {
     name: "Architecture",
     slug: "architecture",
     icon: "account_tree",
-    count: 1,
   },
-  { name: "QA", slug: "qa", icon: "bug_report", count: 1 },
-  { name: "Design", slug: "design", icon: "palette", count: 1 },
+  { name: "QA", slug: "qa", icon: "bug_report" },
+  { name: "Design", slug: "design", icon: "palette" },
   {
     name: "Documentation",
     slug: "documentation",
     icon: "description",
-    count: 1,
   },
 ];

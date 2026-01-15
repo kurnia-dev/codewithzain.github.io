@@ -10,7 +10,9 @@ import { transformerMetaHighlight } from "@shikijs/transformers";
 // https://astro.build/config
 export default defineConfig({
   site: "https://kurnia-dev.github.io",
-  adapter: vercel(),
+  adapter: vercel({
+    imageService: true,
+  }),
   image: {
     // Enable image optimization
     domains: ["lh3.googleusercontent.com"],

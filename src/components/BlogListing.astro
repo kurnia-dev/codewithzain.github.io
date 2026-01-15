@@ -5,6 +5,7 @@ import SearchBox from "./SearchBox.astro";
 import Newsletter from "./Newsletter.astro";
 import Pagination from "./Pagination.astro";
 import { getCategories } from "../utils/categories";
+import Icon from "./Icon.astro";
 
 interface Props {
   articles: Array<{
@@ -98,18 +99,40 @@ const categories = await getCategories();
         }
       </div>
 
-      <!-- Articles Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {
-          articles.map((article, index) => (
-            <ArticleCard
-              {...article}
-              priority={index < 3 ? "high" : "auto"}
-              loading={index < 3 ? "eager" : "lazy"}
-            />
-          ))
-        }
-      </div>
+      <!-- Articles Grid or No Results -->
+      {
+        articles.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {articles.map((article, index) => (
+              <ArticleCard
+                {...article}
+                priority={index < 3 ? "high" : "auto"}
+                loading={index < 3 ? "eager" : "lazy"}
+              />
+            ))}
+          </div>
+        ) : (
+          <div class="flex flex-col items-center justify-center py-20 px-4 text-center bg-gray-50 dark:bg-surface-dark/30 rounded-3xl border-2 border-dashed border-gray-200 dark:border-border-dark">
+            <div class="size-20 bg-gray-100 dark:bg-surface-dark rounded-full flex items-center justify-center text-gray-400 dark:text-text-secondary-dark mb-6">
+              <Icon name="search_off" class="text-4xl" />
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              No results found
+            </h3>
+            <p class="text-gray-600 dark:text-text-secondary-dark max-w-md mb-8">
+              We couldn't find any articles matching your current search or
+              topic filters. Try adjusting your search or explore other topics.
+            </p>
+            <a
+              href="/blog"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all shadow-md active:scale-95"
+            >
+              <Icon name="refresh" class="text-xl" />
+              Clear All Filters
+            </a>
+          </div>
+        )
+      }
 
       <!-- Pagination -->
       {

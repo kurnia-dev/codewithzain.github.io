@@ -14,6 +14,7 @@ const iconMapping = {
   code: "material-symbols:code",
   work: "material-symbols:work-outline",
   search_off: "material-symbols:search-off",
+  refresh: "material-symbols:refresh",
   home: "material-symbols:home-outline",
   arrow_back: "material-symbols:arrow-back",
   dark_mode: "material-symbols:dark-mode",
@@ -130,7 +131,7 @@ async function main() {
     "Generating CSS for all project icons with currentColor support...\n"
   );
 
-  const icons = Object.keys(iconMapping)
+  const icons = Object.keys(iconMapping);
   const css = await generateIconCSS(icons);
 
   // Write CSS file

@@ -11,7 +11,8 @@ import { transformerMetaHighlight } from "@shikijs/transformers";
 export default defineConfig({
   site: "https://kurnia-dev.github.io",
   adapter: vercel({
-    imageService: true,
+    imageService: false,
+    devImageService: false,
   }),
   image: {
     // Enable image optimization
